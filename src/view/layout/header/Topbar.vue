@@ -25,7 +25,7 @@
     <!--end: Search -->
 
     <!--begin: Notifications -->
-    <b-dropdown
+    <!-- <b-dropdown
       size="sm"
       variant="link"
       toggle-class="topbar-item text-decoration-none"
@@ -48,11 +48,11 @@
           <KTDropdownNotification></KTDropdownNotification>
         </form>
       </b-dropdown-text>
-    </b-dropdown>
+    </b-dropdown> -->
     <!--end: Notifications -->
 
     <!--begin: Quick Actions -->
-    <b-dropdown
+    <!-- <b-dropdown
       size="sm"
       variant="link"
       toggle-class="topbar-item text-decoration-none"
@@ -70,11 +70,11 @@
       <b-dropdown-text tag="div" class="min-w-md-350px">
         <KTDropdownQuickAction></KTDropdownQuickAction>
       </b-dropdown-text>
-    </b-dropdown>
+    </b-dropdown> -->
     <!--end: Quick Actions -->
 
     <!--begin: My Cart -->
-    <b-dropdown
+    <!-- <b-dropdown
       size="sm"
       variant="link"
       toggle-class="topbar-item text-decoration-none"
@@ -92,15 +92,15 @@
       <b-dropdown-text tag="div" class="min-w-md-350px">
         <KTDropdownMyCart></KTDropdownMyCart>
       </b-dropdown-text>
-    </b-dropdown>
+    </b-dropdown> -->
     <!--end: My Cart -->
 
     <!--begin: Quick panel toggle -->
-    <KTQuickPanel></KTQuickPanel>
+    <!-- <KTQuickPanel></KTQuickPanel> -->
     <!--end: Quick panel toggle -->
 
     <!--begin: Language bar -->
-    <div class="topbar-item">
+    <!-- <div class="topbar-item">
       <b-dropdown
         size="sm"
         variant="link"
@@ -122,7 +122,7 @@
           ></KTDropdownLanguage>
         </b-dropdown-text>
       </b-dropdown>
-    </div>
+    </div> -->
     <!--end: Language bar -->
 
     <!--begin: User Bar -->
@@ -160,12 +160,12 @@
 
 <script>
 import KTSearchDefault from "@/view/layout/extras/dropdown/SearchDefault.vue";
-import KTDropdownNotification from "@/view/layout/extras/dropdown/DropdownNotification.vue";
-import KTDropdownQuickAction from "@/view/layout/extras/dropdown/DropdownQuickAction.vue";
-import KTDropdownMyCart from "@/view/layout/extras/dropdown/DropdownMyCart.vue";
-import KTDropdownLanguage from "@/view/layout/extras/dropdown/DropdownLanguage.vue";
+//import KTDropdownNotification from "@/view/layout/extras/dropdown/DropdownNotification.vue";
+//import KTDropdownQuickAction from "@/view/layout/extras/dropdown/DropdownQuickAction.vue";
+//import KTDropdownMyCart from "@/view/layout/extras/dropdown/DropdownMyCart.vue";
+//import KTDropdownLanguage from "@/view/layout/extras/dropdown/DropdownLanguage.vue";
 import KTQuickUser from "@/view/layout/extras/offcanvas/QuickUser.vue";
-import KTQuickPanel from "@/view/layout/extras/offcanvas/QuickPanel.vue";
+//import KTQuickPanel from "@/view/layout/extras/offcanvas/QuickPanel.vue";
 import i18nService from "@/core/services/i18n.service.js";
 
 export default {
@@ -178,12 +178,12 @@ export default {
   },
   components: {
     KTSearchDefault,
-    KTDropdownNotification,
-    KTDropdownQuickAction,
-    KTDropdownMyCart,
-    KTDropdownLanguage,
+    //KTDropdownNotification,
+    //KTDropdownQuickAction,
+    //KTDropdownMyCart,
+    //KTDropdownLanguage,
     KTQuickUser,
-    KTQuickPanel
+    //KTQuickPanel
   },
   methods: {
     onLanguageChanged() {

@@ -14,7 +14,6 @@ export default {
         state.currentUser = user;
     },
     SET_LIST_DATADM(state, data) {
-        console.log('SET_LIST_DATADM');
         state.listDataDM = data;
     },  
     SET_LOGOUT(state) {

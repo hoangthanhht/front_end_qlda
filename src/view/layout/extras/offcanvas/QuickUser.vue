@@ -12,12 +12,12 @@
       <span
         class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"
       >
-        {{ currentUserPersonalInfo.name }}
+          {{getcurrentUserAccountInfo.user.name}}  <!--{{ currentUserPersonalInfo.name }} -->
       </span>
       <span class="symbol symbol-35 symbol-light-success">
         <img v-if="false" alt="Pic" :src="currentUserPersonalInfo.photo" />
         <span v-if="true" class="symbol-label font-size-h5 font-weight-bold">
-          {{ currentUserPersonalInfo.name.charAt(0).toUpperCase() }}
+          {{ getcurrentUserAccountInfo.user.name.charAt(0).toUpperCase() }}
         </span>
       </span>
     </div>
@@ -33,7 +33,7 @@
       >
         <h3 class="font-weight-bold m-0">
           User Profile
-          <small class="text-muted font-size-sm ml-2">12 messages</small>
+          <small class="text-muted font-size-sm ml-2"></small>
         </h3>
         <a
           href="#"
@@ -67,7 +67,7 @@
             >
               {{ getFullName }}
             </router-link>
-            <div class="text-muted mt-1">Application Developer</div>
+            <div class="text-muted mt-1">{{getcurrentUserAccountInfo.user.role}}</div>
             <div class="navi mt-2">
               <a href="#" class="navi-item">
                 <span class="navi-link p-0 pb-2">
@@ -81,7 +81,7 @@
                     </span>
                   </span>
                   <span class="navi-text text-muted text-hover-primary">
-                    {{ currentUserPersonalInfo.email }}
+                    {{ getcurrentUserAccountInfo.user.email }}
                   </span>
                 </span>
               </a>
@@ -96,25 +96,25 @@
         <!--begin::Nav-->
         <div class="navi navi-spacer-x-0 p-0">
           <!--begin::Item-->
-          <router-link
+          <!-- <router-link
             to="/builder"
             @click.native="closeOffcanvas"
             href="#"
             class="navi-item"
           >
-            <div class="navi-link">
-              <div class="symbol symbol-40 bg-light mr-3">
+            <div class="navi-link"> -->
+              <!-- <div class="symbol symbol-40 bg-light mr-3">
                 <div class="symbol-label">
                   <span class="svg-icon svg-icon-md svg-icon-success">
-                    <!--begin::Svg Icon-->
-                    <inline-svg
+            
+                     <inline-svg
                       src="media/svg/icons/General/Notification2.svg"
                     />
-                    <!--end::Svg Icon-->
+                  
                   </span>
                 </div>
-              </div>
-              <div class="navi-text">
+              </div> -->
+              <!-- <div class="navi-text">
                 <router-link to="/custom-pages/profile">
                   <div class="font-weight-bold">My Profile</div>
                 </router-link>
@@ -126,12 +126,12 @@
                     update
                   </span>
                 </div>
-              </div>
-            </div>
-          </router-link>
+              </div> -->
+            <!-- </div>
+          </router-link> -->
           <!--end:Item-->
           <!--begin::Item-->
-          <router-link
+          <!-- <router-link
             to="/builder"
             @click.native="closeOffcanvas"
             href="#"
@@ -141,9 +141,9 @@
               <div class="symbol symbol-40 bg-light mr-3">
                 <div class="symbol-label">
                   <span class="svg-icon svg-icon-md svg-icon-warning">
-                    <!--begin::Svg Icon-->
+          
                     <inline-svg src="media/svg/icons/Shopping/Chart-bar1.svg" />
-                    <!--end::Svg Icon-->
+               
                   </span>
                 </div>
               </div>
@@ -152,10 +152,11 @@
                 <div class="text-muted">Inbox and tasks</div>
               </div>
             </div>
-          </router-link>
+          </router-link> -->
+
           <!--end:Item-->
           <!--begin::Item-->
-          <router-link
+          <!-- <router-link
             to="/builder"
             @click.native="closeOffcanvas"
             href="#"
@@ -165,9 +166,9 @@
               <div class="symbol symbol-40 bg-light mr-3">
                 <div class="symbol-label">
                   <span class="svg-icon svg-icon-md svg-icon-danger">
-                    <!--begin::Svg Icon-->
+                  
                     <inline-svg src="media/svg/icons/Files/Selected-file.svg" />
-                    <!--end::Svg Icon-->
+                  
                   </span>
                 </div>
               </div>
@@ -176,10 +177,10 @@
                 <div class="text-muted">Logs and notifications</div>
               </div>
             </div>
-          </router-link>
+          </router-link> -->
           <!--end:Item-->
           <!--begin::Item-->
-          <router-link
+          <!-- <router-link
             to="/builder"
             @click.native="closeOffcanvas"
             href="#"
@@ -189,11 +190,11 @@
               <div class="symbol symbol-40 bg-light mr-3">
                 <div class="symbol-label">
                   <span class="svg-icon svg-icon-md svg-icon-primary">
-                    <!--begin::Svg Icon-->
+            
                     <inline-svg
                       src="media/svg/icons/Communication/Mail-opened.svg"
                     />
-                    <!--end::Svg Icon-->
+               
                   </span>
                 </div>
               </div>
@@ -202,7 +203,7 @@
                 <div class="text-muted">latest tasks and projects</div>
               </div>
             </div>
-          </router-link>
+          </router-link> -->
           <!--end:Item-->
         </div>
         <!--end::Nav-->
@@ -274,36 +275,13 @@ export default {
   data() {
     return {
       list: [
-        {
-          title: "Another purpose persuade",
-          desc: "Due in 2 Days",
-          alt: "+28%",
-          svg: "media/svg/icons/Home/Library.svg",
-          type: "warning"
-        },
-        {
-          title: "Would be to people",
-          desc: "Due in 2 Days",
-          alt: "+50%",
-          svg: "media/svg/icons/Communication/Write.svg",
-          type: "success"
-        },
-        {
-          title: "Purpose would be to persuade",
-          desc: "Due in 2 Days",
-          alt: "-27%",
-          svg: "media/svg/icons/Communication/Group-chat.svg",
-          type: "danger"
-        },
-        {
-          title: "The best product",
-          desc: "Due in 2 Days",
-          alt: "+8%",
-          svg: "media/svg/icons/General/Attachment2.svg",
-          type: "info"
-        }
+        
       ]
     };
+  },
+  created() {
+	   //console.log(this.currentUserPersonalInfo.name);
+	   console.log('QuickUser comp');
   },
   mounted() {
     // Init Quick User Panel
@@ -320,13 +298,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["currentUserPersonalInfo"]),
+    ...mapGetters(["currentUserPersonalInfo","getcurrentUserAccountInfo"]),
 
     getFullName() {
       return (
-        this.currentUserPersonalInfo.name +
-        " " +
-        this.currentUserPersonalInfo.surname
+        this.currentUserPersonalInfo.name
       );
     }
   }

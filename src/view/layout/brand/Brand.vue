@@ -74,3 +74,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.brand-logo {
+  margin: auto;
+}
+</style>

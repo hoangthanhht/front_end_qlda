@@ -49,7 +49,7 @@
               novalidate="novalidate"
               id="kt_login_signin_form"
             >
-              <div class="pb-13 pt-lg-0 pt-5">
+              <div class="login-sys pb-13 pt-lg-0 pt-5">
                 <h3
                   class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg"
                 >
@@ -284,6 +284,18 @@
 <!-- Load login custom page styles -->
 <style lang="scss">
 @import "@/assets/sass/pages/login/login-1.scss";
+.btn-primary {
+  margin-right: 0 !important;
+
+}
+.login-sys {
+  display: flex;
+  justify-content: center;
+}
+.pb-lg-0 {
+  display: flex;
+  justify-content: space-between;
+}
 </style>
 
 <script>
@@ -306,7 +318,7 @@ export default {
       state: "signin",
       // Remove this dummy login info
       form: {
-        email: "admin@gmail.com",
+        email: "admin@gxd.vn",
         password: "123456"
       }
     };
@@ -322,6 +334,9 @@ export default {
         process.env.BASE_URL + "media/svg/illustrations/login-visual-1.svg"
       );
     }
+  },
+  created() {
+	  console.log('Login comp');
   },
   mounted() {
     const signin_form = KTUtil.getById("kt_login_signin_form");
@@ -429,7 +444,6 @@ export default {
     this.fv.on("core.form.valid", () => {
       var email = this.form.email;
       var password = this.form.password;
-
       // clear existing errors
       this.$store.dispatch(LOGOUT);
 
@@ -440,7 +454,6 @@ export default {
       // dummy delay
 
 	    this.handleSubmitLogin();
-
 	 
         // send login request
         this.$store

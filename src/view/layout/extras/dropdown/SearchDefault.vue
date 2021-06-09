@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     handleSearch(e) {
-      console.log(this.$route);
       this.$store.dispatch('storeqlda/handleSearch',e.target.value)
     },
     onSearch(event) {

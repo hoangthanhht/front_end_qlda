@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "@/core/services/store";
 import ApiService from "@/core/services/api.service";
-import MockService from "@/core/mock/mock.service";
+//import MockService from "@/core/mock/mock.service";
 import { VERIFY_AUTH } from "@/core/services/store/store_metronic/auth.module";
 import { RESET_LAYOUT_CONFIG } from "@/core/services/store/store_metronic/config.module";
 

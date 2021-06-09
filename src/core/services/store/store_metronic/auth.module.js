@@ -16,11 +16,21 @@ export const SET_ERROR = "setError";
 
 const state = {
   errors: null,
-  user: {},
+  user: {
+	  user:{
+		name:'demoName',
+		email:'demoEmail',
+		role:'demoRole'
+	  }
+  },
   isAuthenticated: !!JwtService.getToken()
 };
 
 const getters = {
+  getcurrentUserAccountInfo(state) {
+	  console.log('getu',state.user.user.name)
+    return state.user;
+  },
   currentUser(state) {
     return state.user;
   },
@@ -31,13 +41,13 @@ const getters = {
 
 const actions = {
   [LOGIN](context, credentials) {
-    console.log(credentials);
+    
     return new Promise(resolve => {
       ApiService.post("login", credentials)
         .then(({ data }) => {
           context.commit(SET_AUTH, data);
-          resolve(data);
-        })
+		  resolve(data);
+         })
         .catch(({ response }) => {
           console.log(response);
           //context.commit(SET_ERROR, response.data.errors);

@@ -20,7 +20,7 @@ export default {
            
             var result = await axiosInstance.get('/getDataTableDm',config);
              commit('SET_LIST_DATADM',result.data.data)
-             console.log("error",result.data.data);
+             //console.log("error",result.data.data);
         } catch(error) {
             console.log("error", error);
         }
@@ -33,7 +33,6 @@ export default {
             ghiChuDinhMuc:noteDinhMuc,
             id:idDinhMuc
         }
-        console.log(data)
         // var config = {
         //     headers:{
         //         'Accept': 'application/json',    
@@ -43,7 +42,6 @@ export default {
         try {
            
             var result = await axiosInstance.post(`updateDataDm/${data.id}`,data);
-            console.log('updateDataWithId',result)
             if(result.status === 200) {
                 //commit('SET_USER_INFO', result.data.user);
                 return {
@@ -70,14 +68,44 @@ export default {
     },
 
 
+    async getUserWithId({ commit },token = '') {
+        var config = {
+            headers:{
+                'Accept': 'application/json',
+                'Authorization' :'Bearer ' + token,
+            }
+        }
+       
+        try {
+           
+            var result = await axiosInstance.get('/details',config);
+            if(result.status === 200) {
+                commit('SET_USER_INFO', result.data.user);
+                return {
+                    ok: true,
+                    data: result.data.user,
+                    error: null
+                }
+            }
+            return {
+                ok: false,
+                error: result.message
+            }
+        } catch(error) {
+            
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
     async login({ commit, dispatch }, { email = '', password = '' }) {
-        // commit('SET_LOADING', true);
         try {
             let data = {
                 email: email,
                 password: password
             }
-            console.log('login qlda')
             var result  = await axiosInstance.post('/login', data);
 
            

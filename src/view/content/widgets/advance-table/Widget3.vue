@@ -30,9 +30,9 @@
           >
             <thead>
               <tr class="text-left">
-                <th style="max-width: 50px" class="pl-7">
+                <!-- <th style="max-width: 50px" class="pl-7">
                   id
-                </th>
+                </th> -->
                 <th style="min-width: 120px">mã định mức</th>
                 <th style="min-width: 100px">tên mã định mức</th>
                 <th style="min-width: 400px">ghi chú</th>
@@ -43,17 +43,21 @@
             <tbody v-if="dataArr.length !== 0">
               <template  v-for="(item, index) in dataArr">
                 <tr v-bind:key="index" class="row_table_note">
-                  <td contenteditable="true">
+                  <!-- <td contenteditable="true">
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
-                  </td>
+                  </td> -->
                   <td>
-                    <span class="ma_dinh_muc text-muted font-weight-bold">{{
+                    <span 
+					v-on:click="hadleClickMaDM"
+					class="ma_dinh_muc text-muted font-weight-bold">{{
                       item.maDinhMuc
                     }}</span>
                   </td>
                   <td>
-                    <span class="ten_ma_dinh_muc text-muted font-weight-bold">{{
+                    <span 
+					v-on:click="hadleClickTenMaDM"
+					class="ten_ma_dinh_muc text-muted font-weight-bold">{{
                       item.tenMaDinhMuc
                     }}</span>
                   </td>
@@ -76,7 +80,7 @@
                   </td> -->
                   <td class="pr-0 text-right">
                     <a
-					v-on:click="handleSave($event,index)"
+					  v-on:click="handleSave($event,index)"
                       class="btn btn-light-success font-weight-bolder font-size-sm"
                       >Save</a
                     >
@@ -119,6 +123,11 @@ export default {
       return this["storeqlda/arrDmSearch"];
     },
   },
+  watch: {
+	  dataArr: function () {
+ 
+    },
+  },
   methods: {
     ...mapActions(["storeqlda/getListDataDm","storeqlda/updateDataWithId"]),
     getParentSelect(el,select) {
@@ -130,6 +139,12 @@ export default {
         el = pr
       }
     },
+	hadleClickMaDM(e) {
+	 e.target.setAttribute('contenteditable','true');
+	},
+	hadleClickTenMaDM(e) {
+	 e.target.setAttribute('contenteditable','true');
+	},
 	noteDM(index) {
 		return this.dataArr[index].ghiChuDinhMuc;
 	},
@@ -154,7 +169,7 @@ export default {
 
 	//   console.log('tenMaDinhMuc',tenMaDinhMuc);
 	//   console.log('noteDinhMuc',noteDinhMuc);
-	   console.log('this.dataArr[index].id',idDinhMuc);
+	 
   }
   },
 
