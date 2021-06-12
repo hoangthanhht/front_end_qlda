@@ -1,6 +1,7 @@
 <template>
   <div>
     <!--begin::Notice-->
+
     <Giavattu></Giavattu>
   </div>
 </template>
@@ -9,14 +10,17 @@
 import { mapGetters } from "vuex";
 import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs.module";
 import Giavattu from "@/view/content/widgets/advance-table/Banggiavattu.vue";
+
 export default {
   name: "giavattu",
   components: {
     Giavattu,
+
   },
   data() {
     return {
-      tabIndex: 0
+      tabIndex: 0,
+      
     };
   },
   computed: {

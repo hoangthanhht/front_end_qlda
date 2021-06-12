@@ -25,6 +25,31 @@ export default {
             console.log("error", error);
         }
     },
+
+    async getListDataBaoGia({ commit }) {
+        
+        var config = {
+            headers:{
+                'Accept': 'application/json',
+                //'Authorization' :'Bearer ' + token,
+            }
+        }
+
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
+        
+        try {
+           
+            var result = await axiosInstance.get('/getDataTableBaoGia',config);
+             commit('SET_LIST_DATABGIA',result.data.data)
+             //console.log("error",result.data.data);
+        } catch(error) {
+            console.log("error", error);
+        }
+    },
+
     async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '',noteDinhMuc = '', idDinhMuc = '' }) {
 
         let data = {
@@ -99,6 +124,46 @@ export default {
             }
         }
     },
+
+        //tao bang gia vat tu.bắt buộc phải có context hoặc commit,dispath ...
+    async createBaoGia( context, jsonData = '' ) {
+    console.log('jsonData',jsonData);
+        try {
+            let data = {
+                jsonData: jsonData,
+            }
+            var result  = await axiosInstance.post('/createGiaVT', data);
+
+           
+            // commit('SET_LOADING', false);
+            if(result.status === 200) {
+             
+
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+                
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+            }
+            
+        } catch(error) {
+            console.log('error');
+            
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+
 
     async login({ commit, dispatch }, { email = '', password = '' }) {
         try {

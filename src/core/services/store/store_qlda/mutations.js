@@ -16,6 +16,9 @@ export default {
     SET_LIST_DATADM(state, data) {
         state.listDataDM = data;
     },  
+    SET_LIST_DATABGIA(state, data) {
+        state.listDataBGia = data;
+    },
     SET_LOGOUT(state) {
         state[CONFIG_ACCESS_TOKEN] = '';
         state.currentUser = null;
