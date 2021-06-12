@@ -12,12 +12,12 @@
       <span
         class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"
       >
-          {{getcurrentUserAccountInfo.user.name}}  <!--{{ currentUserPersonalInfo.name }} -->
+          {{currentUserPersonalInfo.user.name}}  <!--{{ currentUserPersonalInfo.name }} -->
       </span>
       <span class="symbol symbol-35 symbol-light-success">
         <img v-if="false" alt="Pic" :src="currentUserPersonalInfo.photo" />
         <span v-if="true" class="symbol-label font-size-h5 font-weight-bold">
-          {{ getcurrentUserAccountInfo.user.name.charAt(0).toUpperCase() }}
+          {{ currentUserPersonalInfo.user.name.charAt(0).toUpperCase() }}
         </span>
       </span>
     </div>
@@ -67,7 +67,7 @@
             >
               {{ getFullName }}
             </router-link>
-            <div class="text-muted mt-1">{{getcurrentUserAccountInfo.user.role}}</div>
+            <div class="text-muted mt-1">{{currentUserPersonalInfo.user.role}}</div>
             <div class="navi mt-2">
               <a href="#" class="navi-item">
                 <span class="navi-link p-0 pb-2">
@@ -81,7 +81,7 @@
                     </span>
                   </span>
                   <span class="navi-text text-muted text-hover-primary">
-                    {{ getcurrentUserAccountInfo.user.email }}
+                    {{ currentUserPersonalInfo.user.email }}
                   </span>
                 </span>
               </a>
@@ -280,7 +280,7 @@ export default {
     };
   },
   created() {
-	   //console.log(this.currentUserPersonalInfo.name);
+	   console.log(this.currentUserPersonalInfo);
 	   console.log('QuickUser comp');
   },
   mounted() {
@@ -302,7 +302,7 @@ export default {
 
     getFullName() {
       return (
-        this.currentUserPersonalInfo.name
+        this.currentUserPersonalInfo.user.name
       );
     }
   }

@@ -16,10 +16,15 @@ export default new Router({
           component: () => import("@/view/pages/Dashboard.vue")
         },
         {
-          path: "/builder",
-          name: "builder",
-          component: () => import("@/view/pages/Builder.vue")
+          path: "/bangdinhmuc",
+          name: "bangdinhmuc",
+          component: () => import("@/view/pages/Bangdinhmuc.vue")
         },
+		{
+			path: "/giavattu",
+			name: "giavattu",
+			component: () => import("@/view/pages/Giavattu.vue")
+		  },
         {
           path: "/vue-bootstrap",
           name: "vue-bootstrap",

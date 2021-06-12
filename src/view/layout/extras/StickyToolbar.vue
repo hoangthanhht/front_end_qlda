@@ -5,7 +5,7 @@
       <li v-b-tooltip.hover.left="'Layout builder'" class="nav-item mb-2">
         <router-link
           href="#"
-          :to="{ name: 'builder' }"
+          :to="{ name: 'giavattu' }"
           class="btn btn-sm btn-icon btn-bg-light btn-text-primary btn-hover-primary"
         >
           <i class="flaticon2-gear"></i>

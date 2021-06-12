@@ -10,7 +10,7 @@ import { mapGetters } from "vuex";
 import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs.module";
 import AdvancedTableWidget3 from "@/view/content/widgets/advance-table/Widget3.vue";
 export default {
-  name: "builder",
+  name: "bangdinhmuc",
   components: {
     AdvancedTableWidget3,
   },

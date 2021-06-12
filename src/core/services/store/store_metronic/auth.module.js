@@ -1,6 +1,6 @@
 import ApiService from "@/core/services/api.service";
 import JwtService from "@/core/services/jwt.service";
-
+import { SET_PERSONAL_INFO } from './profile.module';
 // action types
 export const VERIFY_AUTH = "verifyAuth";
 export const LOGIN = "login";
@@ -28,7 +28,6 @@ const state = {
 
 const getters = {
   getcurrentUserAccountInfo(state) {
-	  console.log('getu',state.user.user.name)
     return state.user;
   },
   currentUser(state) {
@@ -45,7 +44,8 @@ const actions = {
     return new Promise(resolve => {
       ApiService.post("login", credentials)
         .then(({ data }) => {
-          context.commit(SET_AUTH, data);
+			context.commit(SET_AUTH, data);
+			context.commit(SET_PERSONAL_INFO, data,{ root: true });
 		  resolve(data);
          })
         .catch(({ response }) => {

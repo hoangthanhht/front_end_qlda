@@ -8,14 +8,16 @@ export const SET_ACCOUNT_INFO = "setAccountInfo";
 
 const state = {
   user_personal_info: {
-    photo: "media/users/300_21.jpg",
-    name: "James",
-    surname: "Jones",
-    company_name: "Fifestudios",
-    job: "Application Developer",
-    email: "matt@fifestudios.com",
-    phone: "44(76)34254578",
-    company_site: "fifestudios"
+    user:{
+        photo: "media/users/300_21.jpg",
+        name: "James",
+        surname: "Jones",
+        company_name: "Fifestudios",
+        job: "Application Developer",
+        email: "matt@fifestudios.com",
+        phone: "44(76)34254578",
+        company_site: "fifestudios"
+    }
   },
   user_account_info: {
     username: "nick84",
@@ -56,6 +58,7 @@ const actions = {
 
 const mutations = {
   [SET_PERSONAL_INFO](state, user_personal_info) {
+    console.log('SET_PERSONAL_INFO')
     state.user_personal_info = user_personal_info;
   },
   [SET_ACCOUNT_INFO](state, user_account_info) {

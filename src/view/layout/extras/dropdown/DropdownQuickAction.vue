@@ -20,7 +20,7 @@
       <template v-for="(item, i) in list">
         <div class="col-6" v-bind:key="i">
           <router-link
-            to="builder"
+            to="giavattu"
             class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom"
           >
             <span class="svg-icon svg-icon-3x svg-icon-success">
