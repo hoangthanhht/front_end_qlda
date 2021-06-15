@@ -58,7 +58,6 @@ const actions = {
 
 const mutations = {
   [SET_PERSONAL_INFO](state, user_personal_info) {
-    console.log('SET_PERSONAL_INFO')
     state.user_personal_info = user_personal_info;
   },
   [SET_ACCOUNT_INFO](state, user_account_info) {

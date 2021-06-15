@@ -1,7 +1,6 @@
 <template>
   <!--begin::Advance Table Widget 9-->
   <div class="card card-custom card-stretch gutter-b">
-	 
     <!--begin::Header-->
     <!-- <div class="card-header border-0 py-5">
       <h3 class="card-title align-items-start flex-column">
@@ -26,7 +25,13 @@
         <!--begin::Table-->
         <div class="table-responsive">
           <table
-            class="table table-head-custom table-vertical-center table-head-bg table-borderless"
+            class="
+              table
+              table-head-custom
+              table-vertical-center
+              table-head-bg
+              table-borderless
+            "
           >
             <thead>
               <tr class="text-left">
@@ -41,37 +46,40 @@
               </tr>
             </thead>
             <tbody v-if="dataArr.length !== 0">
-              <template  v-for="(item, index) in dataArr">
+              <template v-for="(item, index) in dataArr">
                 <tr v-bind:key="index" class="row_table_note">
                   <!-- <td contenteditable="true">
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
                   <td>
-                    <span 
-					v-on:click="hadleClickMaDM"
-					class="ma_dinh_muc text-muted font-weight-bold">{{
-                      item.maDinhMuc
-                    }}</span>
+                    <span
+                      v-on:click="hadleClickMaDM"
+                      class="ma_dinh_muc text-muted font-weight-bold"
+                      >{{ item.maDinhMuc }}</span
+                    >
                   </td>
                   <td>
-                    <span 
-					v-on:click="hadleClickTenMaDM"
-					class="ten_ma_dinh_muc text-muted font-weight-bold">{{
-                      item.tenMaDinhMuc
-                    }}</span>
+                    <span
+                      v-on:click="hadleClickTenMaDM"
+                      class="ten_ma_dinh_muc text-muted font-weight-bold"
+                      >{{ item.tenMaDinhMuc }}</span
+                    >
                   </td>
                   <td>
-                    <textarea 		
-						 :value = noteDM(index)
-				          class="area_notes"
-					      name="" id="" cols="60" rows="3" >
-						  
-					 </textarea>
+                    <textarea
+                      :value="noteDM(index)"
+                      class="area_notes"
+                      name=""
+                      id=""
+                      cols="60"
+                      rows="3"
+                    >
+                    </textarea>
                     <!-- <input class="text-dark-75 font-weight-bolder d-block font-size-lg text-muted font-weight-bold"
 					type="text"> -->
                   </td>
-<!-- 
+                  <!-- 
                   <td class="pr-0 text-right">
                     <a
                       class="btn btn-light-success font-weight-bolder font-size-sm"
@@ -80,8 +88,11 @@
                   </td> -->
                   <td class="pr-0 text-right">
                     <a
-					  v-on:click="handleSave($event,index)"
-                      class="btn btn-light-success font-weight-bolder font-size-sm"
+                      v-on:click="handleSave($event, index)"
+                      class="
+                        btn btn-light-success
+                        font-weight-bolder font-size-sm
+                      "
                       >Save</a
                     >
                   </td>
@@ -104,80 +115,88 @@ export default {
   name: "widget-3",
   data() {
     return {
-		// maDinhMuc: "",
-		// tenMaDinhMuc: "",
-		// noteDinhMuc: "",
-		// idDinhMuc: "",
-		
+      // maDinhMuc: "",
+      // tenMaDinhMuc: "",
+      // noteDinhMuc: "",
+      // idDinhMuc: "",
     };
   },
   created() {
-    this["storeqlda/getListDataDm"]();// khi load lai trang
+    this["storeqlda/getListDataDm"](); // khi load lai trang
   },
   mounted() {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
   },
   computed: {
-    ...mapGetters(["storeqlda/getListDataDinhMuc","storeqlda/arrDmSearch"]),
+    ...mapGetters([
+      "storeqlda/getListDataDinhMuc",
+      "storeqlda/arrDmSearch",
+      "storeqlda/currentUser",
+    ]),
     dataArr() {
       return this["storeqlda/arrDmSearch"];
     },
   },
   watch: {
-	  dataArr: function () {
- 
-    },
+    dataArr: function () {},
   },
   methods: {
-    ...mapActions(["storeqlda/getListDataDm","storeqlda/updateDataWithId"]),
-    getParentSelect(el,select) {
-      while(el.parentElement) {
+    ...mapActions(["storeqlda/getListDataDm", "storeqlda/updateDataWithId"]),
+    getParentSelect(el, select) {
+      while (el.parentElement) {
         var pr = el.parentElement;
-        if(pr.matches(select)) {
-          return pr
+        if (pr.matches(select)) {
+          return pr;
         }
-        el = pr
+        el = pr;
       }
     },
-	hadleClickMaDM(e) {
-	 e.target.setAttribute('contenteditable','true');
-	},
-	hadleClickTenMaDM(e) {
-	 e.target.setAttribute('contenteditable','true');
-	},
-	noteDM(index) {
-		return this.dataArr[index].ghiChuDinhMuc;
-	},
-	handleSave(e,index) {
-		 //var a = document.querySelector('.textthanh')
-	  //console.log(this.dataArr[index].id);
-     var elParentLarge = this.getParentSelect(e.target,'.row_table_note');
-	 var maDinhMuc = elParentLarge.querySelector('.ma_dinh_muc').innerText;
-	 var tenMaDinhMuc = elParentLarge.querySelector('.ten_ma_dinh_muc').innerText;
-	 var noteDinhMuc = elParentLarge.querySelector('.area_notes').value;
-     var idDinhMuc = this.dataArr[index].id;
+    hadleClickMaDM(e) {
+      e.target.setAttribute("contenteditable", "true");
+    },
+    hadleClickTenMaDM(e) {
+      e.target.setAttribute("contenteditable", "true");
+    },
+    noteDM(index) {
+      return this.dataArr[index].ghiChuDinhMuc;
+    },
+    handleSave(e, index) {
+      //var a = document.querySelector('.textthanh')
+      //console.log(this.dataArr[index].id);
+      var elParentLarge = this.getParentSelect(e.target, ".row_table_note");
+      var maDinhMuc = elParentLarge.querySelector(".ma_dinh_muc").innerText;
+      var tenMaDinhMuc =
+        elParentLarge.querySelector(".ten_ma_dinh_muc").innerText;
+      var noteDinhMuc = elParentLarge.querySelector(".area_notes").value;
+      var idDinhMuc = this.dataArr[index].id;
+      var idUser = this["storeqlda/currentUser"].id;
+      var data = {
+        maDinhMuc: maDinhMuc,
+        tenMaDinhMuc: tenMaDinhMuc,
+        noteDinhMuc: noteDinhMuc,
+        idDinhMuc: idDinhMuc,
+		idUser:idUser
+      };
 
-	  var data = {
-		  maDinhMuc:maDinhMuc,
-		  tenMaDinhMuc:tenMaDinhMuc,
-		  noteDinhMuc:noteDinhMuc,
-		  idDinhMuc:idDinhMuc
-	  }
+      // this.$store.dispatch('storeqlda/updateDataWithId', data);
+      this["storeqlda/updateDataWithId"](data).then((data) => {
+        console.log("newdata", data);
+        if (data.ok === false) {
+          alert(data.error);
+        }
+      });
 
-	// this.$store.dispatch('storeqlda/updateDataWithId', data);
-	  this["storeqlda/updateDataWithId"](data);
-
-	//   console.log('tenMaDinhMuc',tenMaDinhMuc);
-	//   console.log('noteDinhMuc',noteDinhMuc);
-	 
-  }
+      //   console.log('tenMaDinhMuc',tenMaDinhMuc);
+      //   console.log('noteDinhMuc',noteDinhMuc);
+    },
   },
-
-
 };
 </script>
 <style lang="scss" scoped>
-button,input,select,textarea {
+button,
+input,
+select,
+textarea {
   background-color: transparent;
   border-style: solid;
 }

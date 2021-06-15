@@ -318,8 +318,8 @@ export default {
       state: "signin",
       // Remove this dummy login info
       form: {
-        email: "admin@gxd.vn",
-        password: "123456"
+        email: "user1@gmail.com",
+        password: "123123"
       }
     };
   },

@@ -254,6 +254,7 @@ export default {
             // let dataArray = changeRowsToDict(worksheet);
             // console.log(dataArray)
             worksheet.eachRow(function (row) {
+				
               var filtered = row.values.filter(function (el) {
                 return el != undefined;
               });
@@ -271,6 +272,11 @@ export default {
             });
             worksheet.eachRow(function (row) {
               row.eachCell(function (cell) {
+				  
+				  if(cell.value) {
+					  //console.log('cell',number,'=', cell.value);
+					  //console.log('null');
+				  }
                 temp = `"${title[index]}":"${cell.value}",`;
                 tempRs = tempRs + temp;
                 index++;
@@ -286,6 +292,7 @@ export default {
             tempFinalRs = `[${tempFinalRs}]`;
 			console.log('tempFinalRs',tempFinalRs);
             var arrTemp = JSON.parse(tempFinalRs);
+
             arrTemp.shift();
             for (var i in arrTemp) {
               var keyObj = Object.keys(arrTemp[i]);
@@ -300,7 +307,9 @@ export default {
             tempFinalRs = JSON.stringify(arrTemp);
           
 		   this["storeqlda/createBaoGia"](tempFinalRs);
-          });
+          }).catch((err)=>{
+			  console.log(err);
+		  })
         };
       } else {
         alert("Bạn chưa chọn file import dữ liệu");
