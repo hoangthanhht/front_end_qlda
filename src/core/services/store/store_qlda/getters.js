@@ -14,6 +14,12 @@ export default {
     getListDataDinhMuc: state => {
         return state.listDataDM;
     },
+    getListDataUserGTer: state => {
+        return state.listDataUser;
+    },
+    getListDataRoleGTer: state => {
+        return state.listDataRole;
+    },
     getListDataBGia: state => {
         return state.listDataBGia;
     },

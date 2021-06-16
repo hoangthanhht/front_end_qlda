@@ -50,6 +50,104 @@ export default {
         }
     },
 
+
+    async getListDataUser({ commit }) {
+
+        var config = {
+            headers: {
+                'Accept': 'application/json',
+                //'Authorization' :'Bearer ' + token,
+            }
+        }
+
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
+
+        try {
+
+            var result = await axiosInstance.get('/getDataTableUser', config);
+            commit('SET_LIST_DATAUSER', result.data.user)
+            commit('SET_LIST_DATAROLE', result.data.role)
+            
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+
+    toggleForm({ commit }) {
+        // console.log("Action toggleForm");
+        commit('TOGGLE_FORM');
+    },
+
+    async handleAddNewUser(context, { name = '', email = '', password = '', role_id = null }) {
+
+        let data = {
+            name: name,
+            email: email,
+            password: password,
+            role_id: role_id,
+        }
+        console.log('data', data)
+        // var config = {
+        //     headers:{
+        //         'Accept': 'application/json',    
+        //     }
+        // }
+
+        try {
+
+            var result = await axiosInstance.post(`createUser`, data);
+            console.log('result', result)
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    return {
+                        ok: true,
+                        data: result.data.user,
+                        error: null
+                    }
+                }
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                }
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+
+
+    handleEdit({ commit }, taskSelected) {
+        commit('HANDLE_EDIT', taskSelected);
+    },
+    handleEditTaskById({ commit, state }, taskEdit) {
+        let index = state.listTask.findIndex(item => item.id === taskEdit.id);
+        let listTaskClone = [...state.listTask];
+
+        if(index !== -1) {
+            listTaskClone.splice(index, 1, taskEdit);
+            // dispatch('toggleForm')
+            commit('TOGGLE_FORM');
+            commit('CHANGE_TASKS', listTaskClone);
+        }
+    },
+
+
     async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = '', idUser = ''  }) {
 
         let data = {

@@ -4,7 +4,11 @@ export default {
     [CONFIG_ACCESS_TOKEN]: localStorage.getItem(CONFIG_ACCESS_TOKEN),
     listDataDM:[],
     listDataBGia:[],
+    listDataUser:[],
+    listDataRole:[],
     currentUser: null, // Login
     users: {}, 
-    stringSearch:''
+    stringSearch:'',
+    isShowForm: false,
+    taskSelected: null
 }

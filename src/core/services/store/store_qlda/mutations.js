@@ -16,9 +16,33 @@ export default {
     SET_LIST_DATADM(state, data) {
         state.listDataDM = data;
     },  
+
     SET_LIST_DATABGIA(state, data) {
         state.listDataBGia = data;
+    }, 
+
+    SET_LIST_DATAUSER(state, data) {
+        state.listDataUser = data;
     },
+    SET_LIST_DATAROLE(state, data) {
+        state.listDataRole = data;
+    },
+    TOGGLE_FORM(state) {
+        
+        // console.log("Mutation TOGGLE_FORM");
+        state.isShowForm = !state.isShowForm;
+    },
+    ADD_NEW_TASK(state) {
+        
+        // console.log("Mutation TOGGLE_FORM");
+        state.isShowForm = !state.isShowForm;
+    },
+    HANDLE_EDIT(state) {
+        
+        // console.log("Mutation TOGGLE_FORM");
+        state.isShowForm = !state.isShowForm;
+    },
+    
     SET_LOGOUT(state) {
         state[CONFIG_ACCESS_TOKEN] = '';
         state.currentUser = null;

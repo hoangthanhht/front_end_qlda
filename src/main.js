@@ -51,20 +51,6 @@ ApiService.init();
 // });
 
 
-router.beforeEach((to, from, next) => {
-
-  let user1 = (store.getters.currentUserPersonalInfo.slug)
-  console.log('user',user1);
-  if (to.meta.requiredRoles[0]==='user1') {
-      next()
-  } else {
-      alert('You don\'t have permission to access this page.')
-      next({
-          path: '/'
-      })
-  }
-})
-
 //console.log(store.state.storeqlda.);
 
 new Vue({
@@ -72,5 +58,6 @@ new Vue({
   store,
   i18n,
   vuetify,
+  
   render: h => h(App)
 }).$mount("#app");
