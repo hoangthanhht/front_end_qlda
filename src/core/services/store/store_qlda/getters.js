@@ -20,6 +20,9 @@ export default {
     getListDataRoleGTer: state => {
         return state.listDataRole;
     },
+    getListDataRoleOfAllUserGTer: state => {
+        return state.listDataRoleOfAllUser;
+    },
     getListDataBGia: state => {
         return state.listDataBGia;
     },

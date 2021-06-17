@@ -16,7 +16,7 @@
                     v-bind:key="user.id"
                     v-bind:user="user"
                     v-bind:index="index + 1"
-                    v-on:handleEdit="handleEdit"
+                    v-bind:userId="user.id"
                 />
             </tbody>
 
@@ -56,9 +56,6 @@ export default {
     },
     methods: {
         ...mapActions([ 'storeqlda/getListDataUser' ]),
-        handleEdit(taskEdit) {
-            this.$emit('handleEdit', taskEdit);
-        }
     }
 }
 </script>

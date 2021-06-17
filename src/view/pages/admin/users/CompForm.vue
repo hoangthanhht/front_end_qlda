@@ -21,7 +21,7 @@
       </div>
       <div class="form-group">
         <label class="sr-only" for="">label</label>
-          <input
+        <input
           v-model="useremail"
           type="text"
           class="form-control user_email"
@@ -31,15 +31,29 @@
 
       <div class="form-group">
         <label class="sr-only" for="">label</label>
-          <input       
+        <input
           type="password"
           class="form-control password"
           placeholder="User Password"
         />
       </div>
-       <div class="form-group">
-                <label class="sr-only" for="">label</label>
-                <select v-if="listRole.length !== 0"
+      <div class="form-group">
+        <label class="sr-only" for="">label</label>
+        <v-app>
+          <v-select
+            label="Select"
+            v-bind:items="listRole"
+            v-model="select"
+            hint="Chọn vai trò"
+            persistent-hint
+            item-text="slug"
+            chips
+            multiple
+            return-object
+            outlined
+          />
+        </v-app>
+        <!-- <select v-if="listRole.length !== 0"
                 multiple
                  v-model="select"
                  class="form-control">
@@ -49,11 +63,10 @@
                     v-bind:key="index"
                     >{{ role.slug }}</option>
                     
-                </select>
-                <span>Selected: {{ select }}</span>
-            </div>
+                </select> -->
+      </div>
       <button
-        v-if="taskSelected === null"
+        v-if="userSelected === null"
         v-on:click="handleAddNew"
         type="button"
         class="btn btn-primary"
@@ -69,10 +82,7 @@
         Update
       </button>
 
-      <button 
-      v-on:click="handleCancel" 
-      type="button" 
-      class="btn btn-secondary">
+      <button v-on:click="handleCancel" type="button" class="btn btn-secondary">
         Cancel
       </button>
     </form>
@@ -80,71 +90,145 @@
 </template>
 
 <script>
-import { mapState, mapActions,mapGetters} from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import FormAdd from "./FormAdd";
 export default {
   name: "comp-form",
   components: {
     FormAdd,
   },
-   data() {
+  data() {
     return {
       username: "",
       useremail: "",
-      select:[]
+      userId: Number,
+      select: [],
     };
   },
 
   computed: {
-    ...mapGetters(["storeqlda/getListDataRoleGTer"]),
+    ...mapGetters([
+      "storeqlda/getListDataRoleGTer",
+      "storeqlda/getListDataRoleOfAllUserGTer",
+    ]),
     ...mapState({
       isShowForm: (state) => state.storeqlda.isShowForm,
-      taskSelected: (state) => state.storeqlda.taskSelected,
+      userSelected: (state) => state.storeqlda.userSelected,
     }),
     listRole() {
-      return this["storeqlda/getListDataRoleGTer"];
+      let arrVselect = [];
+      let arrrole = this["storeqlda/getListDataRoleGTer"];
+      for (var i in arrrole) {
+        let obj = {
+          role_id: arrrole[i].id,
+          slug: arrrole[i].slug,
+        };
+        arrVselect.push(obj);
+      }
+      return arrVselect;
     },
   },
- 
-  watch: {},
+
+  watch: {
+    userSelected: function (newData) {
+      if (newData !== null) {
+        this.username = newData.name;
+        this.useremail = newData.email;
+        this.userId = newData.id;
+      }
+      this.getRoleOfUserForEdit();
+    },
+  },
   methods: {
-    ...mapActions(["storeqlda/toggleForm", "storeqlda/handleAddNewUser", "storeqlda/handleEditTaskById"]),
+    ...mapActions([
+      "storeqlda/toggleForm",
+      "storeqlda/handleAddNewUser",
+      "storeqlda/handleEditTaskById",
+      "storeqlda/handleEditUserById",
+	  "storeqlda/getListDataUser"
+    ]),
+
+    getRoleOfUserForEdit() {
+      console.log("getRoleOfUserForEdit");
+      let arrTemp = this["storeqlda/getListDataRoleOfAllUserGTer"];
+      console.log("getRoleOfUserForEdit", arrTemp);
+      let arrTemp1 = arrTemp;
+      let kt = false;
+      for (var i in arrTemp1) {
+        for (let key in arrTemp1[i]) {
+          if (arrTemp1[i].hasOwnProperty(key)) {
+            if (parseInt(key) === this.userId) {
+              arrTemp = arrTemp1[i][key];
+              kt = true;
+              break;
+            }
+          }
+        }
+        if (kt === true) {
+          break;
+        }
+      }
+
+      this.select = [];
+      for (var j in arrTemp) {
+        for (let m in this.listRole) {
+          if (this.listRole[m]["slug"] === arrTemp[j]) {
+            this.select.push(this.listRole[m]);
+          }
+        }
+      }
+    },
+
     handleEditTask() {
-      let objTaskEdit = {
-        id: this.taskSelected.id,
-        name: this.taskname,
-        level: parseInt(this.level),
+      let role_id = [];
+      for (var i in this.select) {
+        role_id.push(this.select[i].role_id);
+      }
+      var password = document.querySelector(".password").value;
+      let objUserEdit = {
+        name: this.username,
+        email: this.useremail,
+        password: password,
+        idUser: this.userId,
+        role_id: JSON.stringify(role_id),
       };
-      // this.$emit('handleEditTaskById', objTaskEdit);
-      this.handleEditTaskById(objTaskEdit);
+
+      this["storeqlda/handleEditUserById"](objUserEdit).then(()=>{
+		  this["storeqlda/getListDataUser"]();
+	  })
+
       this.handleResetData();
     },
+
     handleAddNew() {
       // Kiểm tra dữ liệu
-      if (this.username.trim()&& this.useremail.trim()) {
-     var userName = document.querySelector(".user_name").value;
-     var userEmail = document.querySelector(".user_email").value;
-     var password = document.querySelector(".password").value;
-     var data = {
-         userName:userName,
-         userEmail:userEmail,
-         password:password,
-         role_id: this.select
-     }
-        this['storeqlda/handleAddNewUser'](data);
+      if (this.username.trim() && this.useremail.trim()) {
+        var password = document.querySelector(".password").value;
+        //chú ý là key :'name','email','password' của data phải trùng với các đối số của action mà hàm này gọi không thì sẽ không nhận đúng dữ liệu để gửi đi gây lỗi 500
+        // khi truyền 1 mảng hay obj sang serve thì cần phải stringify nó sau đó bên serve phải decode lại cái json này thì nó mới đúng định dạng của từng phía khong có sẽ gây lỗi
+        let role_id = [];
+        for (var i in this.select) {
+          role_id.push(this.select[i].role_id);
+        }
+        var data = {
+          name: this.username,
+          email: this.useremail,
+          password: password,
+          role_id: JSON.stringify(role_id),
+        };
+        this["storeqlda/handleAddNewUser"](data);
         this.handleCancel();
       } else {
-        alert("Vui lòng nhập task name");
+        alert("Vui lòng nhập đầy đủ các trường");
       }
     },
     handleCancel() {
-      this['storeqlda/toggleForm']();
+      this["storeqlda/toggleForm"]();
       this.handleResetData();
     },
     handleResetData() {
       this.username = "";
       this.useremail = "";
-
     },
   },
 };

@@ -24,6 +24,7 @@ export default {
   props: {
 	user: { type: Object, default: null },
 	index: Number,
+	userId:Number
   },
   computed: {
 
@@ -34,12 +35,13 @@ export default {
 	};
   },
   methods: {
-	...mapActions({
-	 actionHandleDelete: "handleDelete",
-	 actionHandleEdit: "handleEdit",
-	}),
+	...mapActions([
+	 //actionHandleDelete: "handleDelete",
+	 "storeqlda/handleEdit"
+	]),
 	handleEdit() {
-	 this.actionHandleEdit(this.user);
+		console.log('this.key',this.userId)
+	 this['storeqlda/handleEdit'](this.user);
 	},
 	handleDelete() {
 	 if (confirm("Bạn có muốn xóa user có tên là " + this.user.name)) {

@@ -45,7 +45,7 @@ export default new Router({
 						}
 					},
 					meta: {
-						requiredRoles: ['Admin','Manage']
+						requiredRoles: ['Manage']
 					}
 				},
 				{

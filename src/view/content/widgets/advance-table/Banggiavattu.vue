@@ -290,7 +290,6 @@ export default {
             });
             tempFinalRs = tempFinalRs.substring(0, tempFinalRs.length - 1);
             tempFinalRs = `[${tempFinalRs}]`;
-			console.log('tempFinalRs',tempFinalRs);
             var arrTemp = JSON.parse(tempFinalRs);
 
             arrTemp.shift();

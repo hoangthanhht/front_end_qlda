@@ -68,8 +68,10 @@ export default {
         try {
 
             var result = await axiosInstance.get('/getDataTableUser', config);
-            commit('SET_LIST_DATAUSER', result.data.user)
-            commit('SET_LIST_DATAROLE', result.data.role)
+            console.log("result", result);
+            commit('SET_LIST_DATAUSER', result.data.user);
+            commit('SET_LIST_DATAROLE', result.data.role);
+            commit('SET_LIST_DATA_ROLE_OF_ALL_USER', result.data.role_of_all_user);
             
             //console.log("error",result.data.data);
         } catch (error) {
@@ -90,7 +92,6 @@ export default {
             password: password,
             role_id: role_id,
         }
-        console.log('data', data)
         // var config = {
         //     headers:{
         //         'Accept': 'application/json',    
@@ -132,22 +133,53 @@ export default {
 
 
 
-    handleEdit({ commit }, taskSelected) {
-        commit('HANDLE_EDIT', taskSelected);
+    handleEdit({ commit }, userSelected) {
+        commit('HANDLE_EDIT', userSelected);
     },
-    handleEditTaskById({ commit, state }, taskEdit) {
-        let index = state.listTask.findIndex(item => item.id === taskEdit.id);
-        let listTaskClone = [...state.listTask];
 
-        if(index !== -1) {
-            listTaskClone.splice(index, 1, taskEdit);
-            // dispatch('toggleForm')
-            commit('TOGGLE_FORM');
-            commit('CHANGE_TASKS', listTaskClone);
+     async handleEditUserById({ commit }, { name = '', email = '', password = '', role_id = null, idUser = '' }) {
+        let data = {
+            name: name,
+            email: email,
+            password: password,
+            role_id: role_id,
+            idUser:idUser
         }
+
+        try {
+
+            var result = await axiosInstance.post(`updateUser/${data.idUser}`, data);
+            console.log('handleEditUserById', result)
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    commit('TOGGLE_FORM');
+                   // commit('CHANGE_TASKS', listTaskClone);
+                    return {
+                        ok: true,
+                        data: result.data,
+                        error: null
+                    }
+                }
+            
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+            // dispatch('toggleForm')
+          
+        
     },
 
-
+// hàm api update dinhmuc
     async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = '', idUser = ''  }) {
 
         let data = {

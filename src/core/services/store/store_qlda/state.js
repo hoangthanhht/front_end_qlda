@@ -6,9 +6,10 @@ export default {
     listDataBGia:[],
     listDataUser:[],
     listDataRole:[],
+    listDataRoleOfAllUser:[],
     currentUser: null, // Login
     users: {}, 
     stringSearch:'',
     isShowForm: false,
-    taskSelected: null
+    userSelected: null
 }
