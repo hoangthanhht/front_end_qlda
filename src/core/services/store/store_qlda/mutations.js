@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import { CONFIG_ACCESS_TOKEN } from '../../constants';
 
+
 export default {
 
     SET_USER_INFO(state, user) {
@@ -32,7 +33,7 @@ export default {
     },
 
     TOGGLE_FORM(state) {
-        
+        if(state.isShowForm) state.userSelected = null;
         // console.log("Mutation TOGGLE_FORM");
         state.isShowForm = !state.isShowForm;
     },

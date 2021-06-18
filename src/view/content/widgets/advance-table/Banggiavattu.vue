@@ -89,12 +89,12 @@
                 <!-- <th style="max-width: 50px" class="pl-7">
                   id
                 </th> -->
-                <th style="min-width: 120px">mã vật tư</th>
-                <th style="min-width: 100px">tên vật tư</th>
-                <th style="min-width: 100px">đơn vị</th>
-                <th style="min-width: 100px">nguồn</th>
-                <th style="min-width: 100px">ghi chú</th>
-                <th style="min-width: 100px">khu vực</th>
+                <th >mã vật tư</th>
+                <th style="width:30px">tên vật tư</th>
+                <th style="width:20px" >đơn vị</th>
+                <th >nguồn</th>
+                <th >ghi chú</th>
+                <th >khu vực</th>
 
                 <th style="min-width: 100px"></th>
               </tr>

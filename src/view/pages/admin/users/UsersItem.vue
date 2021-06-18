@@ -37,17 +37,17 @@ export default {
   methods: {
 	...mapActions([
 	 //actionHandleDelete: "handleDelete",
-	 "storeqlda/handleEdit"
+	 "storeqlda/handleEdit",
+	 "storeqlda/handleDeleteUserById"
 	]),
 	handleEdit() {
-		console.log('this.key',this.userId)
 	 this['storeqlda/handleEdit'](this.user);
 	},
 	handleDelete() {
+		console.log('this.userId',this.userId)
 	 if (confirm("Bạn có muốn xóa user có tên là " + this.user.name)) {
-	   // this.$emit('handleDelete', this.user);
-	   console.log("handleDelete TodoListItem.vue");
-	   this.actionHandleDelete(this.user);
+		 
+	  this['storeqlda/handleDeleteUserById'](this.userId)
 	 }
 	},
   },

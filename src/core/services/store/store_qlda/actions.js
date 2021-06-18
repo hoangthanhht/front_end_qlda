@@ -1,6 +1,8 @@
 import axiosInstance from '../../plugins/axios';
 import { CONFIG_ACCESS_TOKEN } from '../../constants';
 import { SET_AUTH } from '../store_metronic/auth.module';
+import { SET_PERSONAL_INFO } from '../store_metronic/profile.module';
+
 export default {
     async getListDataDm({ commit }) {
 
@@ -136,7 +138,7 @@ export default {
     handleEdit({ commit }, userSelected) {
         commit('HANDLE_EDIT', userSelected);
     },
-
+// call api cho update thong tin user
      async handleEditUserById({ commit }, { name = '', email = '', password = '', role_id = null, idUser = '' }) {
         let data = {
             name: name,
@@ -154,6 +156,44 @@ export default {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
                     commit('TOGGLE_FORM');
+                   // commit('CHANGE_TASKS', listTaskClone);
+                    return {
+                        ok: true,
+                        data: result.data,
+                        error: null
+                    }
+                }
+            
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+            // dispatch('toggleForm')
+          
+        
+    },
+
+
+    async handleDeleteUserById(context,  idUser ) {
+        
+    
+        console.log('handleEditUserById', idUser)
+        try {
+
+            var result = await axiosInstance.post(`deleteUser/${idUser}`);
+            console.log('handleEditUserById', result)
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                  
                    // commit('CHANGE_TASKS', listTaskClone);
                     return {
                         ok: true,
@@ -233,37 +273,7 @@ export default {
     },
 
 
-    async getUserWithId({ commit }, token = '') {
-        var config = {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token,
-            }
-        }
-
-        try {
-
-            var result = await axiosInstance.get('/details', config);
-            if (result.status === 200) {
-                commit('SET_USER_INFO', result.data.user);
-                return {
-                    ok: true,
-                    data: result.data.user,
-                    error: null
-                }
-            }
-            return {
-                ok: false,
-                error: result.message
-            }
-        } catch (error) {
-
-            return {
-                ok: false,
-                error: error.message
-            }
-        }
-    },
+    
 
     //tao bang gia vat tu.bắt buộc phải có context hoặc commit,dispath ...
     async createBaoGia(context, jsonData = '') {
@@ -388,6 +398,42 @@ export default {
         commit('SET_LOGOUT');
         return null
     },
+
+    async getUserWithId(context, token = '') {
+        var config = {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            }
+        }
+
+        try {
+
+            var result = await axiosInstance.get('/details', config);
+            if (result.status === 200) {
+                context.commit('SET_USER_INFO', result.data.user);
+                context.commit(SET_AUTH, result.data);
+                context.commit(SET_PERSONAL_INFO, result.data,{ root: true });
+                return {
+                    ok: true,
+                    data: result.data.user,
+                    error: null
+                }
+            }
+            return {
+                ok: false,
+                error: result.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+
     async checkLogin({ commit, dispatch }) {
         try {
             let tokenLocal = localStorage.getItem(CONFIG_ACCESS_TOKEN);

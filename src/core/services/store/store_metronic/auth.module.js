@@ -44,6 +44,7 @@ const actions = {
     return new Promise(resolve => {
       ApiService.post("login", credentials)
         .then(({ data }) => {
+          console.log(data);
 			context.commit(SET_AUTH, data);
 			context.commit(SET_PERSONAL_INFO, data,{ root: true });
 		  resolve(data);
@@ -56,6 +57,7 @@ const actions = {
   },
   [LOGOUT](context) {
     context.commit(PURGE_AUTH);
+    
   },
   [REGISTER](context, credentials) {
     return new Promise(resolve => {

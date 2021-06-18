@@ -24,9 +24,19 @@
 
 <script>
 import { OVERRIDE_LAYOUT_CONFIG } from "@/core/services/store/store_metronic/config.module";
-
+import { mapActions } from 'vuex';
 export default {
   name: "MetronicVue",  
+   created() {
+		this['storeqlda/checkLogin']().then((res) => {
+			if (res.ok === false)
+          this.$router.push("/login");
+        });
+	},
+  	methods: {
+		...mapActions([ 'storeqlda/checkLogin' ]),
+
+	},
   mounted() {
     /**
      * this is to override the layout config using saved data from localStorage

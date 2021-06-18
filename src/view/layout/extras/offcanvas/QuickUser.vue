@@ -269,7 +269,7 @@ import { mapGetters } from "vuex";
 import { LOGOUT } from "@/core/services/store/store_metronic/auth.module";
 import KTLayoutQuickUser from "@/assets/js/layout/extended/quick-user.js";
 import KTOffcanvas from "@/assets/js/components/offcanvas.js";
-
+import {mapActions} from 'vuex';
 export default {
   name: "KTQuickUser",
   data() {
@@ -281,17 +281,18 @@ export default {
   },
   created() {
 	   console.log(this.currentUserPersonalInfo);
-	   console.log('QuickUser comp');
   },
   mounted() {
     // Init Quick User Panel
     KTLayoutQuickUser.init(this.$refs["kt_quick_user"]);
   },
   methods: {
+    ...mapActions(['storeqlda/logout']),
     onLogout() {
       this.$store
         .dispatch(LOGOUT)
         .then(() => this.$router.push({ name: "login" }));
+      this['storeqlda/logout']();
     },
     closeOffcanvas() {
       new KTOffcanvas(KTLayoutQuickUser.getElement()).hide();

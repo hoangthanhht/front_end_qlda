@@ -37,7 +37,31 @@
           placeholder="User Password"
         />
       </div>
-      <div class="form-group">
+     
+      <button
+        v-if="userSelected === null"
+        v-on:click="handleAddNew"
+        type="button"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+      <button
+        v-else
+        v-on:click="handleEditTask"
+        type="button"
+        class="btn btn-primary"
+      >
+        Update
+      </button>
+
+      <button v-on:click="handleCancel" type="button" class="btn btn-secondary">
+        Cancel
+      </button>
+    </form>
+     <div 
+     v-if="isShowForm"
+     class="form-group">
         <label class="sr-only" for="">label</label>
         <v-app>
           <v-select
@@ -65,27 +89,6 @@
                     
                 </select> -->
       </div>
-      <button
-        v-if="userSelected === null"
-        v-on:click="handleAddNew"
-        type="button"
-        class="btn btn-primary"
-      >
-        Submit
-      </button>
-      <button
-        v-else
-        v-on:click="handleEditTask"
-        type="button"
-        class="btn btn-primary"
-      >
-        Update
-      </button>
-
-      <button v-on:click="handleCancel" type="button" class="btn btn-secondary">
-        Cancel
-      </button>
-    </form>
   </b-col>
 </template>
 
@@ -229,10 +232,59 @@ export default {
     handleResetData() {
       this.username = "";
       this.useremail = "";
+      this.select = null;
     },
   },
 };
 </script>
 
-<style>
+<style lang="scss" scope>
+.btn.btn-warning {
+    margin-right: 10px;
+}
+.v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--box .v-select__selections, .v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--enclosed .v-select__selections {
+     min-height: 30px !important;
+}
+.v-menu__content {
+    position: absolute;
+    /* display: inline-block; */
+    /* max-width: 80%; */
+    /* overflow-y: auto; */
+    /* overflow-x: hidden; */
+    /* contain: content; */
+    /* will-change: transform; */
+    /* -webkit-box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%); */
+    box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+    border-radius: 4px;
+    left: 12px !important;
+    top: 216px !important;
+}
+.v-application--wrap {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-height: 0 !important;
+    max-width: 100%;
+    position: relative;
+}
+.form-inline {
+  padding-bottom: 20px;
+}
+@media (min-width: 992px) {
+
+.col-lg-6 {
+    -webkit-box-flex: 0;
+    flex: 0 0 100%;
+    max-width: 100% !important;
+}
+}
 </style>
