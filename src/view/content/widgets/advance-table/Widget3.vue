@@ -54,6 +54,7 @@
                   </td> -->
                   <td>
                     <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickMaDM"
                       class="ma_dinh_muc text-muted font-weight-bold"
                       >{{ item.maDinhMuc }}</span
@@ -61,6 +62,7 @@
                   </td>
                   <td>
                     <span
+                     @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="ten_ma_dinh_muc text-muted font-weight-bold"
                       >{{ item.tenMaDinhMuc }}</span
@@ -69,6 +71,7 @@
                   <td>
                     <textarea
                       :value="noteDM(index)"
+                      @blur="handleSave($event, index)"
                       class="area_notes"
                       name=""
                       id=""
@@ -86,7 +89,7 @@
                       >Edit</a
                     >
                   </td> -->
-                  <td class="pr-0 text-right">
+                  <!-- <td class="pr-0 text-right">
                     <a
                       v-on:click="handleSave($event, index)"
                       class="
@@ -95,7 +98,7 @@
                       "
                       >Save</a
                     >
-                  </td>
+                  </td> -->
                 </tr>
               </template>
             </tbody>
@@ -161,6 +164,7 @@ export default {
       return this.dataArr[index].ghiChuDinhMuc;
     },
     handleSave(e, index) {
+      console.log('save');
       //var a = document.querySelector('.textthanh')
       //console.log(this.dataArr[index].id);
       var elParentLarge = this.getParentSelect(e.target, ".row_table_note");
@@ -175,12 +179,12 @@ export default {
         tenMaDinhMuc: tenMaDinhMuc,
         noteDinhMuc: noteDinhMuc,
         idDinhMuc: idDinhMuc,
-		idUser:idUser
+		    idUser:idUser
       };
 
       // this.$store.dispatch('storeqlda/updateDataWithId', data);
       this["storeqlda/updateDataWithId"](data).then((data) => {
-        console.log("newdata", data);
+
         if (data.ok === false) {
           alert(data.error);
         }

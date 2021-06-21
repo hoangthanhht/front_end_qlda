@@ -225,7 +225,7 @@ export default {
         let data = {
             maDinhMuc: maDinhMuc,
             tenMaDinhMuc: tenMaDinhMuc,
-            ghiChuDinhMuc: noteDinhMuc,
+            donVi: noteDinhMuc,
             id: idDinhMuc,
             idUser:idUser
         }
@@ -238,7 +238,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`updateDataDm/${data.id}/${data.idUser}`, data);
-            console.log('result', result)
+  
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -268,6 +268,62 @@ export default {
         }
     },
 
+
+    async updateDataGiaVatTuWithId(context, { maVatTu = '', tenVatTu = '', donVi = '', 
+    giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idDinhMuc =''}) {
+
+        let data = {
+            maVatTu: maVatTu,
+            tenVatTu: tenVatTu,
+            donVi: donVi,
+            giaVatTu: giaVatTu,
+            nguon: nguon,
+            ghiChu: ghiChu,
+            tinh: tinh,
+            tacGia: tacGia,
+            id: idDinhMuc,
+            
+        }
+        // var config = {
+        //     headers:{
+        //         'Accept': 'application/json',    
+        //     }
+        // }
+
+        try {
+
+            var result = await axiosInstance.post(`updateDataGiaVatTu/${data.id}`, data);
+       
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    return {
+                        ok: true,
+                        data: result.data.user,
+                        error: null
+                    }
+                }
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                }
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+
     handleSearch({ commit }, stringSearch) {
         commit('HANDLE_SEARCH', stringSearch)
     },
@@ -276,12 +332,14 @@ export default {
     
 
     //tao bang gia vat tu.bắt buộc phải có context hoặc commit,dispath ...
-    async createBaoGia(context, jsonData = '') {
+    async createBaoGia(context, {tempFinalRs = '',idUserImport = '',agreeOverride = 0}) {
         try {
             let data = {
-                jsonData: jsonData,
+                jsonData: tempFinalRs,
+                idUserImport:idUserImport,
+                agreeOverride:agreeOverride
             }
-            var result = await axiosInstance.post('/createGiaVT', data);
+            var result = await axiosInstance.post(`/createGiaVT/${data.idUserImport}/${data.agreeOverride}`, data);
             console.log('result', result);
 
             // commit('SET_LOADING', false);

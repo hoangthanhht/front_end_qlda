@@ -104,7 +104,7 @@ export default new Router({
 						}
 					},
 					meta: {
-						requiredRoles: ['Admin','Manage','SuperAdmin']
+						requiredRoles: ['SuperAdmin']
 					}
 				},
 							
