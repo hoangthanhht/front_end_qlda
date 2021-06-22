@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from "@/core/services/store";
+//import store from "@/core/services/store";
 Vue.use(Router);
 
 export default new Router({
@@ -81,55 +81,64 @@ export default new Router({
 					path: "/dsnhanvien",
 					name: "dsnhanvien",
 					component: () => import("@/view/pages/Danhsachnhanvien.vue"),
-					beforeEnter: (to, from, next) =>  {
-						let check = false;
-						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						console.log('userSlug',userSlug);
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
-							}
-						}
+					// beforeEnter: (to, from, next) =>  {
+					// 	let check = false;
+					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
+					// 	console.log('userSlug',userSlug);
+					// 	for(var i in userSlug)
+					// 	{
+					// 		//slugUser.push(userSlug[i]);
+					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
+					// 			check = true;
+					// 			break;
+					// 		}
+					// 	}
 
-						if (check === true) {
-							next()
-						} else {
+					// 	if (check === true) {
+					// 		next()
+					// 	} else {
 							
-							next({
-								path: "error-3"
-							})
-						}
-					},
-					meta: {
-						requiredRoles: ['SuperAdmin']
-					}
+					// 		next({
+					// 			path: "error-3"
+					// 		})
+					// 	}
+					// },
+					// meta: {
+					// 	requiredRoles: ['SuperAdmin']
+					// }
 				},
-							
-			],
-			// beforeEnter: (to, from, next) =>  {
-			// 	let check = false;
-			// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-			// 	for(var i in userSlug)
-			// 	{
-			// 		//slugUser.push(userSlug[i]);
-			// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-			// 			check = true;
-			// 			break;
-			// 		}
-			// 	}
+				{
+					path: "/dsvaitro",
+					name: "dsvaitro",
+					component: () => import("@/view/pages/Danhsachvaitro.vue"),
+					// beforeEnter: (to, from, next) =>  {
+					// 	let check = false;
+					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						
+					// 	for(var i in userSlug)
+					// 	{
+					// 		//slugUser.push(userSlug[i]);
+					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
+					// 			check = true;
+					// 			break;
+					// 		}
+					// 	}
 
-			// 	if (check === true) {
-			// 		next()
-			// 	} else {
-			// 		alert('Bạn không được truy cập vào trang này.')
-			// 		next({
-			// 			path: '/'
-			// 		})
-			// 	}
-			// },
+					// 	if (check === true) {
+					// 		next()
+					// 	} else {
+							
+					// 		next({
+					// 			path: "error-3"
+					// 		})
+					// 	}
+					// },
+					// meta: {
+					// 	requiredRoles: ['SuperAdmin']
+					// }
+				},			
+			],
+	
 		},
 		{
 			path: "/custom-error",

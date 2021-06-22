@@ -16,7 +16,8 @@
         </div>
         <input
          :value="stringSearch"
-          v-on:input="handleSearch"
+          @input="handleSearch"
+        
           type="text"
           class="form-control quick-search-input"
           placeholder="Search..."
@@ -58,6 +59,9 @@ export default {
     }),
   },
   methods: {
+    // handleBlur() {
+    //   this.$store.dispatch('storeqlda/handleBlurSearch',"")
+    // },
     handleSearch(e) {
       this.$store.dispatch('storeqlda/handleSearch',e.target.value)
     },

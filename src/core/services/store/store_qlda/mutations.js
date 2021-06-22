@@ -54,6 +54,9 @@ export default {
     },
     HANDLE_SEARCH(state,stringSearch){
         state.stringSearch = stringSearch
+    },
+    HANDLE_BLUR_SEARCH(state,stringSearch){
+        state.stringSearch = stringSearch
     }
 }
 

@@ -3,7 +3,7 @@
         <button 
             v-if="!isShowForm"
             v-on:click="toggleForm"
-            type="button" class="btn btn-info btn-block">Add User</button>
+            type="button" class="btn btn-info btn-block">Add Role</button>
         <button 
             v-else
             v-on:click="toggleForm"

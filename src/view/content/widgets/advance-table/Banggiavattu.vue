@@ -120,7 +120,9 @@
     </div> -->
     <!--end::Header-->
     <!--begin::Body-->
-    <div class="card-body pt-0 pb-3">
+
+	<!--phan de hien thi ket qua tim kiem-->
+<div  v-if="stringSearch" class="card-body pt-0 pb-3">
       <div class="tab-content">
         <!--begin::Table-->
         <div class="table-responsive">
@@ -141,17 +143,15 @@
                 <th>mã vật tư</th>
                 <th>tên vật tư</th>
                 <th>đơn vị</th>
-                <th >giá</th>
-                <th >nguồn</th>
+                <th>giá</th>
+                <th>nguồn</th>
                 <th>ghi chú</th>
                 <th>tỉnh</th>
                 <th>người đăng</th>
-
-                <th style="min-width: 100px"></th>
               </tr>
             </thead>
-            <tbody v-if="dataArr.length !== 0">
-              <template v-for="(item, index) in dataArr">
+            <tbody v-if="dataArrBaoGiaSerch.length !== 0">
+              <template v-for="(item, index) in dataArrBaoGiaSerch">
                 <tr v-bind:key="index" class="row_table_note">
                   <!-- <td contenteditable="true">
 						<span class="text-muted font-weight-bold">{{item.id}}
@@ -159,60 +159,72 @@
                   </td> -->
                   <td>
                     <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickMaDM"
                       class="ma_vat_tu text-muted font-weight-bold"
-                      >{{ item.maVatTu }}</span
+                      >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="ten_vat_tu text-muted font-weight-bold"
-                      >{{ item.tenVatTu }}</span
+                      >{{
+                        item.tenVatTu !== null ? item.tenVatTu : "null"
+                      }}</span
                     >
                   </td>
                   <td>
                     <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="don_vi text-muted font-weight-bold"
-                      >{{ item.donVi }}</span
-                    >
-                  </td>
-				  <td>
-                    <span
-                      v-on:click="hadleClickTenMaDM"
-                      class="gia_vat_tu text-muted font-weight-bold"
-                      >{{ item.giaVatTu }}</span
+                      >{{ item.donVi !== null ? item.donVi : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="gia_vat_tu text-muted font-weight-bold"
+                      >{{
+                        item.giaVatTu !== null ? item.giaVatTu : "null"
+                      }}</span
+                    >
+                  </td>
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="nguon text-muted font-weight-bold"
-                      >{{ item.nguon }}</span
+                      >{{ item.nguon !== null ? item.nguon : "null" }}</span
                     >
                   </td>
                   <td v-if="item.ghiChu">
                     <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="ghi_chu text-muted font-weight-bold"
-                      >{{ item.ghiChu }}</span
+                      >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
                     >
                   </td>
 
                   <td>
                     <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="tinh text-muted font-weight-bold"
-                      >{{ item.tinh }}</span
+                      >{{ item.tinh !== null ? item.tinh : "null" }}</span
                     >
                   </td>
 
-				     <td>
+                  <td>
                     <span
+                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="tac_gia text-muted font-weight-bold"
-                      >{{ item.tacGia }}</span
+                      >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
                     >
                   </td>
                   <!-- 
@@ -222,8 +234,9 @@
                       >Edit</a
                     >
                   </td> -->
-                  <td class="pr-0 text-right">
+                  <!-- <td class="pr-0 text-right">
                     <a
+                    @blur="handleSave($event, index)"
                       v-on:click="handleSave($event, index)"
                       class="
                         btn btn-light-success
@@ -231,7 +244,143 @@
                       "
                       >Save</a
                     >
+                  </td> -->
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+        <!--end::Table-->
+      </div>
+    </div>
+
+
+<!-- ket thuc hien thi kq tim kiem -->
+
+
+    <div v-else class="card-body pt-0 pb-3">
+      <div class="tab-content">
+        <!--begin::Table-->
+        <div class="table-responsive">
+          <table
+            class="
+              table
+              table-head-custom
+              table-vertical-center
+              table-head-bg
+              table-borderless
+            "
+          >
+            <thead>
+              <tr class="text-left">
+                <!-- <th style="max-width: 50px" class="pl-7">
+                  id
+                </th> -->
+                <th>mã vật tư</th>
+                <th>tên vật tư</th>
+                <th>đơn vị</th>
+                <th>giá</th>
+                <th>nguồn</th>
+                <th>ghi chú</th>
+                <th>tỉnh</th>
+                <th>người đăng</th>
+              </tr>
+            </thead>
+            <tbody v-if="dataArr.length !== 0">
+              <template v-for="(item, index) in dataArrBaoGia">
+                <tr v-bind:key="index" class="row_table_note">
+                  <!-- <td contenteditable="true">
+						<span class="text-muted font-weight-bold">{{item.id}}
+                		</span>
+                  </td> -->
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickMaDM"
+                      class="ma_vat_tu text-muted font-weight-bold"
+                      >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
+                    >
                   </td>
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="ten_vat_tu text-muted font-weight-bold"
+                      >{{
+                        item.tenVatTu !== null ? item.tenVatTu : "null"
+                      }}</span
+                    >
+                  </td>
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="don_vi text-muted font-weight-bold"
+                      >{{ item.donVi !== null ? item.donVi : "null" }}</span
+                    >
+                  </td>
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="gia_vat_tu text-muted font-weight-bold"
+                      >{{
+                        item.giaVatTu !== null ? item.giaVatTu : "null"
+                      }}</span
+                    >
+                  </td>
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="nguon text-muted font-weight-bold"
+                      >{{ item.nguon !== null ? item.nguon : "null" }}</span
+                    >
+                  </td>
+                  <td v-if="item.ghiChu">
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="ghi_chu text-muted font-weight-bold"
+                      >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
+                    >
+                  </td>
+
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="tinh text-muted font-weight-bold"
+                      >{{ item.tinh !== null ? item.tinh : "null" }}</span
+                    >
+                  </td>
+
+                  <td>
+                    <span
+                      @blur="handleSave($event, index)"
+                      v-on:click="hadleClickTenMaDM"
+                      class="tac_gia text-muted font-weight-bold"
+                      >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
+                    >
+                  </td>
+                  <!-- 
+                  <td class="pr-0 text-right">
+                    <a
+                      class="btn btn-light-success font-weight-bolder font-size-sm"
+                      >Edit</a
+                    >
+                  </td> -->
+                  <!-- <td class="pr-0 text-right">
+                    <a
+                    @blur="handleSave($event, index)"
+                      v-on:click="handleSave($event, index)"
+                      class="
+                        btn btn-light-success
+                        font-weight-bolder font-size-sm
+                      "
+                      >Save</a
+                    >
+                  </td> -->
                 </tr>
               </template>
             </tbody>
@@ -241,6 +390,19 @@
       </div>
     </div>
     <!--end::Body-->
+  <b-pagination v-model="currentPage" 
+  align="right"
+  pills 
+  @page-click="dataArr(currentPage)"
+  perPage="20"
+  :total-rows="rows" size="lg">
+  </b-pagination>
+    <!-- <Pagination
+      v-bind:pagination="pagination"
+      v-on:click.native="dataArr(pagination.current_page)"
+      :offset="4"
+    ></Pagination> -->
+
   </div>
   <!--end::Advance Table Widget 9-->
 </template>
@@ -248,14 +410,19 @@
 <script>
 import Excel from "exceljs";
 //import Excel from "exceljs/dist/es5/exceljs.browser";
-import { mapActions, mapGetters } from "vuex";
+//import Pagination from "../../../pages/plugins/Pagination.vue";
+import { mapActions, mapGetters,mapState } from "vuex";
 import { removeVietnameseTones } from "../../../../core/services/helpers";
 //import Formfile from '@/view/pages/vue-bootstrap/FormFile.vue'
 export default {
   name: "gia_vat_tu",
-  components: {},
+  components: {
+    //Pagination,
+  },
   data() {
     return {
+	  rows: 100,
+	  currentPage:1,
       isMonthDisabled: false,
       isQuyDisabled: false,
       isDayDisabled: false,
@@ -302,17 +469,28 @@ export default {
         { value: "QuyIII", text: "Quy 3" },
         { value: "QuyIV", text: "Quy 4" },
       ],
+	   dataArrBaoGia:[],
+              
     };
   },
   created() {
-    this["storeqlda/getListDataBaoGia"](); // khi load lai trang
+    this["storeqlda/getAllListDataBaoGia"](); // khi load lai trang
   },
   mounted() {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
+	 //this.dataArr(this.pagination.current_page);
+	  this.dataArr(this.currentPage);
   },
   computed: {
-    ...mapGetters(["storeqlda/getListDataBGia", "storeqlda/arrBaoGiaSearch","currentUserPersonalInfo"]),
-    dataArr() {
+	   ...mapState({
+      stringSearch: state=>state.storeqlda.stringSearch,// rieng doi voi map state thi phai dùng như này để  lấy state
+    }),
+    ...mapGetters([
+      "storeqlda/getListDataBGia",// phuc vu viec search
+      "storeqlda/arrBaoGiaSearch",
+      "currentUserPersonalInfo",
+    ]),
+    dataArrBaoGiaSerch() {
       return this["storeqlda/arrBaoGiaSearch"];
     },
   },
@@ -339,7 +517,6 @@ export default {
       }
     },
     selectedDay: function () {
-     
       if (this.selectedDay) {
         this.isQuyDisabled = true;
         this.isMonthDisabled = true;
@@ -348,19 +525,35 @@ export default {
         this.isMonthDisabled = false;
       }
     },
-	selectedTinh: function (newdt) {
-       console.log("newdtday", newdt);
+    selectedTinh: function (newdt) {
+      console.log("newdtday", newdt);
     },
   },
   methods: {
-    ...mapActions(["storeqlda/getListDataBaoGia", "storeqlda/createBaoGia","storeqlda/updateDataGiaVatTuWithId"]),
+    ...mapActions([
+      "storeqlda/getAllListDataBaoGia",
+      "storeqlda/getListDataBaoGiaHasPaging",
+      "storeqlda/createBaoGia",
+      "storeqlda/updateDataGiaVatTuWithId",
+    ]),
+	 dataArr (page) {
+                this["storeqlda/getListDataBaoGiaHasPaging"](page)
+                    .then((response) => {
+                        this.dataArrBaoGia = response.data.data
+                        this.pagination = response.data
+						this.rows = response.data.total
+                    })
+            },
     handleChange(event) {
       this.selectedFile = event.target.files[0];
     },
     importExcelBaoGia() {
-		
-      if (this.selectedFile && this.selectedTinh && this.selectedKhuVuc 
-	  && (this.selectedDay||this.selectedThang||this.selectedQuy)) {
+      if (
+        this.selectedFile &&
+        this.selectedTinh &&
+        this.selectedKhuVuc &&
+        (this.selectedDay || this.selectedThang || this.selectedQuy)
+      ) {
         var workbook = new Excel.Workbook();
         let arrHeader = [];
         //let arrDataJson =[];
@@ -387,18 +580,27 @@ export default {
               let title = arrHeader[0];
               // lặp qua từng phần tử và làm gì đó với nó trong mảng dung map
               title = title.map(function (item) {
-				  return removeVietnameseTones(item)
+                return removeVietnameseTones(item)
                   .replace(/ /g, "")
                   .toLowerCase();
               });
-			  
-			  var headerGiaVt = ["mavattu", "tenvattu", "donvi", "giavattu", "nguon", "ghichu", "tinh","tacgia"];
-              worksheet.eachRow( (row) => {
-                row.eachCell({ includeEmpty: true },  (cell, number)=> {
+
+              var headerGiaVt = [
+                "mavattu",
+                "tenvattu",
+                "donvi",
+                "giavattu",
+                "nguon",
+                "ghichu",
+                "tinh",
+                "tacgia",
+              ];
+              worksheet.eachRow((row) => {
+                row.eachCell({ includeEmpty: true }, (cell, number) => {
                   console.log("cell", number, "=", cell.value);
                   console.log("null");
                   if (number <= title.length) {
-                      let tempPrice = "";
+                    let tempPrice = "";
                     if (title[index] === "giavattu") {
                       if (!this.isMonthDisabled) {
                         tempPrice = this.selectedThang;
@@ -414,28 +616,27 @@ export default {
                       index++;
                       tempPrice = "";
                     } else {
-
-					  temp = `"${title[index]}":"${cell.value}",`;
+                      temp = `"${title[index]}":"${cell.value}",`;
                       tempRs = tempRs + temp;
                       index++;
                       tempPrice = "";
-					}
+                    }
                   }
                 });
                 //tempRs = tempRs.substring(0, tempRs.length - 1); // bỏ dáu ngăn cách , ở cuối
-				
-				temp = `"tinh":"${this.selectedTinh}"`
-				tempRs = tempRs + temp;
+
+                temp = `"tinh":"${this.selectedTinh}"`;
+                tempRs = tempRs + temp;
                 tempRs = `{${tempRs}},`; // 1 obj của 1 dòng
                 tempFinalRs = tempFinalRs + tempRs;
                 tempRs = "";
-                index = 0;// đưa veeg 0 để bắt đầu hàng mới
+                index = 0; // đưa veeg 0 để bắt đầu hàng mới
               });
-			  console.log(tempFinalRs)
+              console.log(tempFinalRs);
               tempFinalRs = tempFinalRs.substring(0, tempFinalRs.length - 1); // string của cả bảng tính
               tempFinalRs = `[${tempFinalRs}]`;
               var arrTemp = JSON.parse(tempFinalRs);
-			console.log(arrTemp)
+              console.log(arrTemp);
               arrTemp.shift(); // bỏ đi thằng dòng đầu tiên là tiêu đề
               // lặp qua để xem còn file đọc vào có dòng tiêu đề thiếu những cột nào so với cột chuẩn
               for (var i in arrTemp) {
@@ -448,33 +649,39 @@ export default {
                   }
                 }
               }
-				  tempFinalRs = JSON.stringify(arrTemp);
-			  	  let dataImport = {
-				  tempFinalRs:tempFinalRs,
-				  idUserImport : this.currentUserPersonalInfo.user.id,
-				  agreeOverride:1
-			  }
+              tempFinalRs = JSON.stringify(arrTemp);
+              let dataImport = {
+                tempFinalRs: tempFinalRs,
+                idUserImport: this.currentUserPersonalInfo.user.id,
+                agreeOverride: 1,
+              };
 
-              this["storeqlda/createBaoGia"](dataImport).then((data)=>{
-				  console.log('data lan 1',data);
-				  if(data.data.exist === true) {
-					   if (confirm("Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?")) {
-						dataImport = {
-								tempFinalRs:tempFinalRs,
-								idUserImport : this.currentUserPersonalInfo.user.id,
-								agreeOverride:0
-							}
-						 this["storeqlda/createBaoGia"](dataImport)
-						}
-				  }
-			  });
+              this["storeqlda/createBaoGia"](dataImport).then((data) => {
+                console.log("data lan 1", data);
+                if (data.data.exist === true) {
+                  if (
+                    confirm(
+                      "Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?"
+                    )
+                  ) {
+                    dataImport = {
+                      tempFinalRs: tempFinalRs,
+                      idUserImport: this.currentUserPersonalInfo.user.id,
+                      agreeOverride: 0,
+                    };
+                    this["storeqlda/createBaoGia"](dataImport);
+                  }
+                }
+              });
             })
             .catch((err) => {
               console.log(err);
             });
         };
       } else {
-        alert("Bạn chưa chọn file import dữ liệu, hoặc bạn chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày");
+        alert(
+          "Bạn chưa chọn file import dữ liệu, hoặc bạn chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
+        );
       }
       //document.getElementById("jsondata").innerHTML = JSON.stringify(row.value,undefined,4);
       //}).catch(err => console.log(`Caught by .catch ${err}`));
@@ -494,7 +701,7 @@ export default {
     hadleClickTenMaDM(e) {
       e.target.setAttribute("contenteditable", "true");
     },
-  
+
     handleSave(e, index) {
       //var a = document.querySelector('.textthanh')
       //console.log(this.dataArr[index].id);
@@ -508,22 +715,24 @@ export default {
       var tinh = elParentLarge.querySelector(".tinh").innerText;
       var tacGia = elParentLarge.querySelector(".tac_gia").innerText;
 
-      var idDinhMuc = this.dataArr[index].id;
+      var idVatTu = this.dataArrBaoGia[index].id;
 
       var data = {
         maVatTu: maVatTu,
         tenVatTu: tenVatTu,
         donVi: donVi,
         giaVatTu: giaVatTu,
-        nguon: nguon,
         ghiChu: ghiChu,
+        nguon: nguon,
         tinh: tinh,
         tacGia: tacGia,
-        idDinhMuc: idDinhMuc,
+        idVatTu: idVatTu,
       };
 
       // this.$store.dispatch('storeqlda/updateDataWithId', data);
-      this["storeqlda/updateDataGiaVatTuWithId"](data);
+      this["storeqlda/updateDataGiaVatTuWithId"](data).then(()=>{
+		  this["storeqlda/getAllListDataBaoGia"]();
+	  });
 
       //   console.log('tenMaDinhMuc',tenMaDinhMuc);
       //   console.log('noteDinhMuc',noteDinhMuc);

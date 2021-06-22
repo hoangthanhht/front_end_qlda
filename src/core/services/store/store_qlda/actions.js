@@ -4,7 +4,9 @@ import { SET_AUTH } from '../store_metronic/auth.module';
 import { SET_PERSONAL_INFO } from '../store_metronic/profile.module';
 
 export default {
-    async getListDataDm({ commit }) {
+
+    
+    async getAllListDataDm({ commit }) {
 
         var config = {
             headers: {
@@ -20,7 +22,7 @@ export default {
 
         try {
 
-            var result = await axiosInstance.get('/getDataTableDm', config);
+            var result = await axiosInstance.get('/getAllDataTableDm', config);
             commit('SET_LIST_DATADM', result.data.data)
             //console.log("error",result.data.data);
         } catch (error) {
@@ -28,7 +30,7 @@ export default {
         }
     },
 
-    async getListDataBaoGia({ commit }) {
+    async getListDataDmHasPaging(context,page) {
 
         var config = {
             headers: {
@@ -44,14 +46,98 @@ export default {
 
         try {
 
-            var result = await axiosInstance.get('/getDataTableBaoGia', config);
-            commit('SET_LIST_DATABGIA', result.data.data)
+            var result = await axiosInstance.get('/getDataTableDm?page='+page, config);
+            return result
             //console.log("error",result.data.data);
         } catch (error) {
             console.log("error", error);
         }
     },
 
+    
+
+    async getAllListDataBaoGia({ commit }) {
+
+        var config = {
+            headers: {
+                'Accept': 'application/json',
+                //'Authorization' :'Bearer ' + token,
+            }
+        }
+
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
+
+        try {
+
+            var result = await axiosInstance.get('/getAllDataTableGiaVT', config);
+            console.log('getAllListDataBaoGia',result);
+            commit('SET_LIST_DATABGIA', result.data.data)
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+
+
+    async getListDataBaoGiaHasPaging( context ,page) {
+
+        var config = {
+            headers: {
+                'Accept': 'application/json',
+                //'Authorization' :'Bearer ' + token,
+            }
+        }
+
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
+
+        try {
+
+            var result = await axiosInstance.get('/getDataTableBaoGia?page='+page, config);
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+
+    
+
+    async getListDataRole({ commit }) {
+
+        var config = {
+            headers: {
+                'Accept': 'application/json',
+                //'Authorization' :'Bearer ' + token,
+            }
+        }
+
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
+
+        try {
+
+            var result = await axiosInstance.get('/getDataTableRole', config);
+            console.log("result", result);
+            commit('SET_LIST_DATAUSER', result.data.user);
+            commit('SET_LIST_DATAROLE', result.data.role);
+            commit('SET_LIST_DATA_ROLE_OF_ALL_USER', result.data.role_of_all_user);
+            
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
 
     async getListDataUser({ commit }) {
 
@@ -225,7 +311,7 @@ export default {
         let data = {
             maDinhMuc: maDinhMuc,
             tenMaDinhMuc: tenMaDinhMuc,
-            donVi: noteDinhMuc,
+            ghiChuDinhMuc: noteDinhMuc,
             id: idDinhMuc,
             idUser:idUser
         }
@@ -270,7 +356,7 @@ export default {
 
 
     async updateDataGiaVatTuWithId(context, { maVatTu = '', tenVatTu = '', donVi = '', 
-    giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idDinhMuc =''}) {
+    giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu =''}) {
 
         let data = {
             maVatTu: maVatTu,
@@ -281,7 +367,7 @@ export default {
             ghiChu: ghiChu,
             tinh: tinh,
             tacGia: tacGia,
-            id: idDinhMuc,
+            id: idVatTu,
             
         }
         // var config = {
@@ -328,6 +414,9 @@ export default {
         commit('HANDLE_SEARCH', stringSearch)
     },
 
+    handleBlurSearch({ commit }, stringSearch) {
+        commit('HANDLE_BLUR_SEARCH', stringSearch)
+    },
 
     
 
