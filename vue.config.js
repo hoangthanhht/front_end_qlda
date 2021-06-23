@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   publicPath:
-    process.env.NODE_ENV === "production" ? "/dist/" : "/",
+    process.env.NODE_ENV === "production" ? "/dist" : "/",
   configureWebpack: {
     resolve: {
       alias: {
