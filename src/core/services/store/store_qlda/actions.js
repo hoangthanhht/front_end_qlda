@@ -5,7 +5,7 @@ import { SET_PERSONAL_INFO } from '../store_metronic/profile.module';
 
 export default {
 
-    
+
     async getAllListDataDm({ commit }) {
 
         var config = {
@@ -30,7 +30,7 @@ export default {
         }
     },
 
-    async getListDataDmHasPaging(context,page) {
+    async getListDataDmHasPaging(context, page) {
 
         var config = {
             headers: {
@@ -46,7 +46,7 @@ export default {
 
         try {
 
-            var result = await axiosInstance.get('/getDataTableDm?page='+page, config);
+            var result = await axiosInstance.get('/getDataTableDm?page=' + page, config);
             return result
             //console.log("error",result.data.data);
         } catch (error) {
@@ -54,7 +54,7 @@ export default {
         }
     },
 
-    
+
 
     async getAllListDataBaoGia({ commit }) {
 
@@ -73,7 +73,7 @@ export default {
         try {
 
             var result = await axiosInstance.get('/getAllDataTableGiaVT', config);
-            console.log('getAllListDataBaoGia',result);
+            console.log('getAllListDataBaoGia', result);
             commit('SET_LIST_DATABGIA', result.data.data)
             return result
 
@@ -84,7 +84,7 @@ export default {
     },
 
 
-    async getListDataBaoGiaHasPaging( context ,page) {
+    async getListDataBaoGiaHasPaging(context, page) {
 
         var config = {
             headers: {
@@ -100,7 +100,7 @@ export default {
 
         try {
 
-            var result = await axiosInstance.get('/getDataTableBaoGia?page='+page, config);
+            var result = await axiosInstance.get('/getDataTableBaoGia?page=' + page, config);
             return result
 
             //console.log("error",result.data.data);
@@ -109,7 +109,7 @@ export default {
         }
     },
 
-    
+
 
     async getListDataRole({ commit }) {
 
@@ -132,7 +132,7 @@ export default {
             commit('SET_LIST_DATAUSER', result.data.user);
             commit('SET_LIST_DATAROLE', result.data.role);
             commit('SET_LIST_DATA_ROLE_OF_ALL_USER', result.data.role_of_all_user);
-            
+
             //console.log("error",result.data.data);
         } catch (error) {
             console.log("error", error);
@@ -159,7 +159,9 @@ export default {
             console.log("result", result);
             commit('SET_LIST_DATAUSER', result.data.user);
             commit('SET_LIST_DATAROLE', result.data.role);
+            commit('SET_LIST_DATA_PERMISSION', result.data.permission);
             commit('SET_LIST_DATA_ROLE_OF_ALL_USER', result.data.role_of_all_user);
+            commit('SET_LIST_DATA_PERMISSION_OF_ALL_USER', result.data.permission_of_all_user);
             
             //console.log("error",result.data.data);
         } catch (error) {
@@ -172,13 +174,14 @@ export default {
         commit('TOGGLE_FORM');
     },
 
-    async handleAddNewUser(context, { name = '', email = '', password = '', role_id = null }) {
+    async handleAddNewUser(context, { name = '', email = '', password = '', role_id = null, permission_id = null }) {
 
         let data = {
             name: name,
             email: email,
             password: password,
             role_id: role_id,
+            permission_id: permission_id,
         }
         // var config = {
         //     headers:{
@@ -220,18 +223,69 @@ export default {
     },
 
 
+    async handleAddNewRole(context, { name = '', slug = '' }) {
 
+        let data = {
+            name: name,
+            slug: slug,
+
+        }
+        // var config = {
+        //     headers:{
+        //         'Accept': 'application/json',    
+        //     }
+        // }
+
+        try {
+
+            var result = await axiosInstance.post(`createRole`, data);
+            console.log('result', result)
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    return {
+                        ok: true,
+                        data: result.data.user,
+                        error: null
+                    }
+                }
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                }
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+    // dung cai nay cho chinh sua user
     handleEdit({ commit }, userSelected) {
         commit('HANDLE_EDIT', userSelected);
     },
-// call api cho update thong tin user
-     async handleEditUserById({ commit }, { name = '', email = '', password = '', role_id = null, idUser = '' }) {
+
+    handleEditRole({ commit }, roleSelected) {
+        commit('HANDLE_EDIT_ROLE', roleSelected);
+    },
+    // call api cho update thong tin user
+    async handleEditUserById({ commit }, { name = '', email = '', password = '', role_id = null, permission_id = null, idUser = '' }) {
         let data = {
             name: name,
             email: email,
             password: password,
             role_id: role_id,
-            idUser:idUser
+            permission_id:permission_id,
+            idUser: idUser
         }
 
         try {
@@ -242,14 +296,14 @@ export default {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
                     commit('TOGGLE_FORM');
-                   // commit('CHANGE_TASKS', listTaskClone);
+                    // commit('CHANGE_TASKS', listTaskClone);
                     return {
                         ok: true,
                         data: result.data,
                         error: null
                     }
                 }
-            
+
             }
             return {
                 ok: false,
@@ -262,15 +316,91 @@ export default {
                 error: error.message
             }
         }
-            // dispatch('toggleForm')
-          
-        
+        // dispatch('toggleForm')
+
+
     },
 
 
-    async handleDeleteUserById(context,  idUser ) {
-        
-    
+    async handleEditRoleById({ commit }, { slug = '', name = '', role_id = '' }) {
+        let data = {
+            name: name,
+            slug: slug,
+            role_id: role_id,
+        }
+
+        try {
+
+            var result = await axiosInstance.post(`updateRole/${data.role_id}`, data);
+            console.log('handleEditUserById', result)
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    commit('TOGGLE_FORM');
+                    // commit('CHANGE_TASKS', listTaskClone);
+                    return {
+                        ok: true,
+                        data: result.data,
+                        error: null
+                    }
+                }
+
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+        // dispatch('toggleForm')
+
+
+    },
+
+
+    async handleDeleteRoleById(context, idRole) {
+
+        try {
+
+            var result = await axiosInstance.post(`deleteRole/${idRole}`);
+            console.log('handleEditUserById', result)
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+
+                    // commit('CHANGE_TASKS', listTaskClone);
+                    return {
+                        ok: true,
+                        data: result.data,
+                        error: null
+                    }
+                }
+
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+        // dispatch('toggleForm')
+
+
+    },
+
+    async handleDeleteUserById(context, idUser) {
+
+
         console.log('handleEditUserById', idUser)
         try {
 
@@ -279,15 +409,15 @@ export default {
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
-                  
-                   // commit('CHANGE_TASKS', listTaskClone);
+
+                    // commit('CHANGE_TASKS', listTaskClone);
                     return {
                         ok: true,
                         data: result.data,
                         error: null
                     }
                 }
-            
+
             }
             return {
                 ok: false,
@@ -300,20 +430,20 @@ export default {
                 error: error.message
             }
         }
-            // dispatch('toggleForm')
-          
-        
+        // dispatch('toggleForm')
+
+
     },
 
-// hàm api update dinhmuc
-    async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = '', idUser = ''  }) {
+    // hàm api update dinhmuc
+    async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = '', idUser = '' }) {
 
         let data = {
             maDinhMuc: maDinhMuc,
             tenMaDinhMuc: tenMaDinhMuc,
             ghiChuDinhMuc: noteDinhMuc,
             id: idDinhMuc,
-            idUser:idUser
+            idUser: idUser
         }
         // var config = {
         //     headers:{
@@ -324,7 +454,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`updateDataDm/${data.id}/${data.idUser}`, data);
-  
+
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -355,8 +485,8 @@ export default {
     },
 
 
-    async updateDataGiaVatTuWithId(context, { maVatTu = '', tenVatTu = '', donVi = '', 
-    giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu =''}) {
+    async updateDataGiaVatTuWithId(context, { maVatTu = '', tenVatTu = '', donVi = '',
+        giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
 
         let data = {
             maVatTu: maVatTu,
@@ -368,7 +498,7 @@ export default {
             tinh: tinh,
             tacGia: tacGia,
             id: idVatTu,
-            
+            idUser: idUser
         }
         // var config = {
         //     headers:{
@@ -378,8 +508,8 @@ export default {
 
         try {
 
-            var result = await axiosInstance.post(`updateDataGiaVatTu/${data.id}`, data);
-       
+            var result = await axiosInstance.post(`updateDataGiaVatTu/${data.id}/${data.idUser}`, data);
+
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -418,15 +548,15 @@ export default {
         commit('HANDLE_BLUR_SEARCH', stringSearch)
     },
 
-    
+
 
     //tao bang gia vat tu.bắt buộc phải có context hoặc commit,dispath ...
-    async createBaoGia(context, {tempFinalRs = '',idUserImport = '',agreeOverride = 0}) {
+    async createBaoGia(context, { tempFinalRs = '', idUserImport = '', agreeOverride = 0 }) {
         try {
             let data = {
                 jsonData: tempFinalRs,
-                idUserImport:idUserImport,
-                agreeOverride:agreeOverride
+                idUserImport: idUserImport,
+                agreeOverride: agreeOverride
             }
             var result = await axiosInstance.post(`/createGiaVT/${data.idUserImport}/${data.agreeOverride}`, data);
             console.log('result', result);
@@ -435,10 +565,17 @@ export default {
             if (result.status === 200) {
 
 
-                return {
-                    ok: true,
-                    error: null,
-                    data: result.data
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                } else {
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
                 }
 
             } else {
@@ -446,6 +583,7 @@ export default {
                     ok: false,
                     error: result.data.error
                 }
+
             }
 
         } catch (error) {
@@ -560,7 +698,7 @@ export default {
             if (result.status === 200) {
                 context.commit('SET_USER_INFO', result.data.user);
                 context.commit(SET_AUTH, result.data);
-                context.commit(SET_PERSONAL_INFO, result.data,{ root: true });
+                context.commit(SET_PERSONAL_INFO, result.data, { root: true });
                 return {
                     ok: true,
                     data: result.data.user,

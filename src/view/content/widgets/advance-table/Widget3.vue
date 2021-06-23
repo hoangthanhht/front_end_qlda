@@ -295,7 +295,7 @@ export default {
         tenMaDinhMuc: tenMaDinhMuc,
         noteDinhMuc: noteDinhMuc,
         idDinhMuc: idDinhMuc,
-		idUser:idUser
+		    idUser:idUser
       };
 
       // this.$store.dispatch('storeqlda/updateDataWithId', data);

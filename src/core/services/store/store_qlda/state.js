@@ -5,11 +5,14 @@ export default {
     listDataDM:[],
     listDataBGia:[],
     listDataUser:[],
-    listDataRole:[],
-    listDataRoleOfAllUser:[],
+    listDataRole:[],// mảng chứa tất cả cấc role trong bảng role
+    listDataPermission:[],// mảng chứa tất cả cấc role trong bảng per
+    listDataRoleOfAllUser:[],// mảng chứa tất cả slug của tất cả user
+    listDataPermissionOfAllUser:[],// mảng chứa tất cả slug của tất cả user
     currentUser: null, // Login
     users: {}, 
     stringSearch:'',
     isShowForm: false,
-    userSelected: null
+    userSelected: null,
+    roleSelected: null
 }

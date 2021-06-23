@@ -37,17 +37,19 @@ export default {
   methods: {
 	...mapActions([
 	 //actionHandleDelete: "handleDelete",
-	 "storeqlda/handleEdit",
-	 "storeqlda/handleDeleteRoleById"
+	 "storeqlda/handleEditRole",
+	 "storeqlda/handleDeleteRoleById",
+	 "storeqlda/getListDataUser"
 	]),
 	handleEdit() {
-	 this['storeqlda/handleEdit'](this.role);
+	 this['storeqlda/handleEditRole'](this.role);
 	},
 	handleDelete() {
 		console.log('this.roleId',this.roleId)
 	 if (confirm("Bạn có muốn xóa role có tên là " + this.role.name)) {
 		 
-	  this['storeqlda/handleDeleteRoleById'](this.roleId)
+	  this['storeqlda/handleDeleteRoleById'](this.roleId).then(()=>
+	   this["storeqlda/getListDataUser"]());
 	 }
 	},
   },

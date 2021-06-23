@@ -13,33 +13,25 @@
       <div class="form-group">
         <label class="sr-only" for="">label</label>
         <input
-          v-model="username"
+          v-model="rolename"
           type="text"
           class="form-control user_name"
-          placeholder="User Name"
+          placeholder="Tên vai trò"
         />
       </div>
       <div class="form-group">
         <label class="sr-only" for="">label</label>
         <input
-          v-model="useremail"
+          v-model="roledescrip"
           type="text"
           class="form-control user_email"
-          placeholder="User Email"
+          placeholder="Mô tả vai trò"
         />
       </div>
 
-      <div class="form-group">
-        <label class="sr-only" for="">label</label>
-        <input
-          type="password"
-          class="form-control password"
-          placeholder="User Password"
-        />
-      </div>
      
       <button
-        v-if="userSelected === null"
+        v-if="roleSelected === null"
         v-on:click="handleAddNew"
         type="button"
         class="btn btn-primary"
@@ -63,20 +55,7 @@
      v-if="isShowForm"
      class="form-group">
         <label class="sr-only" for="">label</label>
-        <v-app>
-          <v-select
-            label="Select"
-            v-bind:items="listRole"
-            v-model="select"
-            hint="Chọn vai trò"
-            persistent-hint
-            item-text="slug"
-            chips
-            multiple
-            return-object
-            outlined
-          />
-        </v-app>
+
         <!-- <select v-if="listRole.length !== 0"
                 multiple
                  v-model="select"
@@ -102,10 +81,9 @@ export default {
   },
   data() {
     return {
-      username: "",
-      useremail: "",
-      userId: Number,
-      select: [],
+      rolename: "",
+      roledescrip: "",
+      roleId: Number,
     };
   },
 
@@ -116,38 +94,25 @@ export default {
     ]),
     ...mapState({
       isShowForm: (state) => state.storeqlda.isShowForm,
-      userSelected: (state) => state.storeqlda.userSelected,
+      roleSelected: (state) => state.storeqlda.roleSelected,
     }),
-    listRole() {
-      let arrVselect = [];
-      let arrrole = this["storeqlda/getListDataRoleGTer"];
-      for (var i in arrrole) {
-        let obj = {
-          role_id: arrrole[i].id,
-          slug: arrrole[i].slug,
-        };
-        arrVselect.push(obj);
-      }
-      return arrVselect;
-    },
+
   },
 
-  watch: {
-    userSelected: function (newData) {
+  watch: { // hàm này để theo dõi khi ta click vào nút edits thì sẽ binding dữ liệu lên
+    roleSelected: function (newData) {
       if (newData !== null) {
-        this.username = newData.name;
-        this.useremail = newData.email;
-        this.userId = newData.id;
+        this.rolename = newData.slug;
+        this.roledescrip = newData.name;
+        this.roleId = newData.id;
       }
-      this.getRoleOfUserForEdit();
     },
   },
   methods: {
     ...mapActions([
       "storeqlda/toggleForm",
-      "storeqlda/handleAddNewUser",
-      "storeqlda/handleEditTaskById",
-      "storeqlda/handleEditUserById",
+      "storeqlda/handleAddNewRole",
+      "storeqlda/handleEditRoleById",
 	  "storeqlda/getListDataUser"
     ]),
 
@@ -183,43 +148,32 @@ export default {
     },
 
     handleEditTask() {
-      let role_id = [];
-      for (var i in this.select) {
-        role_id.push(this.select[i].role_id);
-      }
-      var password = document.querySelector(".password").value;
-      let objUserEdit = {
-        name: this.username,
-        email: this.useremail,
-        password: password,
-        idUser: this.userId,
-        role_id: JSON.stringify(role_id),
+      let objRoleEdit = {
+        slug: this.rolename,
+        name: this.roledescrip,
+        role_id: this.roleId,
       };
 
-      this["storeqlda/handleEditUserById"](objUserEdit).then(()=>{
-		  this["storeqlda/getListDataUser"]();
+      this["storeqlda/handleEditRoleById"](objRoleEdit).then(()=>{
+		  this["storeqlda/getListDataUser"]();// lấy lại user vì trong api này có role đê cập nhập lại role
 	  })
-
       this.handleResetData();
     },
 
     handleAddNew() {
       // Kiểm tra dữ liệu
-      if (this.username.trim() && this.useremail.trim()) {
-        var password = document.querySelector(".password").value;
+      if (this.roledescrip.trim() && this.rolename.trim()) {
+       
         //chú ý là key :'name','email','password' của data phải trùng với các đối số của action mà hàm này gọi không thì sẽ không nhận đúng dữ liệu để gửi đi gây lỗi 500
         // khi truyền 1 mảng hay obj sang serve thì cần phải stringify nó sau đó bên serve phải decode lại cái json này thì nó mới đúng định dạng của từng phía khong có sẽ gây lỗi
-        let role_id = [];
-        for (var i in this.select) {
-          role_id.push(this.select[i].role_id);
-        }
+
         var data = {
-          name: this.username,
-          email: this.useremail,
-          password: password,
-          role_id: JSON.stringify(role_id),
+          name: this.roledescrip,
+          slug: this.rolename,
+
         };
-        this["storeqlda/handleAddNewUser"](data);
+        this["storeqlda/handleAddNewRole"](data).then(()=>
+	       this["storeqlda/getListDataUser"]());
         this.handleCancel();
       } else {
         alert("Vui lòng nhập đầy đủ các trường");
@@ -230,9 +184,8 @@ export default {
       this.handleResetData();
     },
     handleResetData() {
-      this.username = "";
-      this.useremail = "";
-      this.select = null;
+      this.rolename = "";
+      this.roledescrip = "";
     },
   },
 };

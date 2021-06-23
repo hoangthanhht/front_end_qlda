@@ -64,9 +64,11 @@ const actions = {
       ApiService.post("register", credentials)
         .then(({ data }) => {
           context.commit(SET_AUTH, data);
+          context.commit(SET_PERSONAL_INFO, data,{ root: true });
           resolve(data);
         })
         .catch(({ response }) => {
+          
           context.commit(SET_ERROR, response.data.errors);
         });
     });
@@ -79,6 +81,7 @@ const actions = {
           context.commit(SET_AUTH, data);
         })
         .catch(({ response }) => {
+         
           context.commit(SET_ERROR, response.data.errors);
         });
     } else {

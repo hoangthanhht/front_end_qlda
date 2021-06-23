@@ -77,6 +77,22 @@
             outlined
           />
         </v-app>
+
+
+        <v-app>
+          <v-select
+            label="Select"
+            v-bind:items="listPermission"
+            v-model="selectPermission"
+            hint="Chọn vai trò"
+            persistent-hint
+            item-text="slug"
+            chips
+            multiple
+            return-object
+            outlined
+          />
+        </v-app>
         <!-- <select v-if="listRole.length !== 0"
                 multiple
                  v-model="select"
@@ -106,6 +122,7 @@ export default {
       useremail: "",
       userId: Number,
       select: [],
+      selectPermission: [],
     };
   },
 
@@ -113,6 +130,8 @@ export default {
     ...mapGetters([
       "storeqlda/getListDataRoleGTer",
       "storeqlda/getListDataRoleOfAllUserGTer",
+      "storeqlda/getListDataPermissionOfAllUserGTer",
+      "storeqlda/getListDataPermissionGTer"
     ]),
     ...mapState({
       isShowForm: (state) => state.storeqlda.isShowForm,
@@ -130,6 +149,19 @@ export default {
       }
       return arrVselect;
     },
+
+	listPermission() {
+      let arrVselect = [];
+      let arrpermission = this["storeqlda/getListDataPermissionGTer"];
+      for (var i in arrpermission) {
+        let obj = {
+          permission_id: arrpermission[i].id,
+          slug: arrpermission[i].slug,
+        };
+        arrVselect.push(obj);
+      }
+      return arrVselect;
+    },
   },
 
   watch: {
@@ -140,13 +172,13 @@ export default {
         this.userId = newData.id;
       }
       this.getRoleOfUserForEdit();
+      this.getPermissionOfUserForEdit();
     },
   },
   methods: {
     ...mapActions([
       "storeqlda/toggleForm",
       "storeqlda/handleAddNewUser",
-      "storeqlda/handleEditTaskById",
       "storeqlda/handleEditUserById",
 	  "storeqlda/getListDataUser"
     ]),
@@ -154,7 +186,7 @@ export default {
     getRoleOfUserForEdit() {
       console.log("getRoleOfUserForEdit");
       let arrTemp = this["storeqlda/getListDataRoleOfAllUserGTer"];
-      console.log("getRoleOfUserForEdit", arrTemp);
+     
       let arrTemp1 = arrTemp;
       let kt = false;
       for (var i in arrTemp1) {
@@ -182,10 +214,44 @@ export default {
       }
     },
 
+ getPermissionOfUserForEdit() {
+      let arrTemp = this["storeqlda/getListDataPermissionOfAllUserGTer"];
+	   console.log("getPermissionOfUserForEdit", arrTemp);
+      let arrTemp1 = arrTemp;
+      let kt = false;
+      for (var i in arrTemp1) {
+        for (let key in arrTemp1[i]) {
+          if (arrTemp1[i].hasOwnProperty(key)) {
+            if (parseInt(key) === this.userId) {
+              arrTemp = arrTemp1[i][key];
+              kt = true;
+              break;
+            }
+          }
+        }
+        if (kt === true) {
+          break;
+        }
+      }
+
+      this.selectPermission = [];
+      for (var j in arrTemp) {
+        for (let m in this.listPermission) {
+          if (this.listPermission[m]["slug"] === arrTemp[j]) {
+            this.selectPermission.push(this.listPermission[m]);
+          }
+        }
+      }
+    },
+
     handleEditTask() {
       let role_id = [];
       for (var i in this.select) {
         role_id.push(this.select[i].role_id);
+      }
+	   let permission_id = [];
+      for (var j in this.selectPermission) {
+        permission_id.push(this.selectPermission[j].permission_id);
       }
       var password = document.querySelector(".password").value;
       let objUserEdit = {
@@ -194,6 +260,7 @@ export default {
         password: password,
         idUser: this.userId,
         role_id: JSON.stringify(role_id),
+        permission_id: JSON.stringify(permission_id),
       };
 
       this["storeqlda/handleEditUserById"](objUserEdit).then(()=>{
@@ -210,16 +277,22 @@ export default {
         //chú ý là key :'name','email','password' của data phải trùng với các đối số của action mà hàm này gọi không thì sẽ không nhận đúng dữ liệu để gửi đi gây lỗi 500
         // khi truyền 1 mảng hay obj sang serve thì cần phải stringify nó sau đó bên serve phải decode lại cái json này thì nó mới đúng định dạng của từng phía khong có sẽ gây lỗi
         let role_id = [];
-        for (var i in this.select) {
+        for (var i in this.select) {// vong lap lay ra vai tro cua user tu model select cua v-select
           role_id.push(this.select[i].role_id);
         }
+		  let permission_id = [];
+      for (var j in this.selectPermission) {
+        permission_id.push(this.selectPermission[j].permission_id);
+      }
         var data = {
           name: this.username,
           email: this.useremail,
           password: password,
           role_id: JSON.stringify(role_id),
+          permission_id: JSON.stringify(permission_id),
         };
-        this["storeqlda/handleAddNewUser"](data);
+        this["storeqlda/handleAddNewUser"](data).then(()=>
+	   this["storeqlda/getListDataUser"]());
         this.handleCancel();
       } else {
         alert("Vui lòng nhập đầy đủ các trường");

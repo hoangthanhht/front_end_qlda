@@ -38,7 +38,8 @@ export default {
 	...mapActions([
 	 //actionHandleDelete: "handleDelete",
 	 "storeqlda/handleEdit",
-	 "storeqlda/handleDeleteUserById"
+	 "storeqlda/handleDeleteUserById",
+	 "storeqlda/getListDataUser"
 	]),
 	handleEdit() {
 	 this['storeqlda/handleEdit'](this.user);
@@ -47,7 +48,8 @@ export default {
 		console.log('this.userId',this.userId)
 	 if (confirm("Bạn có muốn xóa user có tên là " + this.user.name)) {
 		 
-	  this['storeqlda/handleDeleteUserById'](this.userId)
+	  this['storeqlda/handleDeleteUserById'](this.userId).then(()=>
+	   this["storeqlda/getListDataUser"]())
 	 }
 	},
   },

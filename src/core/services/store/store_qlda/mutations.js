@@ -28,12 +28,18 @@ export default {
     SET_LIST_DATAROLE(state, data) {
         state.listDataRole = data;
     },
+    SET_LIST_DATA_PERMISSION(state, data) {
+        state.listDataPermission = data;
+    },
     SET_LIST_DATA_ROLE_OF_ALL_USER(state, data) {
         state.listDataRoleOfAllUser = data;
     },
-
+    SET_LIST_DATA_PERMISSION_OF_ALL_USER(state, data) {
+        state.listDataPermissionOfAllUser = data;
+    },
     TOGGLE_FORM(state) {
         if(state.isShowForm) state.userSelected = null;
+        if(state.isShowForm) state.roleSelected = null;
         // console.log("Mutation TOGGLE_FORM");
         state.isShowForm = !state.isShowForm;
     },
@@ -46,7 +52,10 @@ export default {
         state.isShowForm = true;
 		state.userSelected = userEdit;
     },
-    
+    HANDLE_EDIT_ROLE(state, roleEdit) {
+        state.isShowForm = true;
+		state.roleSelected = roleEdit;
+    },
     SET_LOGOUT(state) {
         state[CONFIG_ACCESS_TOKEN] = '';
         state.currentUser = null;

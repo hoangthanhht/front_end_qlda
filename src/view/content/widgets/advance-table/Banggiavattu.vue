@@ -489,6 +489,7 @@ export default {
       "storeqlda/getListDataBGia",// phuc vu viec search
       "storeqlda/arrBaoGiaSearch",
       "currentUserPersonalInfo",
+      "storeqlda/currentUser"
     ]),
     dataArrBaoGiaSerch() {
       return this["storeqlda/arrBaoGiaSearch"];
@@ -657,21 +658,27 @@ export default {
               };
 
               this["storeqlda/createBaoGia"](dataImport).then((data) => {
-                console.log("data lan 1", data);
-                if (data.data.exist === true) {
-                  if (
-                    confirm(
-                      "Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?"
-                    )
-                  ) {
-                    dataImport = {
-                      tempFinalRs: tempFinalRs,
-                      idUserImport: this.currentUserPersonalInfo.user.id,
-                      agreeOverride: 0,
-                    };
-                    this["storeqlda/createBaoGia"](dataImport);
-                  }
-                }
+                console.log("data lan 1", data.ok);
+				if(data.ok === false) {
+					 alert(data.error);
+				}else {
+
+					if (data.data.exist === true) {
+					  if (
+						confirm(
+						  "Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?"
+						)
+					  ) {
+						dataImport = {
+						  tempFinalRs: tempFinalRs,
+						  idUserImport: this.currentUserPersonalInfo.user.id,
+						  agreeOverride: 0,
+						};
+						this["storeqlda/createBaoGia"](dataImport);
+					  }
+					}
+				}
+
               });
             })
             .catch((err) => {
@@ -716,7 +723,7 @@ export default {
       var tacGia = elParentLarge.querySelector(".tac_gia").innerText;
 
       var idVatTu = this.dataArrBaoGia[index].id;
-
+       var idUser = this["storeqlda/currentUser"].id;
       var data = {
         maVatTu: maVatTu,
         tenVatTu: tenVatTu,
@@ -727,10 +734,14 @@ export default {
         tinh: tinh,
         tacGia: tacGia,
         idVatTu: idVatTu,
+        idUser:idUser
       };
 
       // this.$store.dispatch('storeqlda/updateDataWithId', data);
-      this["storeqlda/updateDataGiaVatTuWithId"](data).then(()=>{
+      this["storeqlda/updateDataGiaVatTuWithId"](data).then((data)=>{
+         if (data.ok === false) {
+          alert(data.error);
+        }
 		  this["storeqlda/getAllListDataBaoGia"]();
 	  });
 

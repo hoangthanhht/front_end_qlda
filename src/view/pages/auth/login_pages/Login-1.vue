@@ -501,7 +501,14 @@ export default {
             password: password,
             name:fullname
           })
-          .then(() => this.$router.push({ name: "dashboard" }));
+          .then((data) => {
+               if (data.code === 500) {
+              alert(data.message)
+            }else{
+
+              this.$router.push({ name: "dashboard" });
+            }
+          });
 
         submitButton.classList.remove(
           "spinner",

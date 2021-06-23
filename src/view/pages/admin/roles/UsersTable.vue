@@ -5,7 +5,7 @@
                 <tr>
                     <th style="width: 10%" class="text-center">#</th>
                     <th>Tên</th>
-                    <th style="width: 20%" class="text-center">Email</th>
+                    <th style="width: 20%" class="text-center">Mô tả vai trò</th>
                     <th style="width: 160px">Action</th>
                 </tr>
             </thead>

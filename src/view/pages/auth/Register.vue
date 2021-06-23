@@ -171,6 +171,7 @@ export default {
       });
     },
     onSubmit() {
+		
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -194,9 +195,18 @@ export default {
           .dispatch(REGISTER, {
             email: email,
             password: password,
-            username: username
+            name: username
           })
-          .then(() => this.$router.push({ name: "dashboard" }));
+          .then((data) => {
+             console.log('REGISTER',data)
+            if (data.code === 500) {
+              alert(data.message)
+            }else{
+
+              this.$router.push({ name: "dashboard" });
+            }
+          })
+          
 
         submitButton.classList.remove(
           "spinner",
