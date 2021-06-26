@@ -2,10 +2,11 @@ import axiosInstance from '../../plugins/axios';
 import { CONFIG_ACCESS_TOKEN } from '../../constants';
 import { SET_AUTH } from '../store_metronic/auth.module';
 import { SET_PERSONAL_INFO } from '../store_metronic/profile.module';
-
+import JwtService from "@/core/services/jwt.service";
+import ApiService from "@/core/services/api.service";
 export default {
 
-
+    /* gọi api cho  đinh mức */
     async getAllListDataDm({ commit }) {
 
         var config = {
@@ -54,8 +55,55 @@ export default {
         }
     },
 
+   // hàm api update dinhmuc
+   async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = '', idUser = '' }) {
 
+    let data = {
+        maDinhMuc: maDinhMuc,
+        tenMaDinhMuc: tenMaDinhMuc,
+        ghiChuDinhMuc: noteDinhMuc,
+        id: idDinhMuc,
+        idUser: idUser
+    }
+    // var config = {
+    //     headers:{
+    //         'Accept': 'application/json',    
+    //     }
+    // }
 
+    try {
+
+        var result = await axiosInstance.post(`updateDataDm/${data.id}/${data.idUser}`, data);
+
+        if (result.status === 200) {
+            if (result.data.success) {
+                //commit('SET_USER_INFO', result.data.user);
+                return {
+                    ok: true,
+                    data: result.data.user,
+                    error: null
+                }
+            }
+            if (result.data.success === false) {
+                return {
+                    ok: false,
+                    error: result.data.message,
+                }
+            }
+        }
+        return {
+            ok: false,
+            error: result.data.message
+        }
+    } catch (error) {
+
+        return {
+            ok: false,
+            error: error.message
+        }
+    }
+},
+     /* gọi api cho  báo giá */
     async getAllListDataBaoGia({ commit }) {
 
         var config = {
@@ -82,8 +130,6 @@ export default {
             console.log("error", error);
         }
     },
-
-
     async getListDataBaoGiaHasPaging(context, page) {
 
         var config = {
@@ -110,6 +156,132 @@ export default {
     },
 
 
+    async updateDataGiaVatTuWithId(context, { maVatTu = '', tenVatTu = '', donVi = '',
+    giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
+
+    let data = {
+        maVatTu: maVatTu,
+        tenVatTu: tenVatTu,
+        donVi: donVi,
+        giaVatTu: giaVatTu,
+        nguon: nguon,
+        ghiChu: ghiChu,
+        tinh: tinh,
+        tacGia: tacGia,
+        id: idVatTu,
+        idUser: idUser
+    }
+    // var config = {
+    //     headers:{
+    //         'Accept': 'application/json',    
+    //     }
+    // }
+
+    try {
+
+        var result = await axiosInstance.post(`updateDataGiaVatTu/${data.id}/${data.idUser}`, data);
+
+        if (result.status === 200) {
+            if (result.data.success) {
+                //commit('SET_USER_INFO', result.data.user);
+                return {
+                    ok: true,
+                    data: result.data.user,
+                    error: null
+                }
+            }
+            if (result.data.success === false) {
+                return {
+                    ok: false,
+                    error: result.data.message,
+                }
+            }
+        }
+        return {
+            ok: false,
+            error: result.data.message
+        }
+    } catch (error) {
+
+        return {
+            ok: false,
+            error: error.message
+        }
+    }
+    },
+
+    
+    //tao bang gia vat tu.bắt buộc phải có context hoặc commit,dispath ...
+    async createBaoGia(context, { tempFinalRs = '', idUserImport = '', agreeOverride = 0 }) {
+        try {
+            let data = {
+                jsonData: tempFinalRs,
+                idUserImport: idUserImport,
+                agreeOverride: agreeOverride
+            }
+            var result = await axiosInstance.post(`/createGiaVT/${data.idUserImport}/${data.agreeOverride}`, data);
+            console.log('result', result);
+
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+
+
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                } else {
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+                }
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    /* gọi api cho verify email */
+    async resendVerifyEmail() {
+        
+        // var config = {
+        //     headers: {  
+        //         'Accept': 'application/json',
+        //         'Authorization': 'Bearer ' + token,
+        //     }
+        // }
+        try {
+            // dùng kiểu này thì theo cấu hình của api.service moi dc dùng kieu cua axios loi do token không đúng
+            JwtService.getToken();
+            ApiService.setHeader();
+            var result = ApiService.post("email/verification-notification")
+
+            //var result = await axiosInstance.post('email/verification-notification', config);
+             return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+
+   /* gọi api cho phần phân quyền */
 
     async getListDataRole({ commit }) {
 
@@ -400,8 +572,6 @@ export default {
 
     async handleDeleteUserById(context, idUser) {
 
-
-        console.log('handleEditUserById', idUser)
         try {
 
             var result = await axiosInstance.post(`deleteUser/${idUser}`);
@@ -435,110 +605,9 @@ export default {
 
     },
 
-    // hàm api update dinhmuc
-    async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = '', idUser = '' }) {
 
-        let data = {
-            maDinhMuc: maDinhMuc,
-            tenMaDinhMuc: tenMaDinhMuc,
-            ghiChuDinhMuc: noteDinhMuc,
-            id: idDinhMuc,
-            idUser: idUser
-        }
-        // var config = {
-        //     headers:{
-        //         'Accept': 'application/json',    
-        //     }
-        // }
-
-        try {
-
-            var result = await axiosInstance.post(`updateDataDm/${data.id}/${data.idUser}`, data);
-
-            if (result.status === 200) {
-                if (result.data.success) {
-                    //commit('SET_USER_INFO', result.data.user);
-                    return {
-                        ok: true,
-                        data: result.data.user,
-                        error: null
-                    }
-                }
-                if (result.data.success === false) {
-                    return {
-                        ok: false,
-                        error: result.data.message,
-                    }
-                }
-            }
-            return {
-                ok: false,
-                error: result.data.message
-            }
-        } catch (error) {
-
-            return {
-                ok: false,
-                error: error.message
-            }
-        }
-    },
-
-
-    async updateDataGiaVatTuWithId(context, { maVatTu = '', tenVatTu = '', donVi = '',
-        giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
-
-        let data = {
-            maVatTu: maVatTu,
-            tenVatTu: tenVatTu,
-            donVi: donVi,
-            giaVatTu: giaVatTu,
-            nguon: nguon,
-            ghiChu: ghiChu,
-            tinh: tinh,
-            tacGia: tacGia,
-            id: idVatTu,
-            idUser: idUser
-        }
-        // var config = {
-        //     headers:{
-        //         'Accept': 'application/json',    
-        //     }
-        // }
-
-        try {
-
-            var result = await axiosInstance.post(`updateDataGiaVatTu/${data.id}/${data.idUser}`, data);
-
-            if (result.status === 200) {
-                if (result.data.success) {
-                    //commit('SET_USER_INFO', result.data.user);
-                    return {
-                        ok: true,
-                        data: result.data.user,
-                        error: null
-                    }
-                }
-                if (result.data.success === false) {
-                    return {
-                        ok: false,
-                        error: result.data.message,
-                    }
-                }
-            }
-            return {
-                ok: false,
-                error: result.data.message
-            }
-        } catch (error) {
-
-            return {
-                ok: false,
-                error: error.message
-            }
-        }
-    },
-
+  
+/* hàm sử lý search cho bao gia va dinh mức */
 
     handleSearch({ commit }, stringSearch) {
         commit('HANDLE_SEARCH', stringSearch)
@@ -549,55 +618,7 @@ export default {
     },
 
 
-
-    //tao bang gia vat tu.bắt buộc phải có context hoặc commit,dispath ...
-    async createBaoGia(context, { tempFinalRs = '', idUserImport = '', agreeOverride = 0 }) {
-        try {
-            let data = {
-                jsonData: tempFinalRs,
-                idUserImport: idUserImport,
-                agreeOverride: agreeOverride
-            }
-            var result = await axiosInstance.post(`/createGiaVT/${data.idUserImport}/${data.agreeOverride}`, data);
-            console.log('result', result);
-
-            // commit('SET_LOADING', false);
-            if (result.status === 200) {
-
-
-                if (result.data.success === false) {
-                    return {
-                        ok: false,
-                        error: result.data.message,
-                    }
-                } else {
-                    return {
-                        ok: true,
-                        error: null,
-                        data: result.data
-                    }
-                }
-
-            } else {
-                return {
-                    ok: false,
-                    error: result.data.error
-                }
-
-            }
-
-        } catch (error) {
-            console.log('error');
-
-            // commit('SET_LOADING', false);
-            return {
-                ok: false,
-                error: error.message
-            }
-        }
-    },
-
-
+/* hàm api cho loin và logout */
 
     async login({ commit, dispatch }, { email = '', password = '' }) {
         try {
@@ -760,4 +781,23 @@ export default {
             }
         }
     },
+
+    /* API CHO SETTING SYSTEM ADMIN */
+    async changeEnvSystem(context, data) {
+        console.log(data);
+        try {
+
+            var result = await axiosInstance.post('/changeEnvironment', data);
+            console.log('result',result);
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+
+
+
+
 }

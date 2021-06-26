@@ -5,6 +5,7 @@ import { CONFIG_ACCESS_TOKEN } from '../../constants';
 
 export default {
 
+    /* HÀM CHO LOGIN LOGOUT */
     SET_USER_INFO(state, user) {
          Vue.set(state.users, user.id, user);
     },
@@ -14,14 +15,15 @@ export default {
         state[CONFIG_ACCESS_TOKEN] = token;
         state.currentUser = user;
     },
+/* HÀM CHO ĐINH MỨC */
     SET_LIST_DATADM(state, data) {
         state.listDataDM = data;
     },  
-
+/* HÀM CHO BÁO GIÁ */
     SET_LIST_DATABGIA(state, data) {
         state.listDataBGia = data;
     }, 
-
+/* HÀM CHO PHÂN QUYỀN */
     SET_LIST_DATAUSER(state, data) {
         state.listDataUser = data;
     },
@@ -61,6 +63,7 @@ export default {
         state.currentUser = null;
         localStorage.removeItem(CONFIG_ACCESS_TOKEN);
     },
+    /* HÀM SỬ LÝ SEARCH */
     HANDLE_SEARCH(state,stringSearch){
         state.stringSearch = stringSearch
     },

@@ -637,7 +637,6 @@ export default {
               tempFinalRs = tempFinalRs.substring(0, tempFinalRs.length - 1); // string của cả bảng tính
               tempFinalRs = `[${tempFinalRs}]`;
               var arrTemp = JSON.parse(tempFinalRs);
-              console.log(arrTemp);
               arrTemp.shift(); // bỏ đi thằng dòng đầu tiên là tiêu đề
               // lặp qua để xem còn file đọc vào có dòng tiêu đề thiếu những cột nào so với cột chuẩn
               for (var i in arrTemp) {

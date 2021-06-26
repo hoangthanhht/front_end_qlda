@@ -1,9 +1,8 @@
 
 import { CONFIG_ACCESS_TOKEN } from '../../constants';
 export default {
-    // test: state => {
-    //     return state
-    // }
+
+    /* HÀM CHO LOGIN LOGOUT */
     isLogin: state => {
         if(state[CONFIG_ACCESS_TOKEN]) {
             return true;
@@ -11,9 +10,17 @@ export default {
             return false;
         }
     },
+    currentUser: state => {
+        return state.currentUser;
+    },
+    getTokenStorage: state => {
+        return state[CONFIG_ACCESS_TOKEN];
+    },
+    /* HÀM CHO ĐỊNH MỨC */
     getListDataDinhMuc: state => {
         return state.listDataDM;
     },
+    /* HÀM CHO PHÂN QUYỀN */
     getListDataUserGTer: state => {
         return state.listDataUser;
     },
@@ -30,16 +37,12 @@ export default {
     getListDataPermissionOfAllUserGTer: state => {
         return state.listDataPermissionOfAllUser;
     },
-    
+    /* HÀM CHO BÁO GIÁ */
     getListDataBGia: state => {
         return state.listDataBGia;
     },
-    getTokenStorage: state => {
-        return state[CONFIG_ACCESS_TOKEN];
-    },
-    currentUser: state => {
-        return state.currentUser;
-    },
+
+    /* HÀM XỬ LÝ TÌM KIẾM */
     arrDmSearch: state => {
         const { stringSearch } = state
         var newArr = state.listDataDM.filter(item => {

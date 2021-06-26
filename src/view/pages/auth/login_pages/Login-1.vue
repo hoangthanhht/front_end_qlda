@@ -209,6 +209,17 @@
                 </button>
               </div>
             </form>
+            <div class="verify_email" v-if="isVerify">
+            <h4>{{notify_verify}}</h4>
+                <button
+                  type="button"
+                  id="kt_login_signup_cancel"
+                  class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3"
+                  @click="handleResendVerify()"
+                >
+                  Gửi lại link xác nhận email
+                </button>
+            </div>
           </div>
           <!--end::Signup-->
           <!--begin::Forgot-->
@@ -296,6 +307,10 @@
   display: flex;
   justify-content: space-between;
 }
+.verify_email {
+	display: flex;
+    flex-direction: column;
+}
 </style>
 
 <script>
@@ -315,11 +330,13 @@ export default {
   name: "login-1",
   data() {
     return {
+	  notify_verify: 'Bạn vui lòng xác nhận đường link đã được gửi qua email của bạn sau đó quay trở lại đăng nhập',
+	  isVerify:false,
       state: "signin",
       // Remove this dummy login info
       form: {
         email: "user1@gmail.com",
-        password: "123123"
+        password: ""
       }
     };
   },
@@ -489,12 +506,13 @@ export default {
       this.$store.dispatch(LOGOUT);
 
       // set spinner to submit button
-      const submitButton = this.$refs["kt_login_signup_submit"];
+      const submitButton = this.$refs["kt_login_signup_submit"];// lay phan tu dom ra bang cach dat refs
       submitButton.classList.add("spinner", "spinner-light", "spinner-right");
-
+	  
       // dummy delay
 
         // send register request
+		
         this.$store
           .dispatch(REGISTER, {
             email: email,
@@ -505,16 +523,18 @@ export default {
                if (data.code === 500) {
               alert(data.message)
             }else{
-
-              this.$router.push({ name: "dashboard" });
+			this.isVerify = true
+              //this.$router.push({ name: "dashboard" });
             }
-          });
-
-        submitButton.classList.remove(
+          })
+		  .catch(() => {});
+		  // chú ý ở đây phải dùng hàm để triển khai việc xóa spin sau 2 s nếu không dùng hàm thì không đc
+		setTimeout(
+       ()=> submitButton.classList.remove(
           "spinner",
           "spinner-light",
           "spinner-right"
-        );
+        ),3000);
 
     });
 
@@ -529,7 +549,10 @@ export default {
     });
   },
   methods: {
-	  ...mapActions(['storeqlda/login']),
+	  ...mapActions(['storeqlda/login','storeqlda/resendVerifyEmail']),
+	  handleResendVerify() {
+		  this['storeqlda/resendVerifyEmail']();
+	  },
 	   handleSubmitLogin() {
             let data = {
                 email: this.form.email,
