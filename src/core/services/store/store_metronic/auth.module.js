@@ -44,13 +44,16 @@ const actions = {
     return new Promise(resolve => {
       ApiService.post("login", credentials)
         .then(({ data }) => {
-          console.log(data);
+         
 			context.commit(SET_AUTH, data);
 			context.commit(SET_PERSONAL_INFO, data,{ root: true });
 		  resolve(data);
          })
         .catch(({ response }) => {
-          console.log(response);
+          console.log('loi',response);
+          if(response.status === 503) {// trong trường hợp bảo trì hệ thống
+            alert(response.data + ' bạn hãy quay lại trong ít thời gian nữa')
+          }
           //context.commit(SET_ERROR, response.data.errors);
         });
     });

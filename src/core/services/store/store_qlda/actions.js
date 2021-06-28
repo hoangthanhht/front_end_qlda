@@ -783,11 +783,14 @@ export default {
     },
 
     /* API CHO SETTING SYSTEM ADMIN */
-    async changeEnvSystem(context, data) {
+    async changeEnvSystem(context, {data = ''}) {
         console.log(data);
+        let dataSend = {
+                data:data
+        }
         try {
 
-            var result = await axiosInstance.post('/changeEnvironment', data);
+            var result = await axiosInstance.post('/changeEnvironment', dataSend);
             console.log('result',result);
             return result
 
@@ -797,7 +800,32 @@ export default {
         }
     },
 
+    /* API BAT TAT HE THONG */
 
+    async offSystem() {
+  
+        try {
 
+            var result = await axiosInstance.post('/offSystem');
+            console.log('result',result);
+            return result
 
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+    async onSystem() {
+  
+        try {
+
+            var result = await axiosInstance.post('/onSystem');
+            console.log('result',result);
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
 }

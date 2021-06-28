@@ -73,12 +73,13 @@
             <label>Password</label>
           </b-col>
           <b-col sm="10">
-            <b-form-input v-model="password" type="text"></b-form-input>
+            <b-form-input v-model="password" type="password"></b-form-input>
           </b-col>
         </b-row>
 
       </div>
     </b-container>
+    <b-container>
     <div>
       <b-button
         @click="handleChangeEnv"
@@ -88,6 +89,7 @@
         Xác nhận
       </b-button>
     </div>
+    </b-container>
   </div>
 </template>
 
@@ -112,16 +114,22 @@ methods : {
 	...mapActions(['storeqlda/changeEnvSystem']),
 	handleChangeEnv() {
 		let data = [
-			{MAILMAILER : this.driver},
-			{MAILHOST : this.host},
-			{MAILPORT : this.port},
-			{MAILUSERNAME : this.addressMail},
-			{MAILPASSWORD : this.password},
-			{MAILENCRYPTION : this.encryption},
-			{MAILFROMADDRESS : this.userName},
-			{APPNAME : this.appName},
+			{MAIL_MAILER : this.driver},
+			{MAIL_HOST : this.host},
+			{MAIL_PORT : this.port},
+			{MAIL_USERNAME : this.addressMail},
+			{MAIL_PASSWORD : this.password},
+			{MAIL_ENCRYPTION : this.encryption},
+			{MAIL_FROM_ADDRESS : this.userName},
+			{APP_NAME : this.appName},
 		]
-		 this['storeqlda/changeEnvSystem'](JSON.stringify(data));
+    let dataImport = {
+                data: JSON.stringify(data),
+
+              };
+
+        console.log('JSON.stringify(data)',JSON.stringify(data));
+		 this['storeqlda/changeEnvSystem'](dataImport);
 	}
 }
 

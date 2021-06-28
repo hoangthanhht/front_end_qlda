@@ -81,12 +81,11 @@
                   <label class="font-size-h6 font-weight-bolder text-dark pt-5"
                     >Password</label
                   >
-                  <a
+							<a
                     class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5"
                     id="kt_login_forgot"
                     @click="showForm('forgot')"
-                    ></a
-                  >
+                    >Quên mật khẩu</a>
                 </div>
                 <div
                   id="example-input-group-2"
@@ -105,16 +104,23 @@
                 </div>
               </div>
               <div class="pb-lg-0 pb-5">
-                <button
-				 
+                <button				 
                   ref="kt_login_signin_submit"
                   class="btn btn-primary font-weight-bolder font-size-h6 px-15 py-4 my-3 mr-3"
                 >
                   Sign In
                 </button>
+			
+				<!-- <button
+
+				  	class="btn btn-primary font-weight-bolder font-size-h6 px-15 py-4 my-3 mr-3"
+                    id="kt_login_forgot"
+                    @click="showForm('forgot')"
+                    >thanh
+				</button> -->
                 <button
                   type="button"
-				class="btn btn-primary font-weight-bolder font-size-h6 px-15 py-4 my-3 mr-3"
+				  class="btn btn-primary font-weight-bolder font-size-h6 px-15 py-4 my-3 mr-3"
                  @click="showForm('signup')"
 	                >
 				 Tạo tài khoản mới
@@ -476,7 +482,8 @@ export default {
         this.$store
           .dispatch(LOGIN, { email, password })
           // go to which page after successfully login
-          .then(() => this.$router.push({ name: "dashboard" }))
+          .then(() => 
+            this.$router.push({ name: "dashboard" }))
           .catch(() => {});
 
         submitButton.classList.remove(
@@ -550,10 +557,10 @@ export default {
   },
   methods: {
 	  ...mapActions(['storeqlda/login','storeqlda/resendVerifyEmail']),
-	  handleResendVerify() {
+	handleResendVerify() {
 		  this['storeqlda/resendVerifyEmail']();
 	  },
-	   handleSubmitLogin() {
+	handleSubmitLogin() {
             let data = {
                 email: this.form.email,
                 password: this.form.password
