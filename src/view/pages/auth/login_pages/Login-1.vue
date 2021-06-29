@@ -93,7 +93,7 @@
                   label-for="example-input-2"
                 >
                   <input
-				  	placeholder="Nhập password"
+				  	        placeholder="Nhập password"
                     class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
                     type="password"
                     name="password"
@@ -254,6 +254,7 @@
                   placeholder="Email"
                   name="email"
                   autocomplete="off"
+				  v-model="inputForgot"
                 />
               </div>
               <div class="form-group d-flex flex-wrap pb-lg-0">
@@ -261,6 +262,7 @@
                   type="button"
                   id="kt_login_forgot_submit"
                   class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4"
+				  @click="handleResetPassWord()"
                 >
                   Submit
                 </button>
@@ -333,9 +335,10 @@ import {LOGIN,  LOGOUT, REGISTER } from "@/core/services/store/store_metronic/au
 import Swal from "sweetalert2";
 import { mapActions } from 'vuex';
 export default {
-  name: "login-1",
+  name: "Login",
   data() {
     return {
+	  inputForgot:'',
 	  notify_verify: 'Bạn vui lòng xác nhận đường link đã được gửi qua email của bạn sau đó quay trở lại đăng nhập',
 	  isVerify:false,
       state: "signin",
@@ -358,9 +361,7 @@ export default {
       );
     }
   },
-  created() {
-	  console.log('Login comp');
-  },
+
   mounted() {
     const signin_form = KTUtil.getById("kt_login_signin_form");
     const signup_form = KTUtil.getById("kt_login_signup_form");
@@ -556,10 +557,19 @@ export default {
     });
   },
   methods: {
-	  ...mapActions(['storeqlda/login','storeqlda/resendVerifyEmail']),
+	  ...mapActions(['storeqlda/login','storeqlda/resendVerifyEmail','storeqlda/sendEmailResetPW']),
 	handleResendVerify() {
 		  this['storeqlda/resendVerifyEmail']();
 	  },
+	handleResetPassWord() {
+		console.log('this.inputForgot',this.inputForgot)
+		this['storeqlda/sendEmailResetPW'](this.inputForgot).then((data)=>{
+            console.log('result',data);
+			if(data.status === 200) {
+				alert(data.data.message);
+			}
+		});
+	},
 	handleSubmitLogin() {
             let data = {
                 email: this.form.email,

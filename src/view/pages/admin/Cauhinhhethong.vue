@@ -141,10 +141,7 @@ export default {
     };
   },
 watch : {
-selected:function(old,new1) {
-	console.log('old',old);
-	console.log('new1',new1);
-}
+
 },
 methods : {
 	...mapActions(['storeqlda/offSystem','storeqlda/onSystem']),

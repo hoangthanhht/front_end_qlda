@@ -718,7 +718,7 @@ export default {
             var result = await axiosInstance.get('/details', config);
             if (result.status === 200) {
                 context.commit('SET_USER_INFO', result.data.user);
-                context.commit(SET_AUTH, result.data);
+                context.commit(SET_AUTH, result.data,{ root: true });
                 context.commit(SET_PERSONAL_INFO, result.data, { root: true });
                 return {
                     ok: true,
@@ -784,7 +784,6 @@ export default {
 
     /* API CHO SETTING SYSTEM ADMIN */
     async changeEnvSystem(context, {data = ''}) {
-        console.log(data);
         let dataSend = {
                 data:data
         }
@@ -824,6 +823,37 @@ export default {
             return result
 
             //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+    /* RESET PASSWORD */
+    // gửi e mail xác nhận thay đổi mật khẩu
+    async sendEmailResetPW(context, email = '') {
+        let dataSend = {
+                email:email
+        }
+        try {
+
+            var result = await axiosInstance.post('/sendEmailResetPassword',dataSend);
+            return result
+
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+    //thay đổi mật khẩu
+    async changePass(context, { email = '', password = '',token ='' } ) {
+        let dataSend = {
+                email:email,
+                password:password,
+                token:token
+        }
+        try {
+
+            var result = await axiosInstance.post('/changePass',dataSend);
+            return result
+
         } catch (error) {
             console.log("error", error);
         }
