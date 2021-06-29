@@ -10,7 +10,7 @@ const ApiService = {
   init() {
     Vue.use(VueAxios, axios);
     Vue.axios.defaults.baseURL = "http://vue.gxd.vn/api/";
-    //Vue.axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+     //Vue.axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
   },
 
   /**
