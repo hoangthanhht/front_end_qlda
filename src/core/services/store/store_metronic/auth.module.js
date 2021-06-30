@@ -44,7 +44,7 @@ const actions = {
     return new Promise(resolve => {
       ApiService.post("login", credentials)
         .then(({ data }) => {
-         
+         //console.log('LOGIN](context, credentials',data)
 			context.commit(SET_AUTH, data);
 			context.commit(SET_PERSONAL_INFO, data,{ root: true });
 		  resolve(data);
@@ -107,6 +107,7 @@ const mutations = {
     state.errors = error;
   },
   [SET_AUTH](state, user) {
+    //console.log('state.user.token',state.user.token)
     state.isAuthenticated = true;
     state.user = user;
     state.errors = {};
