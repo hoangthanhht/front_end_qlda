@@ -5,7 +5,7 @@ module.exports = {
     proxy: 'http://vue.gxd.vn/'
   },
   publicPath:
-    process.env.NODE_ENV === "production" ? "/dist/" : "/",
+    process.env.NODE_ENV === "production" ? "/dist" : "/",
   configureWebpack: {
     resolve: {
       alias: {
