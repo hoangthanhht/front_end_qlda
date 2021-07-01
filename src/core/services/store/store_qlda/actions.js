@@ -121,7 +121,7 @@ export default {
         try {
 
             var result = await axiosInstance.get('/getAllDataTableGiaVT', config);
-            console.log('getAllListDataBaoGia', result);
+            //console.log('getAllListDataBaoGia', result);
             commit('SET_LIST_DATABGIA', result.data.data)
             return result
 
@@ -220,7 +220,7 @@ export default {
                 agreeOverride: agreeOverride
             }
             var result = await axiosInstance.post(`/createGiaVT/${data.idUserImport}/${data.agreeOverride}`, data);
-            console.log('result', result);
+            //console.log('result', result);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
@@ -300,7 +300,7 @@ export default {
         try {
 
             var result = await axiosInstance.get('/getDataTableRole', config);
-            console.log("result", result);
+            //console.log("result", result);
             commit('SET_LIST_DATAUSER', result.data.user);
             commit('SET_LIST_DATAROLE', result.data.role);
             commit('SET_LIST_DATA_ROLE_OF_ALL_USER', result.data.role_of_all_user);
@@ -328,7 +328,7 @@ export default {
         try {
 
             var result = await axiosInstance.get('/getDataTableUser', config);
-            console.log("result", result);
+            //console.log("result", result);
             commit('SET_LIST_DATAUSER', result.data.user);
             commit('SET_LIST_DATAROLE', result.data.role);
             commit('SET_LIST_DATA_PERMISSION', result.data.permission);
@@ -364,7 +364,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`createUser`, data);
-            console.log('result', result)
+           // console.log('result', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -411,7 +411,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`createRole`, data);
-            console.log('result', result)
+            //console.log('result', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -463,7 +463,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`updateUser/${data.idUser}`, data);
-            console.log('handleEditUserById', result)
+            //console.log('handleEditUserById', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -504,7 +504,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`updateRole/${data.role_id}`, data);
-            console.log('handleEditUserById', result)
+           // console.log('handleEditUserById', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -540,7 +540,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`deleteRole/${idRole}`);
-            console.log('handleEditUserById', result)
+            //console.log('handleEditUserById', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -575,7 +575,7 @@ export default {
         try {
 
             var result = await axiosInstance.post(`deleteUser/${idUser}`);
-            console.log('handleEditUserById', result)
+            //console.log('handleEditUserById', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -790,7 +790,7 @@ export default {
         try {
 
             var result = await axiosInstance.post('/changeEnvironment', dataSend);
-            console.log('result',result);
+            //console.log('result',result);
             return result
 
             //console.log("error",result.data.data);
