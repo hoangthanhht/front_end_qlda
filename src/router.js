@@ -98,7 +98,7 @@ export default new Router({
 						} else {
 							
 							next({
-								path: "error-3"
+								path: "/custom-error/page_error"
 							})
 						}
 					},
@@ -128,7 +128,7 @@ export default new Router({
 						} else {
 							
 							next({
-								path: "error-3"
+								path: "/custom-error/page_error"
 							})
 						}
 					},
@@ -159,7 +159,7 @@ export default new Router({
 						} else {
 							
 							next({
-								path: "error-3"
+								path: "/custom-error/page_error"
 							})
 						}
 					},
@@ -190,7 +190,7 @@ export default new Router({
 						} else {
 							
 							next({
-								path: "error-3"
+								path: "/custom-error/page_error"
 							})
 						}
 					},
@@ -198,6 +198,18 @@ export default new Router({
 						requiredRoles: ['SuperAdmin']
 					}
 				},
+				{
+					path: "/profile",
+					name: "profile",
+					component: () => import("@/view/pages/profile/Profile.vue"),
+					children: [
+					  {
+						path: "profile-2",
+						name: "profile-2",
+						component: () => import("@/view/pages/profile/Profile-2.vue")
+					  }
+					]
+				}
 				
 			],
 	
@@ -236,7 +248,12 @@ export default new Router({
 					path: "error-6",
 					name: "error-6",
 					component: () => import("@/view/pages/error/Error-6.vue")
-				}
+				},	
+				{
+					path: "page_error",
+					name: "page_error",
+					component: () => import("@/view/pages/error/page_error.vue")
+				},
 			]
 		},
 		{

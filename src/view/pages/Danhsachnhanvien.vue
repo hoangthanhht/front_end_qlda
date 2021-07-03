@@ -19,6 +19,7 @@
 import UserTable from './admin/users/UsersTable';
 import CompTitle from './admin/users/CompTitle';
 //import CompControl from './admin/users/CompControl';
+import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs.module";
 import CompForm from './admin/users/CompForm';
 export default {
 	components: {
@@ -27,9 +28,15 @@ export default {
 		
 		UserTable
 	},
+	 mounted() {
+
+    this.$store.dispatch(SET_BREADCRUMB, [{ title: "Danh sách nhân viên" }]);
+  },
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.breadcrumb-item {
+  display: flex;
+}
 </style>

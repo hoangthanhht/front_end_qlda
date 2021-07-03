@@ -120,6 +120,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs.module";
 export default {
 
  data() {
@@ -140,9 +141,12 @@ export default {
         ]
     };
   },
-watch : {
-
-},
+  mounted() {
+    this.$store.dispatch(SET_BREADCRUMB, [
+      { title: "Hệ thống", route: "/cauhinhemail" },
+      { title: "Cấu hình hệ thống" }
+    ]);
+  },
 methods : {
 	...mapActions(['storeqlda/offSystem','storeqlda/onSystem']),
 	handleOnOffSys() {
@@ -168,5 +172,8 @@ methods : {
 }
 .form_item {
   flex: 1;
+}
+.breadcrumb-item {
+  display: flex;
 }
 </style>

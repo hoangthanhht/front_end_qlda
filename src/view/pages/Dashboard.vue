@@ -71,7 +71,7 @@ export default {
     //  StatsWidget13
   },
   mounted() {
-    this.$store.dispatch(SET_BREADCRUMB, [{ title: "Dashboard" }]);
+    this.$store.dispatch(SET_BREADCRUMB, [{ title: "Trang Chủ" }]);
   },
   methods: {
     setActiveTab1(event) {
@@ -102,3 +102,9 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.breadcrumb-item {
+  display: flex;
+  background-color: red !important;
+}
+</style>

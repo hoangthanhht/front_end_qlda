@@ -5,11 +5,14 @@ export const UPDATE_ACCOUNT_INFO = "updateUserAccountInfo";
 // mutation types
 export const SET_PERSONAL_INFO = "setPersonalInfo";
 export const SET_ACCOUNT_INFO = "setAccountInfo";
+export const SET_PERSONAL_PHOTO = "setAccountPhoto";
+
 
 const state = {
+	photoUser : '',
   user_personal_info: {
-    user:{
-        photo: "media/users/300_21.jpg",
+	  user:{
+		photo: "",
         name: "James",
         surname: "Jones",
         company_name: "Fifestudios",
@@ -43,7 +46,7 @@ const getters = {
   },
 
   currentUserPhoto(state) {
-    return state.user_personal_info.photo;
+    return state.photoUser;
   }
 };
 
@@ -62,7 +65,10 @@ const mutations = {
   },
   [SET_ACCOUNT_INFO](state, user_account_info) {
     state.user_account_info = user_account_info;
-  }
+  },
+  [SET_PERSONAL_PHOTO](state, photoUser) {
+    state.photoUser = photoUser;
+  },
 };
 
 export default {

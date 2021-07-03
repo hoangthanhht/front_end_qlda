@@ -55,7 +55,7 @@
           <div class="symbol symbol-100 mr-5">
             <img
               class="symbol-label"
-              :src="currentUserPersonalInfo.photo"
+              :src="currentUserPhoto"
               alt=""
             />
             <i class="symbol-badge bg-success"></i>
@@ -279,15 +279,18 @@ export default {
       ]
     };
   },
-  created() {
-	   console.log(this.currentUserPersonalInfo);
+   created() {
+    this["storeqlda/checkLogin"]().then(() => {
+      this["storeqlda/getUrlAvatar"](this.currentUserPersonalInfo.user.id);
+    });
   },
   mounted() {
     // Init Quick User Panel
     KTLayoutQuickUser.init(this.$refs["kt_quick_user"]);
+     
   },
   methods: {
-    ...mapActions(['storeqlda/logout']),
+    ...mapActions(['storeqlda/logout',"storeqlda/getUrlAvatar", "storeqlda/checkLogin"]),
     onLogout() {
       this.$store
         .dispatch(LOGOUT)
@@ -299,11 +302,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["currentUserPersonalInfo","getcurrentUserAccountInfo"]),
+    ...mapGetters(["currentUserPersonalInfo","getcurrentUserAccountInfo","currentUserPhoto"]),
 
     getFullName() {
+     
       return (
         this.currentUserPersonalInfo.user.name
+        
       );
     }
   }

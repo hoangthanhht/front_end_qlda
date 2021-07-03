@@ -9,8 +9,8 @@ import JwtService from "@/core/services/jwt.service";
 const ApiService = {
   init() {
     Vue.use(VueAxios, axios);
-    Vue.axios.defaults.baseURL = "http://vue.gxd.vn/api/";
-    //Vue.axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+    //Vue.axios.defaults.baseURL = "http://vue.gxd.vn/api/";
+    Vue.axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
   },
 
   /**
@@ -20,8 +20,11 @@ const ApiService = {
     Vue.axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${JwtService.getToken()}`;
+    // Vue.axios.defaults.headers.common[
+    //   "Content-Type"
+    // ] = 'multipart/form-data';
   },
-
+   
   query(resource, params) {
     return Vue.axios.get(resource, params).catch(error => {
       // console.log(error);

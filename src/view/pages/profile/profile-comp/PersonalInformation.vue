@@ -87,7 +87,7 @@
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label text-right"
-            >First Name</label
+            >Name</label
           >
           <div class="col-lg-9 col-xl-6">
             <input
@@ -207,28 +207,31 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { UPDATE_PERSONAL_INFO } from "@/core/services/store/store_metronic/profile.module";
+import { mapActions } from "vuex";
+//import { UPDATE_PERSONAL_INFO } from "@/core/services/store/store_metronic/profile.module";
 
 export default {
   name: "PersonalInformation",
   data() {
     return {
       default_photo: "media/users/blank.png",
-      current_photo: null
+      current_photo: null,
+      avatar: {
+                objFile: null,
+                base64URL: ''
+            },
     };
+  },
+     created() {
+    this["storeqlda/checkLogin"]()
   },
   mounted() {
     this.current_photo = this.currentUserPersonalInfo.photo;
   },
   methods: {
+    ...mapActions(['storeqlda/updateProfile','storeqlda/getUrlAvatar',"storeqlda/checkLogin"]),
     save() {
       var name = this.$refs.name.value;
-      var surname = this.$refs.surname.value;
-      var company_name = this.$refs.company_name.value;
-      var phone = this.$refs.phone.value;
-      var email = this.$refs.email.value;
-      var company_site = this.$refs.company_site.value;
-      var photo = this.photo;
 
       // set spinner to submit button
       const submitButton = this.$refs["kt_save_changes"];
@@ -237,15 +240,27 @@ export default {
       // dummy delay
       setTimeout(() => {
         // send update request
-        this.$store.dispatch(UPDATE_PERSONAL_INFO, {
-          name,
-          surname,
-          company_name,
-          phone,
-          email,
-          company_site,
-          photo
-        });
+         if(name) {
+                let data = {
+                    name: name,
+                }
+
+                if(this.avatar.objFile) {
+                    data.objFile = this.avatar.objFile;
+                }
+                
+               this['storeqlda/updateProfile'](data).then(res => {
+                    if(res.ok) {
+                        alert('Update thông tin Profile thành công!');
+                    } else {
+                        alert(res.error);
+                    }
+                }).then(() => {
+                  this["storeqlda/getUrlAvatar"](this.currentUserPersonalInfo.user.id);
+                });
+            }else{
+              alert('Bạn chưa nhập tên');
+            }
 
         submitButton.classList.remove(
           "spinner",
@@ -271,6 +286,7 @@ export default {
 
         reader.onload = event => {
           this.current_photo = event.target.result;
+          this.avatar.objFile = file;
         };
 
         reader.readAsDataURL(file);
@@ -280,7 +296,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["currentUserPersonalInfo"]),
+     ...mapGetters(["currentUserPersonalInfo","getcurrentUserAccountInfo"]),
     photo() {
       return this.current_photo == null
         ? this.default_photo
@@ -289,3 +305,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.nav-tabs {
+  display: none;
+}
+</style>

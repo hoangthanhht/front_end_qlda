@@ -1,7 +1,7 @@
 import axiosInstance from '../../plugins/axios';
 import { CONFIG_ACCESS_TOKEN } from '../../constants';
 import { SET_AUTH } from '../store_metronic/auth.module';
-import { SET_PERSONAL_INFO } from '../store_metronic/profile.module';
+import { SET_PERSONAL_INFO ,SET_PERSONAL_PHOTO} from '../store_metronic/profile.module';
 import JwtService from "@/core/services/jwt.service";
 import ApiService from "@/core/services/api.service";
 export default {
@@ -670,7 +670,6 @@ export default {
         try {
 
             var result = await axiosInstance.post('/register', data);
-            console.log('result.data.token', result)
             // commit('SET_LOADING', false);
             if (result.status === 200 && result.data.token) {
                 let resultUser = await dispatch('getUserWithId', result.data.token);
@@ -856,6 +855,56 @@ export default {
 
         } catch (error) {
             console.log("error", error);
+        }
+    },
+    /* lay photo cho user */
+    async getUrlAvatar(context , idUser = '' ) {
+        try {
+            var result = await axiosInstance.get(`/getPathFile/${idUser}`);
+            context.commit(SET_PERSONAL_PHOTO, result.data,{ root: true });
+            return result
+
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+    /* thay avatar */
+    async updateProfile({ commit }, { name = '', objFile = null }) {
+        try {
+            let bodyFormData = new FormData();
+            bodyFormData.append('name', name);
+
+            if(objFile) {
+                bodyFormData.append('objFile', objFile); 
+            }
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer ' + localStorage.getItem(CONFIG_ACCESS_TOKEN)
+                }
+            }
+            // console.log('updateProfile',localStorage.getItem(CONFIG_ACCESS_TOKEN))
+            let result = await axiosInstance.post('/upload', bodyFormData, config);
+            if(result.status === 200) {
+                commit('SET_USER_INFO', result.data.user);
+                commit(SET_AUTH, result.data,{ root: true });
+                commit(SET_PERSONAL_INFO, result.data, { root: true });
+                return {
+                    ok: true,
+                    user: result.data.user
+                }
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.message
+                }
+            }
+
+        } catch(error) {
+            return {
+                ok: false,
+                error: error.message
+            }
         }
     },
 }

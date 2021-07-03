@@ -15,20 +15,24 @@
               <div
                 class="symbol-label"
                 :style="{
-                  backgroundImage: `url(${currentUserPhoto})`
+                  backgroundImage: `url('${currentUserPhoto}')`,
                 }"
               ></div>
               <i class="symbol-badge symbol-badge-bottom bg-success"></i>
             </div>
 
             <h4 class="font-weight-bold my-2">
-              James Jones
+              {{ currentUserPersonalInfo.user.name }}
             </h4>
             <div class="text-muted mb-2">
-              Application Developer
+              {{ currentUserPersonalInfo.user.role }}
             </div>
             <span
-              class="label label-light-warning label-inline font-weight-bold label-lg"
+              class="
+                label label-light-warning label-inline
+                font-weight-bold
+                label-lg
+              "
               >Active</span
             >
           </div>
@@ -54,7 +58,7 @@
             role="tablist"
           >
             <div class="navi-item mb-2">
-              <a
+              <!-- <a
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block active"
                 @click="setActiveTab"
                 style="cursor:pointer"
@@ -63,11 +67,19 @@
                 role="tab"
               >
                 Profile Overview
-              </a>
+              </a> -->
               <a
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block"
+                class="
+                  btn btn-hover-light-primary
+                  font-weight-bold
+                  py-3
+                  px-6
+                  mb-2
+                  text-center
+                  btn-block
+                "
                 @click="setActiveTab"
-                style="cursor:pointer"
+                style="cursor: pointer"
                 data-tab="1"
                 data-toggle="tab"
                 role="tab"
@@ -75,9 +87,17 @@
                 Personal info
               </a>
               <a
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block"
+                class="
+                  btn btn-hover-light-primary
+                  font-weight-bold
+                  py-3
+                  px-6
+                  mb-2
+                  text-center
+                  btn-block
+                "
                 @click="setActiveTab"
-                style="cursor:pointer"
+                style="cursor: pointer"
                 data-tab="2"
                 data-toggle="tab"
                 role="tab"
@@ -85,16 +105,24 @@
                 Account Info
               </a>
               <a
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block"
+                class="
+                  btn btn-hover-light-primary
+                  font-weight-bold
+                  py-3
+                  px-6
+                  mb-2
+                  text-center
+                  btn-block
+                "
                 @click="setActiveTab"
-                style="cursor:pointer"
+                style="cursor: pointer"
                 data-tab="3"
                 data-toggle="tab"
                 role="tab"
               >
                 Change Passwort
               </a>
-              <a
+              <!-- <a
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block"
                 @click="setActiveTab"
                 style="cursor:pointer"
@@ -103,21 +131,21 @@
                 role="tab"
               >
                 Email Settings
-              </a>
-              <a
+              </a> -->
+              <!-- <a
                 href="#"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block"
                 v-b-tooltip.hover.right="'Comming soon...'"
               >
                 Saved Credit Cards
-              </a>
-              <a
+              </a> -->
+              <!-- <a
                 href="#"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block"
                 v-b-tooltip.hover.right="'Comming soon...'"
               >
                 Tax information
-              </a>
+              </a> -->
             </div>
           </div>
           <!--end::Nav-->
@@ -130,19 +158,19 @@
 
     <!--begin::Content-->
     <div class="flex-row-fluid ml-lg-8">
-      <b-tabs class="hide-tabs" v-model="tabIndex">
-        <b-tab active>
+      <b-tabs class="hide-tabs thanhthanh" v-model="tabIndex">
+        <b-tab  active>
           <!--begin::Row-->
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-6">
               <Widget14></Widget14>
             </div>
             <div class="col-lg-6">
               <Widget1></Widget1>
             </div>
-          </div>
+          </div> -->
           <!--end::Row-->
-          <Widget2></Widget2>
+          <!-- <Widget2></Widget2> -->
         </b-tab>
 
         <b-tab>
@@ -156,10 +184,10 @@
         <b-tab>
           <KTChangePassword></KTChangePassword>
         </b-tab>
-
+        <!-- 
         <b-tab>
           <KTEmailSettings></KTEmailSettings>
-        </b-tab>
+        </b-tab> -->
       </b-tabs>
     </div>
     <!--end::Content-->
@@ -168,35 +196,46 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs.module";
-import Widget1 from "@/view/pages/profile/profile-comp-2/Widget1";
-import Widget2 from "@/view/pages/profile/profile-comp-2/Widget2";
-import Widget14 from "@/view/pages/profile/profile-comp-2/Widget14";
+// import Widget1 from "@/view/pages/profile/profile-comp-2/Widget1";
+// import Widget2 from "@/view/pages/profile/profile-comp-2/Widget2";
+// import Widget14 from "@/view/pages/profile/profile-comp-2/Widget14";
 import KTPersonalInformation from "@/view/pages/profile/profile-comp/PersonalInformation";
 import KTAccountInformation from "@/view/pages/profile/profile-comp/AccountInformation";
 import KTChangePassword from "@/view/pages/profile/profile-comp/ChangePassword";
-import KTEmailSettings from "@/view/pages/profile/profile-comp/EmailSettings";
+// import KTEmailSettings from "@/view/pages/profile/profile-comp/EmailSettings";
 
 export default {
   name: "Profile-2",
   data() {
     return {
-      tabIndex: 0
+      tabIndex: 0,
     };
   },
   components: {
-    Widget1,
-    Widget2,
-    Widget14,
+    // Widget1,
+    //Widget2,
+    // Widget14,
     KTPersonalInformation,
     KTAccountInformation,
     KTChangePassword,
-    KTEmailSettings
+    // KTEmailSettings
+  },
+  created() {
+    this["storeqlda/checkLogin"]().then(() => {
+      this["storeqlda/getUrlAvatar"](this.currentUserPersonalInfo.user.id);
+    });
   },
   mounted() {
     this.$store.dispatch(SET_BREADCRUMB, [{ title: "Profile 2" }]);
   },
+  //   updated(){
+  // this['storeqlda/getUrlAvatar'](this.currentUserPersonalInfo.user.id)
+  //       console.log('test',this.currentUserPhoto);
+  //   },
   methods: {
+    ...mapActions(["storeqlda/getUrlAvatar", "storeqlda/checkLogin"]),
     /**
      * Set current active on click
      * @param event
@@ -215,10 +254,17 @@ export default {
 
       // set current active tab
       target.classList.add("active");
-    }
+    },
   },
   computed: {
-    ...mapGetters(["currentUserPhoto"])
-  }
+    ...mapGetters(["currentUserPersonalInfo", "currentUserPhoto"]),
+    //...mapGetters(["currentUserPhoto"])
+  },
 };
 </script>
+<style lang="scss" scoped>
+.nav-tabs {
+
+  background-color: red;
+}
+</style>

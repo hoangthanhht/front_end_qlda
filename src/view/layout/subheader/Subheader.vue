@@ -38,7 +38,7 @@
           </template>
         </ul>
       </div>
-      <div class="d-flex align-items-center">
+      <!-- <div class="d-flex align-items-center">
         <a href="#" class="btn btn-light font-weight-bold btn-sm">
           Actions
         </a>
@@ -56,13 +56,12 @@
           <template v-slot:button-content>
             <a href="#" class="btn btn-icon" data-toggle="dropdown">
               <span class="svg-icon svg-icon-success svg-icon-2x">
-                <!--begin::Svg Icon-->
+                
                 <inline-svg src="media/svg/icons/Files/File-plus.svg" />
-                <!--end::Svg Icon-->
+                
               </span>
             </a>
           </template>
-          <!--begin::Navigation-->
           <div class="navi navi-hover min-w-md-250px">
             <b-dropdown-text tag="div" class="navi-header font-weight-bold">
               Jump to:
@@ -134,9 +133,9 @@
               >
             </b-dropdown-text>
           </div>
-          <!--end::Navigation-->
+
         </b-dropdown>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -205,3 +204,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.breadcrumb-item {
+  display: flex;
+}
+</style>

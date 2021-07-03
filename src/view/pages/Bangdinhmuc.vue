@@ -30,7 +30,7 @@ export default {
     // set the tab from previous
     //this.setActivePreviousTab();
 
-    this.$store.dispatch(SET_BREADCRUMB, [{ title: "Layout Builder" }]);
+    this.$store.dispatch(SET_BREADCRUMB, [{ title: "Bảng giá định mức" }]);
 
     // this.$nextTick(() => {
     //   const hljs = this.$el.querySelectorAll(".hljs");
@@ -103,3 +103,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.breadcrumb-item {
+  display: flex;
+}
+</style>
