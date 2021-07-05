@@ -249,7 +249,7 @@ export default {
                 alert(data.data.error)
               
               }else {
-                 alert(data.data.error)
+                 alert(data.data.message)
               }
             })
 
