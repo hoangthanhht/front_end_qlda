@@ -222,11 +222,12 @@ export default {
     save() {
       this.fv.validate();
 
-      this.fv.on("core.form.valid", () => {
+      //this.fv.on("core.form.valid", () => {
         var current_password = this.$refs.current_password.value;
         var new_password = this.$refs.new_password.value;
         var verify_password = this.$refs.verify_password.value;
-           let data = {
+//});
+        let data = {
                     current_password: current_password,
                     new_password: new_password,
                     verify_password: verify_password,
@@ -243,9 +244,10 @@ export default {
             // go to which page after successfully update
             .then((data) => 
             {
+              console.log('changepass',data)
               if(data.data.success === true) {
                 alert(data.data.error)
-                this.$router.push({ name: "dashboard" })
+              
               }else {
                  alert(data.data.error)
               }
@@ -257,7 +259,6 @@ export default {
             "spinner-right"
           );
         }, 2000);
-      });
 
       this.fv.on("core.form.invalid", () => {
         Swal.fire({
