@@ -246,10 +246,10 @@ export default {
             {
               console.log('changepass',data)
               if(data.data.success === true) {
-                alert(data.data.error)
-              
-              }else {
-                 alert(data.data.message)
+				  alert(data.data.message)
+				  
+				  }else {
+				  alert(data.data.error)
               }
             })
 
