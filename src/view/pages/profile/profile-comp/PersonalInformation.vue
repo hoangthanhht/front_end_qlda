@@ -240,7 +240,7 @@ export default {
       // dummy delay
       setTimeout(() => {
         // send update request
-         if(name) {
+         //if(name) {
                 let data = {
                     name: name,
                 }
@@ -258,9 +258,9 @@ export default {
                 }).then(() => {
                   this["storeqlda/getUrlAvatar"](this.currentUserPersonalInfo.user.id);
                 });
-            }else{
-              alert('Bạn chưa nhập tên');
-            }
+            // }else{
+            //   alert('Bạn chưa nhập tên');
+            // }
 
         submitButton.classList.remove(
           "spinner",
