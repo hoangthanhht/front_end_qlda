@@ -47,3 +47,8 @@ export default {
   }
 };
 </script>
+<style >
+.nav-tabs {
+  display: none;
+}
+</style>

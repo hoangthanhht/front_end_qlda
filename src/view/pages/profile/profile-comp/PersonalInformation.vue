@@ -307,6 +307,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .nav-tabs {
-  display: none;
+  
+  background-color: red;
 }
 </style>

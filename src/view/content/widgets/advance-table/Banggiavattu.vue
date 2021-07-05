@@ -598,8 +598,7 @@ export default {
               ];
               worksheet.eachRow((row) => {
                 row.eachCell({ includeEmpty: true }, (cell, number) => {
-                  console.log("cell", number, "=", cell.value);
-                  console.log("null");
+
                   if (number <= title.length) {
                     let tempPrice = "";
                     if (title[index] === "giavattu") {

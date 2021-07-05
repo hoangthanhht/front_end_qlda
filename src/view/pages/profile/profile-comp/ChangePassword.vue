@@ -104,7 +104,10 @@
               name="current_password"
               ref="current_password"
             />
-            <a href="#" class="text-sm font-weight-bold">Forgot password ?</a>
+            <router-link
+            to="/login"
+            href="#" 
+            class="text-sm font-weight-bold">Forgot password ?</router-link>
           </div>
         </div>
         <div class="form-group row">
@@ -144,8 +147,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { UPDATE_PASSWORD } from "@/core/services/store/store_metronic/auth.module";
+import { mapGetters,mapActions } from "vuex";
+// import { UPDATE_PASSWORD } from "@/core/services/store/store_metronic/auth.module";
 import KTUtil from "@/assets/js/components/util";
 
 import formValidation from "@/assets/plugins/formvalidation/dist/es6/core/Core";
@@ -167,7 +170,7 @@ export default {
   },
   mounted() {
     const password_change_form = KTUtil.getById("kt_password_change_form");
-    var curr_password = this.currentUser.password;
+    //var curr_password = this.currentUser.password;
 
     this.fv = formValidation(password_change_form, {
       fields: {
@@ -176,12 +179,12 @@ export default {
             notEmpty: {
               message: "Current password is required"
             },
-            identical: {
-              compare: function() {
-                return curr_password;
-              },
-              message: "Wrong password"
-            }
+            // identical: {
+            //   compare: function() {
+            //     return curr_password;
+            //   },
+            //   message: "Wrong password"
+            // }
           }
         },
         new_password: {
@@ -215,11 +218,19 @@ export default {
     });
   },
   methods: {
+    ...mapActions(['storeqlda/changPassUser']),
     save() {
       this.fv.validate();
 
       this.fv.on("core.form.valid", () => {
-        var password = this.$refs.new_password.value;
+        var current_password = this.$refs.current_password.value;
+        var new_password = this.$refs.new_password.value;
+        var verify_password = this.$refs.verify_password.value;
+           let data = {
+                    current_password: current_password,
+                    new_password: new_password,
+                    verify_password: verify_password,
+                }
         const submitButton = this.$refs["kt_save_changes"];
 
         // set spinner to submit button
@@ -228,10 +239,17 @@ export default {
         // dummy delay
         setTimeout(() => {
           // send update request
-          this.$store
-            .dispatch(UPDATE_PASSWORD, { password })
+          this['storeqlda/changPassUser'](data)
             // go to which page after successfully update
-            .then(() => this.$router.push({ name: "dashboard" }));
+            .then((data) => 
+            {
+              if(data.data.success === true) {
+                alert(data.data.error)
+                this.$router.push({ name: "dashboard" })
+              }else {
+                 alert(data.data.error)
+              }
+            })
 
           submitButton.classList.remove(
             "spinner",
@@ -263,7 +281,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.nav-tabs {
-  display: none;
+.thanhthanh .nav-tabs {
+  
+  background-color: red;
 }
 </style>

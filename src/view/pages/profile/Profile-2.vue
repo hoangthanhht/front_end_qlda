@@ -86,7 +86,7 @@
               >
                 Personal info
               </a>
-              <a
+              <!-- <a
                 class="
                   btn btn-hover-light-primary
                   font-weight-bold
@@ -103,7 +103,7 @@
                 role="tab"
               >
                 Account Info
-              </a>
+              </a> -->
               <a
                 class="
                   btn btn-hover-light-primary
@@ -177,9 +177,9 @@
           <KTPersonalInformation></KTPersonalInformation>
         </b-tab>
 
-        <b-tab>
+        <!-- <b-tab>
           <KTAccountInformation></KTAccountInformation>
-        </b-tab>
+        </b-tab> -->
 
         <b-tab>
           <KTChangePassword></KTChangePassword>
@@ -202,7 +202,7 @@ import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs
 // import Widget2 from "@/view/pages/profile/profile-comp-2/Widget2";
 // import Widget14 from "@/view/pages/profile/profile-comp-2/Widget14";
 import KTPersonalInformation from "@/view/pages/profile/profile-comp/PersonalInformation";
-import KTAccountInformation from "@/view/pages/profile/profile-comp/AccountInformation";
+// import KTAccountInformation from "@/view/pages/profile/profile-comp/AccountInformation";
 import KTChangePassword from "@/view/pages/profile/profile-comp/ChangePassword";
 // import KTEmailSettings from "@/view/pages/profile/profile-comp/EmailSettings";
 
@@ -218,7 +218,7 @@ export default {
     //Widget2,
     // Widget14,
     KTPersonalInformation,
-    KTAccountInformation,
+    // KTAccountInformation,
     KTChangePassword,
     // KTEmailSettings
   },
@@ -263,8 +263,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.nav-tabs {
-
+.thanhthanh .nav-tabs {
+  
   background-color: red;
 }
 </style>

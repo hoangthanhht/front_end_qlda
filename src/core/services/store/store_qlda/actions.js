@@ -907,4 +907,29 @@ export default {
             }
         }
     },
+
+    async changPassUser(context, { current_password = '', new_password = '', verify_password = '' }) {
+        try {
+            let dataSend = {
+                current_password:current_password,
+                new_password:new_password,
+                verify_password:verify_password
+        }
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem(CONFIG_ACCESS_TOKEN)
+                }
+            }
+            // console.log('updateProfile',localStorage.getItem(CONFIG_ACCESS_TOKEN))
+            let result = await axiosInstance.post('/changePassAfterLogin', dataSend, config);
+            return result;
+
+        } catch(error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
 }

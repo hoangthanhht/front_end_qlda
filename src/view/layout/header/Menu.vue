@@ -236,10 +236,6 @@
 
           
 
-          
-
-      
-
      
         </ul>
 		
@@ -248,9 +244,9 @@
 
     <li
       aria-haspopup="true"
-      data-menu-toggle="click"
-      class="menu-item menu-item-submenu menu-item-open-dropdown"
-      v-bind:class="{ 'menu-item-active': hasActiveChildren('/custom') }"
+      data-menu-toggle="hover"
+      class="menu-item menu-item-submenu"
+      v-bind:class="{ 'menu-item-open': hasActiveChildren('/vue-bootstrap') }"
     >
       <a href="#" class="menu-link menu-toggle">
         <span class="menu-text"> Custom </span>
@@ -272,8 +268,7 @@
               <span class="menu-text">Profile</span>
               <i class="menu-arrow"></i>
             </a> -->
-            <div class="menu-submenu menu-submenu-classic menu-submenu-right">
-              <ul class="menu-subnav">
+     
                 <router-link
                   to="/profile/profile-2"
                   v-slot="{ href, navigate, isActive, isExactActive }"
@@ -289,13 +284,12 @@
                   >
                     <a :href="href" class="menu-link" @click="navigate">
                       <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                      <span class="menu-text">Profile 2</span>
+                      <span class="menu-text">Cấu hình Profile</span>
                     </a>
                   </li>
                 </router-link>
 	
-              </ul>
-            </div>
+           
           <!-- </li> -->
         </ul>
       </div>
