@@ -254,7 +254,7 @@ export default {
                 this["storeqlda/getListDataDmHasPaging"](page)
                     .then((response) => {
                         this.dataArrDinhMuc = response.data.data
-						this.rows = response.data.total
+						        this.rows = response.data.total
                     })
             },
 	nodeDm(index) {

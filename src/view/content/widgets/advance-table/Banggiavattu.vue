@@ -497,8 +497,7 @@ export default {
   },
   watch: {
     dataArr: function () {},
-    selectedThang: function (newdt) {
-      console.log("newdtthang", newdt);
+    selectedThang: function () {
       if (this.selectedThang) {
         this.isQuyDisabled = true;
         this.isDayDisabled = true;
@@ -507,8 +506,7 @@ export default {
         this.isDayDisabled = false;
       }
     },
-    selectedQuy: function (newdt) {
-      console.log("newdtquy", newdt);
+    selectedQuy: function () {
       if (this.selectedQuy) {
         this.isMonthDisabled = true;
         this.isDayDisabled = true;
@@ -526,8 +524,7 @@ export default {
         this.isMonthDisabled = false;
       }
     },
-    selectedTinh: function (newdt) {
-      console.log("newdtday", newdt);
+    selectedTinh: function () {
     },
   },
   methods: {
@@ -611,12 +608,12 @@ export default {
                       if (!this.isDayDisabled) {
                         tempPrice = this.selectedDay;
                       }
-                      temp = `"${title[index]}":"${tempPrice},${this.selectedKhuVuc}:${cell.value}",`;
+                      temp = `"${title[index]}":"${tempPrice},${this.selectedKhuVuc}:$${cell.value!== null ? cell.value.replace(/\\/g,''):cell.value}",`;
                       tempRs = tempRs + temp;
                       index++;
                       tempPrice = "";
                     } else {
-                      temp = `"${title[index]}":"${cell.value}",`;
+                      temp = `"${title[index]}":"${cell.value!== null ? cell.value.replace(/\\/g,''):cell.value}",`;
                       tempRs = tempRs + temp;
                       index++;
                       tempPrice = "";
@@ -632,10 +629,11 @@ export default {
                 tempRs = "";
                 index = 0; // đưa veeg 0 để bắt đầu hàng mới
               });
-              console.log(tempFinalRs);
               tempFinalRs = tempFinalRs.substring(0, tempFinalRs.length - 1); // string của cả bảng tính
               tempFinalRs = `[${tempFinalRs}]`;
+              console.log(tempFinalRs);
               var arrTemp = JSON.parse(tempFinalRs);
+              console.log(arrTemp);
               arrTemp.shift(); // bỏ đi thằng dòng đầu tiên là tiêu đề
               // lặp qua để xem còn file đọc vào có dòng tiêu đề thiếu những cột nào so với cột chuẩn
               for (var i in arrTemp) {
