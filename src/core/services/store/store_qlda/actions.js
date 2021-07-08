@@ -225,7 +225,6 @@ export default {
             // commit('SET_LOADING', false);
             if (result.status === 200) {
 
-
                 if (result.data.success === false) {
                     return {
                         ok: false,

@@ -121,8 +121,8 @@
     <!--end::Header-->
     <!--begin::Body-->
 
-	<!--phan de hien thi ket qua tim kiem-->
-<div  v-if="stringSearch" class="card-body pt-0 pb-3">
+    <!--phan de hien thi ket qua tim kiem-->
+    <div v-if="stringSearch" class="card-body pt-0 pb-3">
       <div class="tab-content">
         <!--begin::Table-->
         <div class="table-responsive">
@@ -254,9 +254,7 @@
       </div>
     </div>
 
-
-<!-- ket thuc hien thi kq tim kiem -->
-
+    <!-- ket thuc hien thi kq tim kiem -->
 
     <div v-else class="card-body pt-0 pb-3">
       <div class="tab-content">
@@ -390,19 +388,21 @@
       </div>
     </div>
     <!--end::Body-->
-  <b-pagination v-model="currentPage" 
-  align="right"
-  pills 
-  @page-click="dataArr(currentPage)"
-  perPage="20"
-  :total-rows="rows" size="lg">
-  </b-pagination>
+    <b-pagination
+      v-model="currentPage"
+      align="right"
+      pills
+      @page-click="dataArr(currentPage)"
+      perPage="20"
+      :total-rows="rows"
+      size="lg"
+    >
+    </b-pagination>
     <!-- <Pagination
       v-bind:pagination="pagination"
       v-on:click.native="dataArr(pagination.current_page)"
       :offset="4"
     ></Pagination> -->
-
   </div>
   <!--end::Advance Table Widget 9-->
 </template>
@@ -411,7 +411,7 @@
 import Excel from "exceljs";
 //import Excel from "exceljs/dist/es5/exceljs.browser";
 //import Pagination from "../../../pages/plugins/Pagination.vue";
-import { mapActions, mapGetters,mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import { removeVietnameseTones } from "../../../../core/services/helpers";
 //import Formfile from '@/view/pages/vue-bootstrap/FormFile.vue'
 export default {
@@ -421,78 +421,77 @@ export default {
   },
   data() {
     return {
-	  rows: 100,
-	  currentPage:1,
+      rows: 100,
+      currentPage: 1,
       isMonthDisabled: false,
       isQuyDisabled: false,
       isDayDisabled: false,
       selectedTinh: null, // Array reference
       tinh: [
         { value: "Chọn tỉnh thành", text: "Chọn tỉnh thành" },
-        { text:	'An Giang'	, value:	'AG'	},
-        { text:	'Bà Rịa – Vũng Tàu'	, value:	'BV'	},
-        { text:	'Bạc Liêu'	, value:	'BL'	},
-        { text:	'Bắc Kạn'	, value:	'BK'	},
-        { text:	'Bắc Giang'	, value:	'BG'	},
-        { text:	'Bắc Ninh'	, value:	'BN'	},
-        { text:	'Bến Tre'	, value:	'BT'	},
-        { text:	'Bình Dương'	, value:	'BD'	},
-        { text:	'Bình Định'	, value:	'BĐ'	},
-        { text:	'Bình Phước'	, value:	'BP'	},
-        { text:	'Bình Thuận'	, value:	'BTh'	},
-        { text:	'Cà Mau'	, value:	'CM'	},
-        { text:	'Cao Bằng'	, value:	'CB'	},
-        { text:	'Cần Thơ'	, value:	'CT'	},
-        { text:	'Đà Nẵng'	, value:	'ĐNa'	},
-        { text:	'Đắk Lắk'	, value:	'ĐL'	},
-        { text:	'Đắk Nông'	, value:	'ĐNo'	},
-        { text:	'Điện Biên'	, value:	'ĐB'	},
-        { text:	'Đồng Nai'	, value:	'ĐN'	},
-        { text:	'Đồng Tháp'	, value:	'ĐT'	},
-        { text:	'Gia Lai'	, value:	'GL'	},
-        { text:	'Hà Giang'	, value:	'HG'	},
-        { text:	'Hà Nam'	, value:	'HNa'	},
-        { text:	'Hà Nội'	, value:	'HN'	},
-        { text:	'Hà Tĩnh'	, value:	'HT'	},
-        { text:	'Hải Dương'	, value:	'HD'	},
-        { text:	'Hải Phòng'	, value:	'HP'	},
-        { text:	'Hậu Giang'	, value:	'HGi'	},
-        { text:	'Hòa Bình'	, value:	'HB'	},
-        { text:	'Thành phố Hồ Chí Minh'	, value:	'SG'	},
-        { text:	'Hưng Yên'	, value:	'HY'	},
-        { text:	'Khánh Hoà'	, value:	'KH'	},
-        { text:	'Kiên Giang'	, value:	'KG'	},
-        { text:	'Kon Tum'	, value:	'KT'	},
-        { text:	'Lai Châu'	, value:	'LC'	},
-        { text:	'Lạng Sơn'	, value:	'LS'	},
-        { text:	'Lào Cai'	, value:	'LCa'	},
-        { text:	'Lâm Đồng'	, value:	'LĐ'	},
-        { text:	'Long An'	, value:	'LA'	},
-        { text:	'Nam Định'	, value:	'NĐ'	},
-        { text:	'Nghệ An'	, value:	'NA'	},
-        { text:	'Ninh Bình'	, value:	'NB'	},
-        { text:	'Ninh Thuận'	, value:	'NT'	},
-        { text:	'Phú Thọ'	, value:	'PT'	},
-        { text:	'Phú Yên'	, value:	'PY'	},
-        { text:	'Quảng Bình'	, value:	'QB'	},
-        { text:	'Quảng Nam'	, value:	'QNa'	},
-        { text:	'Quảng Ngãi'	, value:	'QNg'	},
-        { text:	'Quảng Ninh'	, value:	'QN'	},
-        { text:	'Quảng Trị'	, value:	'QT'	},
-        { text:	'Sóc Trăng'	, value:	'ST'	},
-        { text:	'Sơn La'	, value:	'SL'	},
-        { text:	'Tây Ninh'	, value:	'TN'	},
-        { text:	'Thái Bình'	, value:	'TB'	},
-        { text:	'Thái Nguyên'	, value:	'TNg'	},
-        { text:	'Thanh Hóa'	, value:	'TH'	},
-        { text:	'Thừa Thiên Huế'	, value:	'TTH'	},
-        { text:	'Tiền Giang'	, value:	'TG'	},
-        { text:	'Trà Vinh'	, value:	'TV'	},
-        { text:	'Tuyên Quang'	, value:	'TQ'	},
-        { text:	'Vĩnh Long'	, value:	'VL'	},
-        { text:	'Vĩnh Phúc'	, value:	'VP'	},
-        { text:	'Yên Bái'	, value:	'YB'	},
-
+        { text: "An Giang", value: "AG" },
+        { text: "Bà Rịa – Vũng Tàu", value: "BV" },
+        { text: "Bạc Liêu", value: "BL" },
+        { text: "Bắc Kạn", value: "BK" },
+        { text: "Bắc Giang", value: "BG" },
+        { text: "Bắc Ninh", value: "BN" },
+        { text: "Bến Tre", value: "BT" },
+        { text: "Bình Dương", value: "BD" },
+        { text: "Bình Định", value: "BĐ" },
+        { text: "Bình Phước", value: "BP" },
+        { text: "Bình Thuận", value: "BTh" },
+        { text: "Cà Mau", value: "CM" },
+        { text: "Cao Bằng", value: "CB" },
+        { text: "Cần Thơ", value: "CT" },
+        { text: "Đà Nẵng", value: "ĐNa" },
+        { text: "Đắk Lắk", value: "ĐL" },
+        { text: "Đắk Nông", value: "ĐNo" },
+        { text: "Điện Biên", value: "ĐB" },
+        { text: "Đồng Nai", value: "ĐN" },
+        { text: "Đồng Tháp", value: "ĐT" },
+        { text: "Gia Lai", value: "GL" },
+        { text: "Hà Giang", value: "HG" },
+        { text: "Hà Nam", value: "HNa" },
+        { text: "Hà Nội", value: "HN" },
+        { text: "Hà Tĩnh", value: "HT" },
+        { text: "Hải Dương", value: "HD" },
+        { text: "Hải Phòng", value: "HP" },
+        { text: "Hậu Giang", value: "HGi" },
+        { text: "Hòa Bình", value: "HB" },
+        { text: "Thành phố Hồ Chí Minh", value: "SG" },
+        { text: "Hưng Yên", value: "HY" },
+        { text: "Khánh Hoà", value: "KH" },
+        { text: "Kiên Giang", value: "KG" },
+        { text: "Kon Tum", value: "KT" },
+        { text: "Lai Châu", value: "LC" },
+        { text: "Lạng Sơn", value: "LS" },
+        { text: "Lào Cai", value: "LCa" },
+        { text: "Lâm Đồng", value: "LĐ" },
+        { text: "Long An", value: "LA" },
+        { text: "Nam Định", value: "NĐ" },
+        { text: "Nghệ An", value: "NA" },
+        { text: "Ninh Bình", value: "NB" },
+        { text: "Ninh Thuận", value: "NT" },
+        { text: "Phú Thọ", value: "PT" },
+        { text: "Phú Yên", value: "PY" },
+        { text: "Quảng Bình", value: "QB" },
+        { text: "Quảng Nam", value: "QNa" },
+        { text: "Quảng Ngãi", value: "QNg" },
+        { text: "Quảng Ninh", value: "QN" },
+        { text: "Quảng Trị", value: "QT" },
+        { text: "Sóc Trăng", value: "ST" },
+        { text: "Sơn La", value: "SL" },
+        { text: "Tây Ninh", value: "TN" },
+        { text: "Thái Bình", value: "TB" },
+        { text: "Thái Nguyên", value: "TNg" },
+        { text: "Thanh Hóa", value: "TH" },
+        { text: "Thừa Thiên Huế", value: "TTH" },
+        { text: "Tiền Giang", value: "TG" },
+        { text: "Trà Vinh", value: "TV" },
+        { text: "Tuyên Quang", value: "TQ" },
+        { text: "Vĩnh Long", value: "VL" },
+        { text: "Vĩnh Phúc", value: "VP" },
+        { text: "Yên Bái", value: "YB" },
       ],
       selectedKhuVuc: "", // Array reference
 
@@ -525,8 +524,7 @@ export default {
         { value: "QuyIII", text: "Quy 3" },
         { value: "QuyIV", text: "Quy 4" },
       ],
-	   dataArrBaoGia:[],
-              
+      dataArrBaoGia: [],
     };
   },
   created() {
@@ -534,18 +532,18 @@ export default {
   },
   mounted() {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
-	 //this.dataArr(this.pagination.current_page);
-	  this.dataArr(this.currentPage);
+    //this.dataArr(this.pagination.current_page);
+    this.dataArr(this.currentPage);
   },
   computed: {
-	   ...mapState({
-      stringSearch: state=>state.storeqlda.stringSearch,// rieng doi voi map state thi phai dùng như này để  lấy state
+    ...mapState({
+      stringSearch: (state) => state.storeqlda.stringSearch, // rieng doi voi map state thi phai dùng như này để  lấy state
     }),
     ...mapGetters([
-      "storeqlda/getListDataBGia",// phuc vu viec search
+      "storeqlda/getListDataBGia", // phuc vu viec search
       "storeqlda/arrBaoGiaSearch",
       "currentUserPersonalInfo",
-      "storeqlda/currentUser"
+      "storeqlda/currentUser",
     ]),
     dataArrBaoGiaSerch() {
       return this["storeqlda/arrBaoGiaSearch"];
@@ -580,8 +578,7 @@ export default {
         this.isMonthDisabled = false;
       }
     },
-    selectedTinh: function () {
-    },
+    selectedTinh: function () {},
   },
   methods: {
     ...mapActions([
@@ -590,14 +587,13 @@ export default {
       "storeqlda/createBaoGia",
       "storeqlda/updateDataGiaVatTuWithId",
     ]),
-	 dataArr (page) {
-                this["storeqlda/getListDataBaoGiaHasPaging"](page)
-                    .then((response) => {
-                        this.dataArrBaoGia = response.data.data
-                        this.pagination = response.data
-						this.rows = response.data.total
-                    })
-            },
+    dataArr(page) {
+      this["storeqlda/getListDataBaoGiaHasPaging"](page).then((response) => {
+        this.dataArrBaoGia = response.data.data;
+        this.pagination = response.data;
+        this.rows = response.data.total;
+      });
+    },
     handleChange(event) {
       this.selectedFile = event.target.files[0];
     },
@@ -651,7 +647,6 @@ export default {
               ];
               worksheet.eachRow((row) => {
                 row.eachCell({ includeEmpty: true }, (cell, number) => {
-
                   if (number <= title.length) {
                     let tempPrice = "";
                     if (title[index] === "giavattu") {
@@ -669,7 +664,11 @@ export default {
                       index++;
                       tempPrice = "";
                     } else {
-                      temp = `"${title[index]}":"${cell.value!== null ? cell.value.replace(/\\/g,''):cell.value}",`;
+                      temp = `"${title[index]}":"${
+                        cell.value !== null
+                          ? cell.value.replace(/\\/g, "")
+                          : cell.value
+                      }",`;
                       tempRs = tempRs + temp;
                       index++;
                       tempPrice = "";
@@ -706,31 +705,34 @@ export default {
               let dataImport = {
                 tempFinalRs: tempFinalRs,
                 idUserImport: this.currentUserPersonalInfo.user.id,
-                agreeOverride: 1,
               };
 
               this["storeqlda/createBaoGia"](dataImport).then((data) => {
-                console.log("data lan 1", data.ok);
-				if(data.ok === false) {
-					 alert(data.error);
-				}else {
-
-					if (data.data.exist === true) {
-					  if (
-						confirm(
-						  "Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?"
-						)
-					  ) {
+                console.log("data lan 1", data);
+                if (data.ok === false) {
+                  alert(data.error);
+                } else {
+                  if (data.data.exist === true) {
+                    if (confirm("Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?")) 
+					{
+                      dataImport = {
+                        tempFinalRs: tempFinalRs,
+                        idUserImport: this.currentUserPersonalInfo.user.id,
+                        agreeOverride: 1,
+                      };
+                      this["storeqlda/createBaoGia"](dataImport).then((data)=> alert(data.data.message));
+                    }else {
 						dataImport = {
-						  tempFinalRs: tempFinalRs,
-						  idUserImport: this.currentUserPersonalInfo.user.id,
-						  agreeOverride: 0,
-						};
-						this["storeqlda/createBaoGia"](dataImport);
-					  }
+                        tempFinalRs: tempFinalRs,
+                        idUserImport: this.currentUserPersonalInfo.user.id,
+                        agreeOverride: 2,
+                      };
+                      this["storeqlda/createBaoGia"](dataImport);
 					}
-				}
-
+                  }else{
+					  alert(data.data.message);
+				  }
+                }
               });
             })
             .catch((err) => {
@@ -775,7 +777,7 @@ export default {
       var tacGia = elParentLarge.querySelector(".tac_gia").innerText;
 
       var idVatTu = this.dataArrBaoGia[index].id;
-       var idUser = this["storeqlda/currentUser"].id;
+      var idUser = this["storeqlda/currentUser"].id;
       var data = {
         maVatTu: maVatTu,
         tenVatTu: tenVatTu,
@@ -786,16 +788,16 @@ export default {
         tinh: tinh,
         tacGia: tacGia,
         idVatTu: idVatTu,
-        idUser:idUser
+        idUser: idUser,
       };
 
       // this.$store.dispatch('storeqlda/updateDataWithId', data);
-      this["storeqlda/updateDataGiaVatTuWithId"](data).then((data)=>{
-         if (data.ok === false) {
+      this["storeqlda/updateDataGiaVatTuWithId"](data).then((data) => {
+        if (data.ok === false) {
           alert(data.error);
         }
-		  this["storeqlda/getAllListDataBaoGia"]();
-	  });
+        this["storeqlda/getAllListDataBaoGia"]();
+      });
 
       //   console.log('tenMaDinhMuc',tenMaDinhMuc);
       //   console.log('noteDinhMuc',noteDinhMuc);
