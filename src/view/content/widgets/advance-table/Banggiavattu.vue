@@ -665,8 +665,8 @@ export default {
                       tempPrice = "";
                     } else {
                       temp = `"${title[index]}":"${
-                        cell.value !== null
-                          ? cell.value.replace(/\\/g, "")
+                        cell.value !== null && typeof(cell.value) !== "number"
+                          ? cell.value.replace(/\\/g, "").replace(/"/g, "''")
                           : cell.value
                       }",`;
                       tempRs = tempRs + temp;
@@ -686,9 +686,9 @@ export default {
               });
               tempFinalRs = tempFinalRs.substring(0, tempFinalRs.length - 1); // string của cả bảng tính
               tempFinalRs = `[${tempFinalRs}]`;
-              console.log(tempFinalRs);
+              //console.log(tempFinalRs);
               var arrTemp = JSON.parse(tempFinalRs);
-              console.log(arrTemp);
+              //console.log(arrTemp);
               arrTemp.shift(); // bỏ đi thằng dòng đầu tiên là tiêu đề
               // lặp qua để xem còn file đọc vào có dòng tiêu đề thiếu những cột nào so với cột chuẩn
               for (var i in arrTemp) {
@@ -722,7 +722,7 @@ export default {
                       };
                       this["storeqlda/createBaoGia"](dataImport).then((data)=> alert(data.data.message));
                     }else {
-						dataImport = {
+						          dataImport = {
                         tempFinalRs: tempFinalRs,
                         idUserImport: this.currentUserPersonalInfo.user.id,
                         agreeOverride: 2,
