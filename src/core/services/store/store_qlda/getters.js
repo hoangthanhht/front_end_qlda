@@ -58,7 +58,11 @@ export default {
     arrBaoGiaSearch: state => {
         const { stringSearch } = state
         var newArr = state.listDataBGia.filter(item => {
-            let rs = item.maVatTu.toLowerCase().includes(stringSearch.toLowerCase());
+            //console.log('item.maVatTu',item.maVatTu);
+            let rs = true;
+            if(item.maVatTu){
+            rs = item.maVatTu.toLowerCase().includes(stringSearch.toLowerCase());
+            }
             if(item.tenVatTu && rs == false) {
                 rs = item.tenVatTu.toLowerCase().includes(stringSearch.toLowerCase());
             }

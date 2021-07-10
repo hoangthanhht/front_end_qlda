@@ -335,7 +335,7 @@
                       >{{ item.nguon !== null ? item.nguon : "null" }}</span
                     >
                   </td>
-                  <td v-if="item.ghiChu">
+                  <td >
                     <span
                       @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
@@ -534,6 +534,7 @@ export default {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
     //this.dataArr(this.pagination.current_page);
     this.dataArr(this.currentPage);
+   
   },
   computed: {
     ...mapState({
