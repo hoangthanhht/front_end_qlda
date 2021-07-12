@@ -62,6 +62,8 @@ export default {
             let rs = true;
             if(item.maVatTu){
             rs = item.maVatTu.toLowerCase().includes(stringSearch.toLowerCase());
+            }else {
+                rs = false
             }
             if(item.tenVatTu && rs == false) {
                 rs = item.tenVatTu.toLowerCase().includes(stringSearch.toLowerCase());

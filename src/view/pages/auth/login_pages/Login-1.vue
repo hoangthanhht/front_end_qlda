@@ -567,7 +567,6 @@ export default {
 	handleResetPassWord() {
 		console.log('this.inputForgot',this.inputForgot)
 		this['storeqlda/sendEmailResetPW'](this.inputForgot).then((data)=>{
-            console.log('result',data);
 			if(data.status === 200) {
 				alert(data.data.message);
 			}
