@@ -61,7 +61,7 @@ export default {
             //console.log('item.maVatTu',item.maVatTu);
             let rs = false;
             if(item.maVatTu && rs == false){
-            rs = item.maVatTu.toLowerCase().includes(stringSearch.toLowerCase());
+                rs = item.maVatTu.toLowerCase().includes(stringSearch.toLowerCase());
             }
             if(item.tenVatTu && rs == false) {
                 rs = item.tenVatTu.toLowerCase().includes(stringSearch.toLowerCase());
@@ -84,6 +84,7 @@ export default {
             if(item.tacGia && rs == false) {
                 rs = item.tacGia.toLowerCase().includes(stringSearch.toLowerCase());
             }
+            return rs;
         });
         return newArr;
     }
