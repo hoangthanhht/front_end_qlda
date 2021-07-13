@@ -80,6 +80,12 @@ export default {
             if(item.khuVuc && rs == false) {
                 rs = item.khuVuc.toLowerCase().includes(stringSearch.toLowerCase());
             }
+            if(item.tinh && rs == false) {
+                rs = item.tinh.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.tacGia && rs == false) {
+                rs = item.tacGia.toLowerCase().includes(stringSearch.toLowerCase());
+            }
             return rs;
         });
         return newArr;
