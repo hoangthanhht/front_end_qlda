@@ -612,6 +612,10 @@ export default {
         commit('HANDLE_SEARCH', stringSearch)
     },
 
+    handleSearchInput({ commit }, stringSearch) {
+        commit('HANDLE_SEARCH', stringSearch)
+    },
+
     handleBlurSearch({ commit }, stringSearch) {
         commit('HANDLE_BLUR_SEARCH', stringSearch)
     },

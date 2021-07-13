@@ -16,8 +16,8 @@
         </div>
         <input
          :value="stringSearch"
-          @input="handleSearch"
-        
+          @keypress="handleSearch"
+          @input="handleInput"
           type="text"
           class="form-control quick-search-input"
           placeholder="Search..."
@@ -62,8 +62,17 @@ export default {
     // handleBlur() {
     //   this.$store.dispatch('storeqlda/handleBlurSearch',"")
     // },
+    handleInput(e) {
+      if(e.target.value == '') {
+
+        this.$store.dispatch('storeqlda/handleSearch',e.target.value)
+      }
+    },
     handleSearch(e) {
-      this.$store.dispatch('storeqlda/handleSearch',e.target.value)
+      if(e.key == 'Enter') {
+
+        this.$store.dispatch('storeqlda/handleSearch',e.target.value)
+      }
     },
     onSearch(event) {
       if (event.target.value.length > 2) {
