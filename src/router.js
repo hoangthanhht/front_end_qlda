@@ -78,6 +78,64 @@ export default new Router({
 					// }
 				},
 				{
+					path: "/materialcostforguest",
+					name: "materialcostforguest",
+					component: () => import("@/view/pages/MaterialCostForGuest.vue"),
+					// beforeEnter: (to, from, next) =>  {
+					// 	let check = false;
+					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
+					// 	for(var i in userSlug)
+					// 	{
+					// 		//slugUser.push(userSlug[i]);
+					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
+					// 			check = true;
+					// 			break;
+					// 		}
+					// 	}
+
+					// 	if (check === true) {
+					// 		next()
+					// 	} else {
+							
+					// 		next({
+					// 			path: "error-3"
+					// 		})
+					// 	}
+					// },
+					// meta: {
+					// 	requiredRoles: ['Admin','Manage','User']
+					// }
+				},
+				{
+					path: "/approvematerialcost",
+					name: "approvematerialcost",
+					component: () => import("@/view/pages/ApproveMaterialCost.vue"),
+					// beforeEnter: (to, from, next) =>  {
+					// 	let check = false;
+					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
+					// 	for(var i in userSlug)
+					// 	{
+					// 		//slugUser.push(userSlug[i]);
+					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
+					// 			check = true;
+					// 			break;
+					// 		}
+					// 	}
+
+					// 	if (check === true) {
+					// 		next()
+					// 	} else {
+							
+					// 		next({
+					// 			path: "error-3"
+					// 		})
+					// 	}
+					// },
+					// meta: {
+					// 	requiredRoles: ['Admin','Manage','User']
+					// }
+				},
+				{
 					path: "/dsnhanvien",
 					name: "dsnhanvien",
 					component: () => import("@/view/pages/Danhsachnhanvien.vue"),

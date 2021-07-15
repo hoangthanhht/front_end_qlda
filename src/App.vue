@@ -11,6 +11,7 @@
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import "~line-awesome/dist/line-awesome/css/line-awesome.css";
 @import "assets/plugins/flaticon/flaticon.css";
+@import "assets/plugins/flaticon/tailwind.css";
 @import "assets/plugins/flaticon2/flaticon.css";
 @import "assets/plugins/keenthemes-icons/font/ki.css";
 

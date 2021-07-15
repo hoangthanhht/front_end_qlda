@@ -256,6 +256,186 @@ export default {
             }
         }
     },
+/* CALL API DO KHÁCH HÀNG NHẬP */
+    async guestCreateBaoGia(context, { tempFinalRs = '', idUserImport = '', agreeOverride = 0 }) {
+        try {
+            let data = {
+                jsonData: tempFinalRs,
+                idUserImport: idUserImport,
+                agreeOverride: agreeOverride
+            }
+            var result = await axiosInstance.post(`/guestCreateGiaVT/${data.idUserImport}/${data.agreeOverride}`, data);
+            //console.log('result', result);
+
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                } else {
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+                }
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    /* APPROVE BAO GIÁ */
+    async getUserGuestUpBgia() {
+        try {
+           
+            var result = await axiosInstance.get(`/getUserUpBaoGia`);
+            console.log('result getUserGuestUpBgia', result);
+
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+
+               
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+                
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+    async getInfoBaoGiaOfUserGuest(context,  idUserImport ) {
+        try {
+  
+            var result = await axiosInstance.get(`/getInfoBaoGiaOfUser/${idUserImport}`);
+            console.log('result', result);
+
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+
+
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+            
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async viewBaoGiaWithSelecttionOfGuest(context, {page=1, user_id = '', tinh = '', khuvuc = '', thoidiem = '' }) {
+        try {
+            let data = {
+                user_id: user_id,
+                khuvuc: khuvuc,
+                tinh: tinh,
+                thoidiem: thoidiem
+            }
+            var result = await axiosInstance.post(`/viewBaoGiaWithSelecttion?page=` + page, data);
+            console.log('viewBaoGiaWithSelecttionOfGuest', result);
+
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+                
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async getListDataBaoGiaGuestHasPaging(context, page) {
+
+        var config = {
+            headers: {
+                'Accept': 'application/json',
+                //'Authorization' :'Bearer ' + token,
+            }
+        }
+
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
+
+        try {
+
+            var result = await axiosInstance.get('/getDataTableGiaVTGuest?page=' + page, config);
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
     /* gọi api cho verify email */
     async resendVerifyEmail() {
         

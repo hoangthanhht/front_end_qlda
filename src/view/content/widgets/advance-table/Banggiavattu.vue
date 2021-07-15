@@ -647,9 +647,9 @@ export default {
                 "tacgia",
               ];
               worksheet.eachRow((row) => {
+                let tempPrice = "";
                 row.eachCell({ includeEmpty: true }, (cell, number) => {
                   if (number <= title.length) {
-                    let tempPrice = "";
                     if (title[index] === "giavattu") {
                       if (!this.isMonthDisabled) {
                         tempPrice = this.selectedThang;
@@ -678,7 +678,18 @@ export default {
                 });
                 //tempRs = tempRs.substring(0, tempRs.length - 1); // bỏ dáu ngăn cách , ở cuối
 
-                temp = `"tinh":"${this.selectedTinh}"`;
+                 if (!this.isMonthDisabled) {
+                        tempPrice = this.selectedThang;
+                      }
+                      if (!this.isQuyDisabled) {
+                        tempPrice = this.selectedQuy;
+                      }
+                      if (!this.isDayDisabled) {
+                        tempPrice = this.selectedDay;
+                      }
+                temp = `"tinh":"${this.selectedTinh}",`;
+                tempRs = tempRs + temp;
+			        	temp = `"vote_mark":"${tempPrice},${this.selectedKhuVuc},vote:0|mark:${this.markCost}"`;
                 tempRs = tempRs + temp;
                 tempRs = `{${tempRs}},`; // 1 obj của 1 dòng
                 tempFinalRs = tempFinalRs + tempRs;
