@@ -206,22 +206,20 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
-                      class="gia_vat_tu text-muted font-weight-bold"
+                      class="khu_vuc text-muted font-weight-bold"
                       >{{
-                        item.giaVatTu !== null ? item.giaVatTu : "null"
+                        item.khuVuc !== null ? item.khuVuc : "null"
                       }}</span
                     >
                   </td>
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
-                      class="gia_vat_tu text-muted font-weight-bold"
+                      class="thoi_diem text-muted font-weight-bold"
                       >{{
-                        item.giaVatTu !== null ? item.giaVatTu : "null"
+                        item.thoiDiem !== null ? item.thoiDiem : "null"
                       }}</span
                     >
                   </td>
@@ -234,7 +232,7 @@
                       >{{ item.nguon !== null ? item.nguon : "null" }}</span
                     >
                   </td>
-                  <td v-if="item.ghiChu">
+                  <td>
                     <span
                       @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
@@ -245,7 +243,6 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="tinh text-muted font-weight-bold"
                       >{{ item.tinh !== null ? item.tinh : "null" }}</span
@@ -326,6 +323,7 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
+                  
                   <td>
                     <span
                       @blur="handleSave($event, index)"
@@ -365,22 +363,20 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
-                      class="gia_vat_tu text-muted font-weight-bold"
+                      class="khu_vuc text-muted font-weight-bold"
                       >{{
-                        item.giaVatTu !== null ? item.giaVatTu : "null"
+                        item.khuVuc !== null ? item.khuVuc : "null"
                       }}</span
                     >
                   </td>
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
-                      class="gia_vat_tu text-muted font-weight-bold"
+                      class="thoi_diem text-muted font-weight-bold"
                       >{{
-                        item.giaVatTu !== null ? item.giaVatTu : "null"
+                        item.thoiDiem !== null ? item.thoiDiem : "null"
                       }}</span
                     >
                   </td>
@@ -404,7 +400,6 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
                       class="tinh text-muted font-weight-bold"
                       >{{ item.tinh !== null ? item.tinh : "null" }}</span
@@ -516,7 +511,6 @@ export default {
     };
   },
   created() {
-    this["storeqlda/getAllListDataBaoGia"](); // khi load lai trang
     this["storeqlda/getUserGuestUpBgia"]().then((data) => {
       this.persionupbg = data.data;
     });
@@ -532,31 +526,21 @@ export default {
     }),
     ...mapGetters([
       "storeqlda/getListDataBGia", // phuc vu viec search
-      "storeqlda/arrBaoGiaSearch",
+      "storeqlda/arrBaoGiaSearchForApprove",
       "currentUserPersonalInfo",
       "storeqlda/currentUser",
     ]),
     dataArrBaoGiaSerch() {
-      return this["storeqlda/arrBaoGiaSearch"];
+      return this["storeqlda/arrBaoGiaSearchForApprove"];
     },
   },
   watch: {
     dataArr: function () {},
     // quan sát sự lựa chọn người đăng bao giá
     selectedPersionUpBg: function () {
-      this["storeqlda/getInfoBaoGiaOfUserGuest"](this.selectedPersionUpBg).then(
+      this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](this.selectedPersionUpBg).then(
         (data) => {
           this.tinh = data.data.tinh;
-          this.khuvuc = data.data.khuvuc;
-          for (var i in data.data.thoidiem) {
-            if (data.data.thoidiem[i].value.search("Thang") >= 0) {
-              this.thang.push(data.data.thoidiem[i]);
-            } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
-              this.quy.push(data.data.thoidiem[i]);
-            } else {
-              this.day.push(data.data.thoidiem[i]);
-            }
-          }
         }
       );
     },
@@ -587,17 +571,40 @@ export default {
         this.isMonthDisabled = false;
       }
     },
-    selectedTinh: function () {},
+    selectedTinh: function () {
+      let data = {
+        idUserImport:this.selectedPersionUpBg,
+        tinh:this.selectedTinh,
+      }
+       this["storeqlda/getInfoBaoGiaOfUserGuest"](data).then(
+        (data) => {
+          this.khuvuc = data.data.khuvuc;
+          this.thang = [];
+          this.quy = [];
+          this.day = [];
+          for (var i in data.data.thoidiem) {
+            if (data.data.thoidiem[i].value.search("Thang") >= 0) {
+              this.thang.push(data.data.thoidiem[i]);
+            } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
+              this.quy.push(data.data.thoidiem[i]);
+            } else {
+              this.day.push(data.data.thoidiem[i]);
+            }
+          }
+        }
+      );
+    },
   },
   methods: {
     ...mapActions([
-      "storeqlda/getAllListDataBaoGia",
-      "storeqlda/updateDataGiaVatTuWithId",
-      "storeqlda/getListDataBaoGiaGuestHasPaging",
+      "storeqlda/getAllListDataBaoGiaGuest",
+      "storeqlda/updateDataGiaVatTuGuestUp",
       "storeqlda/guestCreateBaoGia",
       "storeqlda/getUserGuestUpBgia",
       "storeqlda/getInfoBaoGiaOfUserGuest",
+      "storeqlda/getInfoTinhBaoGiaOfUserGuest",
       "storeqlda/viewBaoGiaWithSelecttionOfGuest",
+      
     ]),
     dataArr(page) {
 		let thoidiem = "";
@@ -615,13 +622,12 @@ export default {
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,
         thoidiem: thoidiem,
-		page:page
+		    page:page
       };
       this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
-		  console.log('reponse',response)
-        // this.dataArrBaoGia = response.data.data;
-        // this.pagination = response.data;
-        // this.rows = response.data.data.total;
+        this.dataArrBaoGia = response.data.data;
+        this.pagination = response.data;
+        this.rows = response.data.total;
       });
     },
     handleXemBG() {
@@ -647,7 +653,13 @@ export default {
         this.selectedPersionUpBg &&
         (this.selectedDay || this.selectedThang || this.selectedQuy)
       ) {
-        this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data);
+        this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
+        this.dataArrBaoGia = response.data.data;
+        this.pagination = response.data;
+        this.rows = response.data.total;
+      });
+      
+      this['storeqlda/getAllListDataBaoGiaGuest'](data);
       } else {
         alert(
           "Bạn chưa chọn người up báo giá hoặc chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
@@ -842,6 +854,8 @@ export default {
       var tenVatTu = elParentLarge.querySelector(".ten_vat_tu").innerText;
       var donVi = elParentLarge.querySelector(".don_vi").innerText;
       var giaVatTu = elParentLarge.querySelector(".gia_vat_tu").innerText;
+      var khuvuc = elParentLarge.querySelector(".khu_vuc").innerText;
+      var thoidiem = elParentLarge.querySelector(".thoi_diem").innerText;
       var nguon = elParentLarge.querySelector(".nguon").innerText;
       var ghiChu = elParentLarge.querySelector(".ghi_chu").innerText;
       var tinh = elParentLarge.querySelector(".tinh").innerText;
@@ -854,6 +868,8 @@ export default {
         tenVatTu: tenVatTu,
         donVi: donVi,
         giaVatTu: giaVatTu,
+        khuvuc: khuvuc,
+        thoidiem: thoidiem,
         ghiChu: ghiChu,
         nguon: nguon,
         tinh: tinh,
@@ -863,15 +879,15 @@ export default {
       };
 
       // this.$store.dispatch('storeqlda/updateDataWithId', data);
-      this["storeqlda/updateDataGiaVatTuWithId"](data).then((data) => {
+      this["storeqlda/updateDataGiaVatTuGuestUp"](data).then((data) => {
         if (data.ok === false) {
           alert(data.error);
+        }else {
+          
+          this.handleXemBG();
         }
-        this["storeqlda/getAllListDataBaoGia"]();
       });
 
-      //   console.log('tenMaDinhMuc',tenMaDinhMuc);
-      //   console.log('noteDinhMuc',noteDinhMuc);
     },
   },
 };

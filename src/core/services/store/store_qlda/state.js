@@ -9,6 +9,7 @@ export default {
     listDataPermission:[],// mảng chứa tất cả cấc role trong bảng per
     listDataRoleOfAllUser:[],// mảng chứa tất cả slug của tất cả user
     listDataPermissionOfAllUser:[],// mảng chứa tất cả slug của tất cả user
+    listDataBGiaGuest:[],// mảng chứa bao giá cho approve
     currentUser: null, // Login
     users: {}, 
     stringSearch:'',

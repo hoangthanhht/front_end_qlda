@@ -23,6 +23,10 @@ export default {
     SET_LIST_DATABGIA(state, data) {
         state.listDataBGia = data;
     }, 
+/* HÀM CHO APPROVE */
+    SET_LIST_DATABGIA_GUEST(state, data) {
+        state.listDataBGiaGuest = data;
+    },
 /* HÀM CHO PHÂN QUYỀN */
     SET_LIST_DATAUSER(state, data) {
         state.listDataUser = data;

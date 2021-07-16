@@ -338,10 +338,10 @@ export default {
         }
     },
 
-    async getInfoBaoGiaOfUserGuest(context,  idUserImport ) {
+    async getInfoTinhBaoGiaOfUserGuest(context,  idUserImport ) {
         try {
   
-            var result = await axiosInstance.get(`/getInfoBaoGiaOfUser/${idUserImport}`);
+            var result = await axiosInstance.get(`/getInfoTinhBaoGiaOfUser/${idUserImport}`);
             console.log('result', result);
 
             // commit('SET_LOADING', false);
@@ -373,16 +373,52 @@ export default {
             }
         }
     },
+    //api lấy thông tin khu vuc theo thanh phố và người đằng
+    async getInfoBaoGiaOfUserGuest(context,  {idUserImport = '',tinh = ''} ) {
+        try {
+       let data = {
+                idUserImport: idUserImport,
+                tinh: tinh,
+               
+            }
+            var result = await axiosInstance.post(`/getInfoBaoGiaOfUser`,data);
+            console.log('getInfoBaoGiaOfUserGuest', result);
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+            
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
     async viewBaoGiaWithSelecttionOfGuest(context, {page=1, user_id = '', tinh = '', khuvuc = '', thoidiem = '' }) {
         try {
-            let data = {
-                user_id: user_id,
-                khuvuc: khuvuc,
-                tinh: tinh,
-                thoidiem: thoidiem
-            }
-            var result = await axiosInstance.post(`/viewBaoGiaWithSelecttion?page=` + page, data);
-            console.log('viewBaoGiaWithSelecttionOfGuest', result);
+            // let data = {
+            //     user_id: user_id,
+            //     khuvuc: khuvuc,
+            //     tinh: tinh,
+            //     thoidiem: thoidiem
+            // }
+            var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}?page=${page}`);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
@@ -412,15 +448,70 @@ export default {
             }
         }
     },
-    async getListDataBaoGiaGuestHasPaging(context, page) {
+    async updateDataGiaVatTuGuestUp(context, { maVatTu = '', tenVatTu = '', donVi = '',
+    giaVatTu = '',khuvuc = '',thoidiem = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
 
-        var config = {
-            headers: {
-                'Accept': 'application/json',
-                //'Authorization' :'Bearer ' + token,
+    let data = {
+        maVatTu: maVatTu,
+        tenVatTu: tenVatTu,
+        donVi: donVi,
+        giaVatTu: giaVatTu,
+        khuvuc: khuvuc,
+        thoidiem: thoidiem,
+        nguon: nguon,
+        ghiChu: ghiChu,
+        tinh: tinh,
+        tacGia: tacGia,
+        id: idVatTu,
+        idUser: idUser
+    }
+    // var config = {
+    //     headers:{
+    //         'Accept': 'application/json',    
+    //     }
+    // }
+
+    try {
+
+        var result = await axiosInstance.post(`updateDataGiaVatTuUserUp/${data.id}/${data.idUser}`, data);
+        if (result.status === 200) {
+            if (result.data.success) {
+                //commit('SET_USER_INFO', result.data.user);
+                return {
+                    ok: true,
+                    data: result.data.user,
+                    error: null
+                }
+            }
+            if (result.data.success === false) {
+                return {
+                    ok: false,
+                    error: result.data.message,
+                }
             }
         }
+        return {
+            ok: false,
+            error: result.data.message
+        }
+    } catch (error) {
 
+        return {
+            ok: false,
+            error: error.message
+        }
+    }
+    },
+
+    async getAllListDataBaoGiaGuest({commit},{user_id = '', tinh = '', khuvuc = '', thoidiem = ''}) {
+
+        let data = {
+                user_id: user_id,
+                khuvuc: khuvuc,
+                tinh: tinh,
+                thoidiem: thoidiem
+            }
+            console.log('data',data);
         // var data = {
         //     'email': 'admin77777@gmail.com',
         //     'password':'12345678'
@@ -428,7 +519,9 @@ export default {
 
         try {
 
-            var result = await axiosInstance.get('/getDataTableGiaVTGuest?page=' + page, config);
+            var result = await axiosInstance.post('/baoGiaWithSelecttionForSearchApprove', data);
+            console.log('getAllListDataBaoGia', result);
+            commit('SET_LIST_DATABGIA_GUEST', result.data)
             return result
 
             //console.log("error",result.data.data);
@@ -436,6 +529,9 @@ export default {
             console.log("error", error);
         }
     },
+
+
+
     /* gọi api cho verify email */
     async resendVerifyEmail() {
         

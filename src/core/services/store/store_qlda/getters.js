@@ -87,5 +87,38 @@ export default {
             return rs;
         });
         return newArr;
+    },
+    arrBaoGiaSearchForApprove: state => {
+        const { stringSearch } = state
+        var newArr = state.listDataBGiaGuest.filter(item => {
+            //console.log('item.maVatTu',item.maVatTu);
+            let rs = false;
+            if(item.maVatTu && rs == false){
+                rs = item.maVatTu.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.tenVatTu && rs == false) {
+                rs = item.tenVatTu.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.donVi && rs == false) {
+                rs = item.donVi.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.nguon && rs == false) {
+                rs = item.nguon.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.ghiChu && rs == false) {
+                rs = item.ghiChu.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.khuVuc && rs == false) {
+                rs = item.khuVuc.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.tinh && rs == false) {
+                rs = item.tinh.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            if(item.tacGia && rs == false) {
+                rs = item.tacGia.toLowerCase().includes(stringSearch.toLowerCase());
+            }
+            return rs;
+        });
+        return newArr;
     }
 }
