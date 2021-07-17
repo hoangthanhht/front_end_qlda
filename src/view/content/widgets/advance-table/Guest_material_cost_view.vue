@@ -9,12 +9,11 @@
           <b-form-select v-model="selectedTinh" :options="tinh">
             <template #first>
               <b-form-select-option :value="null" disabled
-                >-- Chọn tỉnh up báo giá --</b-form-select-option
+                >-- Chọn tỉnh thành --</b-form-select-option
               >
             </template>
           </b-form-select>
         </div>
-        
         <div>
           <b-form-select v-model="selectedKhuVuc" :options="khuvuc">
             <template #first>
@@ -79,15 +78,7 @@
       </div>
 
       <div class="import_excel_bao_gia">
-        <div>
-          <b-button
-            @click="handleApproveBaoGia"
-            size="sm"
-            class="mb-2 add-cv icon-tvgs"
-          >
-            Phê duyệt báo giá
-          </b-button>
-        </div>
+        
 
         <div>
           <b-form-select v-model="selectedPersionUpBg" :options="persionupbg">
@@ -506,7 +497,7 @@ export default {
     };
   },
   created() {
-    let check = {check:0}
+    let check = {check:1}
     this["storeqlda/getUserGuestUpBgia"](check).then((data) => {
       this.persionupbg = data.data;
     });
@@ -531,9 +522,10 @@ export default {
     },
   },
   watch: {
+    dataArr: function () {},
     // quan sát sự lựa chọn người đăng bao giá
     selectedPersionUpBg: function () {
-      let data = {check:0,
+       let data = {check:1,
                   idUserImport:this.selectedPersionUpBg
       }
       this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](data).then(
@@ -571,7 +563,7 @@ export default {
     },
     selectedTinh: function () {
       let data = {
-        check:0,
+        check:1,
         idUserImport:this.selectedPersionUpBg,
         tinh:this.selectedTinh,
       }
@@ -617,7 +609,7 @@ export default {
         thoidiem = this.selectedDay;
       }
       var data = {
-        check:0,
+        check:1,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,
@@ -642,7 +634,6 @@ export default {
         thoidiem = this.selectedDay;
       }
       var data = {
-        check:0,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,

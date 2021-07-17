@@ -4,74 +4,154 @@
   <div class="card card-custom card-stretch gutter-b">
     <!-- <Formfile></Formfile> -->
     <div class="control_bao_gia">
-      <div class="select-cbb">
-        <div>
-          <b-form-select v-model="selectedTinh" :options="tinh">
-            <template #first>
-              <b-form-select-option :value="null" disabled
-                >-- Chọn tỉnh thành --</b-form-select-option
-              >
-            </template>
-          </b-form-select>
-        </div>
-        <div>
-          <input
-            v-model="selectedKhuVuc"
-            type="text"
-            class="form-control user_email"
-            placeholder="-- Chọn khu vực --"
-          />
-        </div>
+      <div>
+        <div class="select-cbb">
+          <div>
+            <b-form-select v-model="selectedTinh" :options="tinh">
+              <template #first>
+                <b-form-select-option :value="null" disabled
+                  >-- Chọn tỉnh thành --</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
 
-        <div>
-          <b-form-select
-            v-model="selectedThang"
-            :options="thang"
-            v-bind:disabled="isMonthDisabled"
-          >
-            <template #first>
-              <b-form-select-option :value="null"
-                >-- Báo giá theo tháng--</b-form-select-option
-              >
-            </template>
-          </b-form-select>
-        </div>
-
-        <div>
-          <b-form-select
-            v-model="selectedQuy"
-            :options="quy"
-            v-bind:disabled="isQuyDisabled"
-          >
-            <template #first>
-              <b-form-select-option :value="null"
-                >-- Báo giá theo quý--</b-form-select-option
-              >
-            </template>
-          </b-form-select>
-        </div>
-
-        <div>
-          <form action="">
+          <div>
             <input
-              v-model="selectedDay"
-              style="height: 34px;border: 0.3px solid;"
-              type="date"
-              id="birthday"
-              name="birthday"
-              v-bind:disabled="isDayDisabled"
+              v-model="selectedKhuVuc"
+              type="text"
+              class="form-control user_email"
+              placeholder="- Nhập khu vực up giá -"
             />
-          </form>
+          </div>
+
+          <div>
+            <input
+              v-model="markCost"
+              style="height: 34px; border: 0.3px solid"
+              type="text"
+              placeholder="Nhập điểm báo giá"
+              name="birthday"
+            />
+          </div>
+
+          <div>
+            <b-form-select v-model="selectedLoaiBg" :options="loaibg">
+              <template #first>
+                <b-form-select-option :value="null" disabled
+                  >-- Chọn loại báo giá --</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
         </div>
 
-        <div>
-          <b-form-select v-model="selectedLoaiBg" :options="loaibg">
-            <template #first>
-              <b-form-select-option :value="null" disabled
-                >-- Chọn loại báo giá --</b-form-select-option
-              >
-            </template>
-          </b-form-select>
+        <div class="select-cbb pt-5">
+          <div>
+            <b-form-select
+              v-model="selectedThang"
+              :options="thang"
+              v-bind:disabled="isMonthDisabled"
+            >
+              <template #first>
+                <b-form-select-option :value="null"
+                  >-- Báo giá theo tháng--</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
+
+          <div>
+            <b-form-select
+              v-model="selectedQuy"
+              :options="quy"
+              v-bind:disabled="isQuyDisabled"
+            >
+              <template #first>
+                <b-form-select-option :value="null"
+                  >-- Báo giá theo quý--</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
+
+          <div>
+            <form action="">
+              <input
+                v-model="selectedDay"
+                style="height: 34px; border: 0.3px solid"
+                type="date"
+                id="birthday"
+                name="birthday"
+                placeholder="Nhập ngày up giá"
+                v-bind:disabled="isDayDisabled"
+              />
+            </form>
+          </div>
+
+          <div>
+            <b-form-select v-model="selectedKhuVucView" :options="khuvucView">
+              <template #first>
+                <b-form-select-option :value="null"
+                  >-- Chọn khu vực xem bao giá --</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
+        </div>
+
+        <div class="select-cbb pt-5">
+          <div>
+            <b-form-select
+              v-model="selectedThangView"
+              :options="thangView"
+              v-bind:disabled="isMonthDisabledView"
+            >
+              <template #first>
+                <b-form-select-option :value="null"
+                  >-- Chọn tháng xem báo giá --</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
+
+          <div>
+            <b-form-select
+              v-model="selectedQuyView"
+              :options="quyView"
+              v-bind:disabled="isQuyDisabledView"
+            >
+              <template #first>
+                <b-form-select-option :value="null"
+                  >-- Chọn quý xem bao giá--</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
+
+          <div>
+            <b-form-select
+              v-model="selectedDayView"
+              :options="dayView"
+              v-bind:disabled="isDayDisabledView"
+            >
+              <template #first>
+                <b-form-select-option :value="null"
+                  >-- Chọn ngày xem báo giá --</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
+
+          <div>
+            <b-form-select v-model="selectedTinhView" :options="tinhView">
+              <template #first>
+                <b-form-select-option :value="null" disabled
+                  >-- Chọn tỉnh xem báo giá --</b-form-select-option
+                >
+              </template>
+            </b-form-select>
+          </div>
         </div>
       </div>
 
@@ -94,18 +174,12 @@
           ></b-form-file>
         </div>
 
-      <div>
-             <input
-             v-model="markCost"
-              style="height: 34px; border: 0.3px solid;"
-              type="text"
-              placeholder="nhập điểm báo giá"
-              name="birthday"
-            />
-      </div>
-
         <div>
-          <b-button size="sm" class="mb-2 add-cv icon-tvgs">
+          <b-button
+            @click="handleXemBG"
+            size="sm"
+            class="mb-2 add-cv icon-tvgs"
+          >
             Xem báo giá
           </b-button>
         </div>
@@ -154,6 +228,8 @@
                 <th>tên vật tư</th>
                 <th>đơn vị</th>
                 <th>giá</th>
+                <th>khu vực</th>
+                <th>thời điểm</th>
                 <th>nguồn</th>
                 <th>ghi chú</th>
                 <th>tỉnh</th>
@@ -167,75 +243,61 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
+
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickMaDM"
-                      class="ma_vat_tu text-muted font-weight-bold"
-                      >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
-                    >
+                    <span class="ma_vat_tu text-muted font-weight-bold">{{
+                      item.maVatTu !== null ? item.maVatTu : "null"
+                    }}</span>
                   </td>
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="ten_vat_tu text-muted font-weight-bold"
-                      >{{
-                        item.tenVatTu !== null ? item.tenVatTu : "null"
-                      }}</span
-                    >
+                    <span class="ten_vat_tu text-muted font-weight-bold">{{
+                      item.tenVatTu !== null ? item.tenVatTu : "null"
+                    }}</span>
                   </td>
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="don_vi text-muted font-weight-bold"
-                      >{{ item.donVi !== null ? item.donVi : "null" }}</span
-                    >
+                    <span class="don_vi text-muted font-weight-bold">{{
+                      item.donVi !== null ? item.donVi : "null"
+                    }}</span>
                   </td>
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="gia_vat_tu text-muted font-weight-bold"
-                      >{{
-                        item.giaVatTu !== null ? item.giaVatTu : "null"
-                      }}</span
-                    >
-                  </td>
-                  <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="nguon text-muted font-weight-bold"
-                      >{{ item.nguon !== null ? item.nguon : "null" }}</span
-                    >
-                  </td>
-                  <td v-if="item.ghiChu">
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="ghi_chu text-muted font-weight-bold"
-                      >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
-                    >
+                    <span class="gia_vat_tu text-muted font-weight-bold">{{
+                      item.giaVatTu !== null ? item.giaVatTu : "null"
+                    }}</span>
                   </td>
 
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="tinh text-muted font-weight-bold"
-                      >{{ item.tinh !== null ? item.tinh : "null" }}</span
-                    >
+                    <span class="khu_vuc text-muted font-weight-bold">{{
+                      item.khuVuc !== null ? item.khuVuc : "null"
+                    }}</span>
                   </td>
 
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="tac_gia text-muted font-weight-bold"
-                      >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
-                    >
+                    <span class="thoi_diem text-muted font-weight-bold">{{
+                      item.thoiDiem !== null ? item.thoiDiem : "null"
+                    }}</span>
+                  </td>
+
+                  <td>
+                    <span class="nguon text-muted font-weight-bold">{{
+                      item.nguon !== null ? item.nguon : "null"
+                    }}</span>
+                  </td>
+                  <td>
+                    <span class="ghi_chu text-muted font-weight-bold">{{
+                      item.ghiChu !== null ? item.ghiChu : "null"
+                    }}</span>
+                  </td>
+
+                  <td>
+                    <span class="tinh text-muted font-weight-bold">{{
+                      item.tinh !== null ? item.tinh : "null"
+                    }}</span>
+                  </td>
+
+                  <td>
+                    <span class="tac_gia text-muted font-weight-bold">{{
+                      item.tacGia !== null ? item.tacGia : "null"
+                    }}</span>
                   </td>
                   <!-- 
                   <td class="pr-0 text-right">
@@ -288,6 +350,8 @@
                 <th>tên vật tư</th>
                 <th>đơn vị</th>
                 <th>giá</th>
+                <th>khu vực</th>
+                <th>thời điểm</th>
                 <th>nguồn</th>
                 <th>ghi chú</th>
                 <th>tỉnh</th>
@@ -301,75 +365,61 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
+
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickMaDM"
-                      class="ma_vat_tu text-muted font-weight-bold"
-                      >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
-                    >
+                    <span class="ma_vat_tu text-muted font-weight-bold">{{
+                      item.maVatTu !== null ? item.maVatTu : "null"
+                    }}</span>
                   </td>
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="ten_vat_tu text-muted font-weight-bold"
-                      >{{
-                        item.tenVatTu !== null ? item.tenVatTu : "null"
-                      }}</span
-                    >
+                    <span class="ten_vat_tu text-muted font-weight-bold">{{
+                      item.tenVatTu !== null ? item.tenVatTu : "null"
+                    }}</span>
                   </td>
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="don_vi text-muted font-weight-bold"
-                      >{{ item.donVi !== null ? item.donVi : "null" }}</span
-                    >
+                    <span class="don_vi text-muted font-weight-bold">{{
+                      item.donVi !== null ? item.donVi : "null"
+                    }}</span>
                   </td>
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="gia_vat_tu text-muted font-weight-bold"
-                      >{{
-                        item.giaVatTu !== null ? item.giaVatTu : "null"
-                      }}</span
-                    >
-                  </td>
-                  <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="nguon text-muted font-weight-bold"
-                      >{{ item.nguon !== null ? item.nguon : "null" }}</span
-                    >
-                  </td>
-                  <td >
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="ghi_chu text-muted font-weight-bold"
-                      >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
-                    >
+                    <span class="gia_vat_tu text-muted font-weight-bold">{{
+                      item.giaVatTu !== null ? item.giaVatTu : "null"
+                    }}</span>
                   </td>
 
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="tinh text-muted font-weight-bold"
-                      >{{ item.tinh !== null ? item.tinh : "null" }}</span
-                    >
+                    <span class="khu_vuc text-muted font-weight-bold">{{
+                      item.khuVuc !== null ? item.khuVuc : "null"
+                    }}</span>
                   </td>
 
                   <td>
-                    <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
-                      class="tac_gia text-muted font-weight-bold"
-                      >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
-                    >
+                    <span class="thoi_diem text-muted font-weight-bold">{{
+                      item.thoiDiem !== null ? item.thoiDiem : "null"
+                    }}</span>
+                  </td>
+
+                  <td>
+                    <span class="nguon text-muted font-weight-bold">{{
+                      item.nguon !== null ? item.nguon : "null"
+                    }}</span>
+                  </td>
+                  <td>
+                    <span class="ghi_chu text-muted font-weight-bold">{{
+                      item.ghiChu !== null ? item.ghiChu : "null"
+                    }}</span>
+                  </td>
+
+                  <td>
+                    <span class="tinh text-muted font-weight-bold">{{
+                      item.tinh !== null ? item.tinh : "null"
+                    }}</span>
+                  </td>
+
+                  <td>
+                    <span class="tac_gia text-muted font-weight-bold">{{
+                      item.tacGia !== null ? item.tacGia : "null"
+                    }}</span>
                   </td>
                   <!-- 
                   <td class="pr-0 text-right">
@@ -436,6 +486,9 @@ export default {
       isMonthDisabled: false,
       isQuyDisabled: false,
       isDayDisabled: false,
+      isMonthDisabledView: false,
+      isQuyDisabledView: false,
+      isDayDisabledView: false,
       selectedTinh: null, // Array reference
       tinh: [
         { text: "An Giang", value: "AG" },
@@ -502,15 +555,30 @@ export default {
         { text: "Vĩnh Phúc", value: "VP" },
         { text: "Yên Bái", value: "YB" },
       ],
+      selectedTinhView: null,
+      tinhView: [
+        { value: "", text: "" },
+        // { value: "Báo giá nhân công", text: "Báo giá nhân công" },
+        // { value: "Báo giá ca máy", text: "Báo giá ca máy" },
+      ],
       selectedKhuVuc: "", // Array reference
-      markCost:null,
+      selectedKhuVucView: null, // Array reference
+      khuvucView: [
+        { value: "", text: "" },
+        // { value: "Báo giá nhân công", text: "Báo giá nhân công" },
+        // { value: "Báo giá ca máy", text: "Báo giá ca máy" },
+      ],
+      markCost: null,
       selectedLoaiBg: null, // Array reference
       loaibg: [
         { value: "Báo giá vật tư", text: "Báo giá vật tư" },
         // { value: "Báo giá nhân công", text: "Báo giá nhân công" },
         // { value: "Báo giá ca máy", text: "Báo giá ca máy" },
       ],
+
       selectedDay: null,
+      selectedDayView: null,
+      dayView: [],
       selectedThang: null, // Array reference
       thang: [
         { value: "Thang1", text: "Thang 1" },
@@ -526,6 +594,8 @@ export default {
         { value: "Thang11", text: "Thang 11" },
         { value: "Thang12", text: "Thang 12" },
       ],
+      selectedThangView: null, // Array reference
+      thangView: [{ value: "", text: "" }],
       selectedQuy: null, // Array reference
       quy: [
         { value: "Quy I", text: "Quy I" },
@@ -533,17 +603,16 @@ export default {
         { value: "Quy III", text: "Quy III" },
         { value: "Quy IV", text: "Quy IV" },
       ],
+      selectedQuyView: null, // Array reference
+      quyView: [{ value: "", text: "" }],
       dataArrBaoGia: [],
     };
   },
-  created() {
-    this["storeqlda/getAllListDataBaoGia"](); // khi load lai trang
-  },
+  created() {},
   mounted() {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
     //this.dataArr(this.pagination.current_page);
-    this.dataArr(this.currentPage);
-   
+    //this.dataArr(this.currentPage);
   },
   computed: {
     ...mapState({
@@ -551,16 +620,15 @@ export default {
     }),
     ...mapGetters([
       "storeqlda/getListDataBGia", // phuc vu viec search
-      "storeqlda/arrBaoGiaSearch",
+      "storeqlda/arrBaoGiaSearchForApprove",
       "currentUserPersonalInfo",
       "storeqlda/currentUser",
     ]),
     dataArrBaoGiaSerch() {
-      return this["storeqlda/arrBaoGiaSearch"];
+      return this["storeqlda/arrBaoGiaSearchForApprove"];
     },
   },
   watch: {
-    dataArr: function () {},
     selectedThang: function () {
       if (this.selectedThang) {
         this.isQuyDisabled = true;
@@ -588,181 +656,340 @@ export default {
         this.isMonthDisabled = false;
       }
     },
-    selectedTinh: function () {},
+    selectedThangView: function () {
+      if (this.selectedThangView) {
+        this.isQuyDisabledView = true;
+        this.isDayDisabledView = true;
+      } else {
+        this.isQuyDisabledView = false;
+        this.isDayDisabledView = false;
+      }
+    },
+    selectedQuyView: function () {
+      if (this.selectedQuyView) {
+        this.isMonthDisabledView = true;
+        this.isDayDisabledView = true;
+      } else {
+        this.isMonthDisabledView = false;
+        this.isDayDisabledView = false;
+      }
+    },
+    selectedDayView: function () {
+      if (this.selectedDayView) {
+        this.isQuyDisabledView = true;
+        this.isMonthDisabledView = true;
+      } else {
+        this.isQuyDisabledView = false;
+        this.isMonthDisabledView = false;
+      }
+    },
+    selectedTinhView: function () {
+      let data = {
+        idUserImport: this.currentUserPersonalInfo.user.id,
+        tinh: this.selectedTinhView,
+      };
+      this["storeqlda/getInfoBaoGiaOfUserGuest"](data).then((data) => {
+        this.khuvucView = data.data.khuvuc;
+        this.thangView = [];
+        this.quyView = [];
+        this.dayView = [];
+        for (var i in data.data.thoidiem) {
+          if (data.data.thoidiem[i].value.search("Thang") >= 0) {
+            this.thangView.push(data.data.thoidiem[i]);
+          } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
+            this.quyView.push(data.data.thoidiem[i]);
+          } else {
+            this.dayView.push(data.data.thoidiem[i]);
+          }
+        }
+      });
+    },
   },
   methods: {
     ...mapActions([
-      "storeqlda/getAllListDataBaoGia",
-      "storeqlda/getListDataBaoGiaHasPaging",
       "storeqlda/guestCreateBaoGia",
-      "storeqlda/updateDataGiaVatTuWithId",
+
+      "storeqlda/getAllListDataBaoGiaGuest",
+      "storeqlda/updateDataGiaVatTuGuestUp",
+      "storeqlda/approveGiaVtGuest",
+      "storeqlda/getUserGuestUpBgia",
+      "storeqlda/getInfoBaoGiaOfUserGuest",
+      "storeqlda/getInfoTinhBaoGiaOfUserGuest",
+      "storeqlda/viewBaoGiaWithSelecttionOfGuest",
     ]),
     dataArr(page) {
-      this["storeqlda/getListDataBaoGiaHasPaging"](page).then((response) => {
-        this.dataArrBaoGia = response.data.data;
-        this.pagination = response.data;
-        this.rows = response.data.total;
-      });
+      let thoidiem = "";
+      if (!this.isMonthDisabledView) {
+        thoidiem = this.selectedThangView;
+      }
+      if (!this.isQuyDisabledView) {
+        thoidiem = this.selectedQuyView;
+      }
+      if (!this.isDayDisabledView) {
+        thoidiem = this.selectedDayView;
+      }
+      var data = {
+        check: 0,
+        user_id: this.currentUserPersonalInfo.user.id,
+        tinh: this.selectedTinhView,
+        khuvuc: this.selectedKhuVucView,
+        thoidiem: thoidiem,
+        page: page,
+      };
+      this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
+        (response) => {
+          this.dataArrBaoGia = response.data.data;
+          this.pagination = response.data;
+          this.rows = response.data.total;
+        }
+      );
     },
     handleChange(event) {
       this.selectedFile = event.target.files[0];
     },
-    importExcelBaoGia() {
+    handleXemBG() {
+      let thoidiem = "";
+      if (!this.isMonthDisabledView) {
+        thoidiem = this.selectedThangView;
+      }
+      if (!this.isQuyDisabledView) {
+        thoidiem = this.selectedQuyView;
+      }
+      if (!this.isDayDisabledView) {
+        thoidiem = this.selectedDayView;
+      }
+      var data = {
+        check: 0,
+        user_id: this.currentUserPersonalInfo.user.id,
+        tinh: this.selectedTinhView,
+        khuvuc: this.selectedKhuVucView,
+        thoidiem: thoidiem,
+      };
       if (
-        this.selectedFile &&
-        this.selectedTinh &&
-        this.selectedKhuVuc &&
-        (this.selectedDay || this.selectedThang || this.selectedQuy)
+        this.selectedTinhView &&
+        this.selectedKhuVucView &&
+        (this.selectedDayView || this.selectedThangView || this.selectedQuyView)
       ) {
-        var workbook = new Excel.Workbook();
-        let arrHeader = [];
-        //let arrDataJson =[];
-        let fileReader = new FileReader();
-        fileReader.readAsBinaryString(this.selectedFile);
-        fileReader.onload = () => {
-          let data = fileReader.result;
-          workbook.xlsx
-            .load(data)
-            .then(() => {
-              var worksheet = workbook.getWorksheet(1);
-              // let dataArray = changeRowsToDict(worksheet);
-              // console.log(dataArray)
-              worksheet.eachRow(function (row) {
-                var filtered = row.values.filter(function (el) {
-                  return el != undefined;
-                });
-                arrHeader.push(filtered);
-              });
-              let index = 0;
-              let temp = "";
-              let tempRs = "";
-              let tempFinalRs = "";
-              let title = arrHeader[0];
-              // lặp qua từng phần tử và làm gì đó với nó trong mảng dung map
-              title = title.map(function (item) {
-                return removeVietnameseTones(item)
-                  .replace(/ /g, "")
-                  .toLowerCase();
-              });
+        this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
+          (response) => {
+            this.dataArrBaoGia = response.data.data;
+            console.log("thanh", this.dataArrBaoGia);
+            this.pagination = response.data;
+            this.rows = response.data.total;
+          }
+        );
 
-              var headerGiaVt = [
-                "mavattu",
-                "tenvattu",
-                "donvi",
-                "giavattu",
-                "nguon",
-                "ghichu",
-                "tinh",
-                "tacgia",
-              ];
-              worksheet.eachRow((row) => {
-				  let tempPrice = "";
-                row.eachCell({ includeEmpty: true }, (cell, number) => {
-                  if (number <= title.length) {
-                    if (title[index] === "giavattu") {
-                      if (!this.isMonthDisabled) {
-                        tempPrice = this.selectedThang;
-                      }
-                      if (!this.isQuyDisabled) {
-                        tempPrice = this.selectedQuy;
-                      }
-                      if (!this.isDayDisabled) {
-                        tempPrice = this.selectedDay;
-                      }
-                      temp = `"${title[index]}":"${tempPrice},${this.selectedKhuVuc}:${cell.value}",`;
-                      tempRs = tempRs + temp;
-                      index++;
-                      tempPrice = "";
-                    } else {
-                      temp = `"${title[index]}":"${
-                        cell.value !== null && typeof(cell.value) !== "number"
-                          ? cell.value.replace(/\\/g, "").replace(/"/g, "''")
-                          : cell.value
-                      }",`;
-                      tempRs = tempRs + temp;
-                      index++;
-                      //tempPrice = "";
-                    }
-                  }
-                });
-                //tempRs = tempRs.substring(0, tempRs.length - 1); // bỏ dáu ngăn cách , ở cuối
-				    if (!this.isMonthDisabled) {
-                        tempPrice = this.selectedThang;
-                      }
-                      if (!this.isQuyDisabled) {
-                        tempPrice = this.selectedQuy;
-                      }
-                      if (!this.isDayDisabled) {
-                        tempPrice = this.selectedDay;
-                      }
-                temp = `"tinh":"${this.selectedTinh}",`;
-                tempRs = tempRs + temp;
-				temp = `"vote_mark":"${tempPrice},${this.selectedKhuVuc},vote:0|mark:${this.markCost}"`;
-                tempRs = tempRs + temp;
-                tempRs = `{${tempRs}},`; // 1 obj của 1 dòng
-                tempFinalRs = tempFinalRs + tempRs;
-                tempRs = "";
-                index = 0; // đưa veeg 0 để bắt đầu hàng mới
-              });
-              tempFinalRs = tempFinalRs.substring(0, tempFinalRs.length - 1); // string của cả bảng tính
-              tempFinalRs = `[${tempFinalRs}]`;
-              //console.log(tempFinalRs);
-              var arrTemp = JSON.parse(tempFinalRs);
-              //console.log(arrTemp);
-              arrTemp.shift(); // bỏ đi thằng dòng đầu tiên là tiêu đề
-              // lặp qua để xem còn file đọc vào có dòng tiêu đề thiếu những cột nào so với cột chuẩn
-              for (var i in arrTemp) {
-                var keyObj = Object.keys(arrTemp[i]);
-                for (var j in headerGiaVt) {
-                  if (!keyObj.includes(headerGiaVt[j])) {
-                    //console.log('title',title[j]);
-                    arrTemp[i][headerGiaVt[j]] = null;
-                    break;
-                  }
-                }
-              }
-              tempFinalRs = JSON.stringify(arrTemp);
-              let dataImport = {
-                tempFinalRs: tempFinalRs,
-                idUserImport: this.currentUserPersonalInfo.user.id,
-              };
-
-              this["storeqlda/guestCreateBaoGia"](dataImport).then((data) => {
-                console.log("data lan 1", data);
-                if (data.ok === false) {
-                  alert(data.error);
-                } else {
-                  if (data.data.exist === true) {
-                    if (confirm("Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?")) 
-					{
-                      dataImport = {
-                        tempFinalRs: tempFinalRs,
-                        idUserImport: this.currentUserPersonalInfo.user.id,
-                        agreeOverride: 1,
-                      };
-                      this["storeqlda/guestCreateBaoGia"](dataImport).then((data)=> alert(data.data.message));
-                    }else {
-						          dataImport = {
-                        tempFinalRs: tempFinalRs,
-                        idUserImport: this.currentUserPersonalInfo.user.id,
-                        agreeOverride: 2,
-                      };
-                      this["storeqlda/guestCreateBaoGia"](dataImport);
-					}
-                  }else{
-					  alert(data.data.message);
-				  }
-                }
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        };
+        this["storeqlda/getAllListDataBaoGiaGuest"](data);
       } else {
         alert(
-          "Bạn chưa chọn file import dữ liệu, hoặc bạn chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
+          "Bạn chưa chọn người up báo giá hoặc chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
         );
+      }
+    },
+    importExcelBaoGia() {
+      if (
+        confirm(
+          "Bạn có chắc chắn muốn up dữ liệu này không?"
+        )
+      ) {
+        if (
+          this.selectedFile &&
+          this.selectedTinh &&
+          this.selectedKhuVuc &&
+          (this.selectedDay || this.selectedThang || this.selectedQuy)
+        ) {
+          var workbook = new Excel.Workbook();
+          let arrHeader = [];
+          //let arrDataJson =[];
+          let fileReader = new FileReader();
+          fileReader.readAsBinaryString(this.selectedFile);
+          fileReader.onload = () => {
+            let data = fileReader.result;
+            workbook.xlsx
+              .load(data)
+              .then(() => {
+                var worksheet = workbook.getWorksheet(1);
+                // let dataArray = changeRowsToDict(worksheet);
+                // console.log(dataArray)
+                worksheet.eachRow(function (row) {
+                  var filtered = row.values.filter(function (el) {
+                    return el != undefined;
+                  });
+                  arrHeader.push(filtered);
+                });
+                let index = 0;
+                let temp = "";
+                let tempRs = "";
+                let tempFinalRs = "";
+                let title = arrHeader[0];
+                // lặp qua từng phần tử và làm gì đó với nó trong mảng dung map
+                title = title.map(function (item) {
+                  return removeVietnameseTones(item)
+                    .replace(/ /g, "")
+                    .toLowerCase();
+                });
+
+                var headerGiaVt = [
+                  "mavattu",
+                  "tenvattu",
+                  "donvi",
+                  "giavattu",
+                  "nguon",
+                  "ghichu",
+                  "tinh",
+                  "tacgia",
+                ];
+                worksheet.eachRow((row) => {
+                  let tempPrice = "";
+                  row.eachCell({ includeEmpty: true }, (cell, number) => {
+                    if (number <= title.length) {
+                      if (title[index] === "giavattu") {
+                        if (!this.isMonthDisabled) {
+                          tempPrice = this.selectedThang;
+                        }
+                        if (!this.isQuyDisabled) {
+                          tempPrice = this.selectedQuy;
+                        }
+                        if (!this.isDayDisabled) {
+                          tempPrice = this.selectedDay;
+                        }
+                        temp = `"${title[index]}":"${tempPrice},${this.selectedKhuVuc}:${cell.value}",`;
+                        tempRs = tempRs + temp;
+                        index++;
+                        tempPrice = "";
+                      } else {
+                        temp = `"${title[index]}":"${
+                          cell.value !== null && typeof cell.value !== "number"
+                            ? cell.value.replace(/\\/g, "").replace(/"/g, "''")
+                            : cell.value
+                        }",`;
+                        tempRs = tempRs + temp;
+                        index++;
+                        //tempPrice = "";
+                      }
+                    }
+                  });
+                  //tempRs = tempRs.substring(0, tempRs.length - 1); // bỏ dáu ngăn cách , ở cuối
+                  if (!this.isMonthDisabled) {
+                    tempPrice = this.selectedThang;
+                  }
+                  if (!this.isQuyDisabled) {
+                    tempPrice = this.selectedQuy;
+                  }
+                  if (!this.isDayDisabled) {
+                    tempPrice = this.selectedDay;
+                  }
+                  temp = `"tinh":"${this.selectedTinh}",`;
+                  tempRs = tempRs + temp;
+                  temp = `"vote_mark":"${tempPrice},${this.selectedKhuVuc},vote:0|mark:${this.markCost}"`;
+                  tempRs = tempRs + temp;
+                  tempRs = `{${tempRs}},`; // 1 obj của 1 dòng
+                  tempFinalRs = tempFinalRs + tempRs;
+                  tempRs = "";
+                  index = 0; // đưa veeg 0 để bắt đầu hàng mới
+                });
+                tempFinalRs = tempFinalRs.substring(0, tempFinalRs.length - 1); // string của cả bảng tính
+                tempFinalRs = `[${tempFinalRs}]`;
+                //console.log(tempFinalRs);
+                var arrTemp = JSON.parse(tempFinalRs);
+                //console.log(arrTemp);
+                arrTemp.shift(); // bỏ đi thằng dòng đầu tiên là tiêu đề
+                // lặp qua để xem còn file đọc vào có dòng tiêu đề thiếu những cột nào so với cột chuẩn
+                for (var i in arrTemp) {
+                  var keyObj = Object.keys(arrTemp[i]);
+                  for (var j in headerGiaVt) {
+                    if (!keyObj.includes(headerGiaVt[j])) {
+                      //console.log('title',title[j]);
+                      arrTemp[i][headerGiaVt[j]] = null;
+                      break;
+                    }
+                  }
+                }
+                tempFinalRs = JSON.stringify(arrTemp);
+                let dataImport = {
+                  tempFinalRs: tempFinalRs,
+                  idUserImport: this.currentUserPersonalInfo.user.id,
+                };
+
+                this["storeqlda/guestCreateBaoGia"](dataImport)
+                  .then((res) => {
+                    console.log("data lan 1", 1);
+                    if (res.ok === false) {
+                      alert(res.error);
+                    } else {
+                      if (res.data.exist === true) {
+                        if (
+                          confirm(
+                            "Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?"
+                          )
+                        ) {
+                          dataImport = {
+                            tempFinalRs: tempFinalRs,
+                            idUserImport: this.currentUserPersonalInfo.user.id,
+                            agreeOverride: 1,
+                          };
+                          this["storeqlda/guestCreateBaoGia"](dataImport)
+                            .then((data) => alert(data.data.message))
+                            .then(() => {
+                              let data = {
+                                check: 0,
+                                idUserImport:
+                                  this.currentUserPersonalInfo.user.id,
+                              };
+                              this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](
+                                data
+                              ).then((data) => {
+                                this.tinhView = data.data.tinh;
+                              });
+                            });
+                        } else {
+                          dataImport = {
+                            tempFinalRs: tempFinalRs,
+                            idUserImport: this.currentUserPersonalInfo.user.id,
+                            agreeOverride: 2,
+                          };
+                          this["storeqlda/guestCreateBaoGia"](dataImport).then(
+                            () => {
+                              let data = {
+                                check: 0,
+                                idUserImport:
+                                  this.currentUserPersonalInfo.user.id,
+                              };
+                              this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](
+                                data
+                              ).then((data) => {
+                                this.tinhView = data.data.tinh;
+                              });
+                            }
+                          );
+                        }
+                      } else {
+                        alert(res.data.message);
+                        let data = {
+                          check: 0,
+                          idUserImport: this.currentUserPersonalInfo.user.id,
+                        };
+                        this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](
+                          data
+                        ).then((data) => {
+                          this.tinhView = data.data.tinh;
+                        });
+                      }
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          };
+        } else {
+          alert(
+            "Bạn chưa chọn file import dữ liệu, hoặc bạn chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
+          );
+        }
       }
       //document.getElementById("jsondata").innerHTML = JSON.stringify(row.value,undefined,4);
       //}).catch(err => console.log(`Caught by .catch ${err}`));

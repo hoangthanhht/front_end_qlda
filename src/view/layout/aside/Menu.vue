@@ -95,7 +95,27 @@
       >
         <a :href="href" class="menu-link" @click="navigate">
           <i class="menu-icon flaticon2-expand"></i>
-          <span class="menu-text">Approve giá vật tư</span>
+          <span class="menu-text">Phê duyệt giá vật tư</span>
+        </a>
+      </li>
+    </router-link>
+
+  <router-link
+      to="/guestviewmaterialcost"
+      v-slot="{ href, navigate, isActive, isExactActive }"
+    >
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
+          isActive && 'menu-item-active',
+          isExactActive && 'menu-item-active',
+        ]"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon2-expand"></i>
+          <span class="menu-text">Xem giá vật tư</span>
         </a>
       </li>
     </router-link>

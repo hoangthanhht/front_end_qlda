@@ -302,10 +302,13 @@ export default {
         }
     },
     /* APPROVE BAO GIÁ */
-    async getUserGuestUpBgia() {
+    async getUserGuestUpBgia(context, {check = ''}) {
         try {
-           
-            var result = await axiosInstance.get(`/getUserUpBaoGia`);
+            let data = {
+                check: check,
+               
+            }
+            var result = await axiosInstance.post(`/getUserUpBaoGia`,data);
             console.log('result getUserGuestUpBgia', result);
 
             // commit('SET_LOADING', false);
@@ -338,10 +341,13 @@ export default {
         }
     },
 
-    async getInfoTinhBaoGiaOfUserGuest(context,  idUserImport ) {
+    async getInfoTinhBaoGiaOfUserGuest(context,  {idUserImport = '',check = ''} ) {
         try {
-  
-            var result = await axiosInstance.get(`/getInfoTinhBaoGiaOfUser/${idUserImport}`);
+            let data = {
+                check: check,
+                idUserImport:idUserImport
+            }
+            var result = await axiosInstance.post(`/getInfoTinhBaoGiaOfUser`,data);
             console.log('result', result);
 
             // commit('SET_LOADING', false);
@@ -410,7 +416,7 @@ export default {
             }
         }
     },
-    async viewBaoGiaWithSelecttionOfGuest(context, {page=1, user_id = '', tinh = '', khuvuc = '', thoidiem = '' }) {
+    async viewBaoGiaWithSelecttionOfGuest(context, {page=1, user_id = '', tinh = '', khuvuc = '', thoidiem = '',check ='' }) {
         try {
             // let data = {
             //     user_id: user_id,
@@ -418,7 +424,7 @@ export default {
             //     tinh: tinh,
             //     thoidiem: thoidiem
             // }
-            var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}?page=${page}`);
+            var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}?page=${page}`);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
@@ -529,7 +535,31 @@ export default {
             console.log("error", error);
         }
     },
+    async approveGiaVtGuest(context,{ giaVt = '', idUserApprove = '', agreeOverride = 0, tinh = '', user_id = 0 }) {
+        
+            let data = {
+                giaVt: giaVt,
+                tinh: tinh,
+                user_id: user_id,
+                idUserApprove: idUserApprove,
+                agreeOverride: agreeOverride
+            }
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
 
+        try {
+
+            var result = await axiosInstance.post(`/approveGiaVt/${data.idUserApprove}/${data.agreeOverride}`, data);
+            console.log('approveGiaVtGuest', result);
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
 
 
     /* gọi api cho verify email */
