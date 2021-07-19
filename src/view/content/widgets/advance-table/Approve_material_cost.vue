@@ -514,7 +514,7 @@ export default {
   mounted() {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
     //this.dataArr(this.pagination.current_page);
-    this.dataArr(this.currentPage);
+    //this.dataArr(this.currentPage);
   },
   computed: {
     ...mapState({
@@ -618,6 +618,7 @@ export default {
       }
       var data = {
         check:0,
+        idUserView: this.currentUserPersonalInfo.user.id,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,
@@ -643,6 +644,7 @@ export default {
       }
       var data = {
         check:0,
+        idUserView: this.currentUserPersonalInfo.user.id,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,

@@ -380,12 +380,12 @@ export default {
         }
     },
     //api lấy thông tin khu vuc theo thanh phố và người đằng
-    async getInfoBaoGiaOfUserGuest(context,  {idUserImport = '',tinh = ''} ) {
+    async getInfoBaoGiaOfUserGuest(context,  {idUserImport = '',tinh = '',check = ''} ) {
         try {
        let data = {
                 idUserImport: idUserImport,
                 tinh: tinh,
-               
+                check:check
             }
             var result = await axiosInstance.post(`/getInfoBaoGiaOfUser`,data);
             console.log('getInfoBaoGiaOfUserGuest', result);
@@ -416,7 +416,7 @@ export default {
             }
         }
     },
-    async viewBaoGiaWithSelecttionOfGuest(context, {page=1, user_id = '', tinh = '', khuvuc = '', thoidiem = '',check ='' }) {
+    async viewBaoGiaWithSelecttionOfGuest(context, {page=1, user_id = '', tinh = '', khuvuc = '', thoidiem = '',check ='',idUserView='' }) {
         try {
             // let data = {
             //     user_id: user_id,
@@ -424,7 +424,8 @@ export default {
             //     tinh: tinh,
             //     thoidiem: thoidiem
             // }
-            var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}?page=${page}`);
+            console.log('idUserView',idUserView)
+            var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}/${idUserView}?page=${page}`);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
@@ -535,6 +536,34 @@ export default {
             console.log("error", error);
         }
     },
+
+    async apiHandleLike(context,{user_id = '', tinh = '', khuvuc = '', thoidiem = '',idUserView = ''}) {
+
+        let data = {
+                idUserView:idUserView,
+                user_id: user_id,
+                khuvuc: khuvuc,
+                tinh: tinh,
+                thoidiem: thoidiem
+            }
+            console.log('data',data);
+        // var data = {
+        //     'email': 'admin77777@gmail.com',
+        //     'password':'12345678'
+        // }
+
+        try {
+
+            var result = await axiosInstance.post('/handleLike', data);
+            console.log('getAllListDataBaoGia', result);
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+    
     async approveGiaVtGuest(context,{ giaVt = '', idUserApprove = '', agreeOverride = 0, tinh = '', user_id = 0 }) {
         
             let data = {

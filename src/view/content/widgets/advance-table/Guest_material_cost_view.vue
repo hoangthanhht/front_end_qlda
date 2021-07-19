@@ -90,6 +90,26 @@
           </b-form-select>
         </div>
 
+          <div>
+          <label class="pr-3" for="fname">Số điểm cần để xem báo giá:</label>
+            <input
+              v-model="markCost"
+              style="height: 34px; border: 0.3px solid"
+              type="text"
+              name="birthday"
+            />
+          </div>
+
+          <div>
+          <label class="pr-3" for="fname">Số điểm hiện có của bạn:</label>
+            <input
+              v-model="markUserView"
+              style="height: 34px; border: 0.3px solid"
+              type="text"
+              name="birthday"
+            />
+          </div>
+
         <div>
           <b-button
             @click="handleXemBG"
@@ -100,6 +120,36 @@
           </b-button>
         </div>
       </div>
+
+
+       <div class="import_excel_bao_gia">
+        
+          
+      <div ref="element_vote">
+        <label class="pl-3">
+          Lượt vote của báo giá :
+        </label>
+        <span>
+          10
+        </span>
+      <i 
+	  
+      @click="handleLike"
+      class="flaticon-like icon-2x text-success pl-4" 
+      style="cursor: pointer;disabled: true"></i>
+      </div>
+
+       <div>
+          <b-button
+            @click="handleXemBG"
+            size="sm"
+            class="mb-2 add-cv icon-tvgs"
+          >
+          Chuyển đến trang đổi điểm
+          </b-button>
+        </div>
+      </div>
+
     </div>
     <!--begin::Header-->
     <!-- <div class="card-header border-0 py-5">
@@ -161,16 +211,12 @@
                   </td> -->
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickMaDM"
                       class="ma_vat_tu text-muted font-weight-bold"
                       >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="ten_vat_tu text-muted font-weight-bold"
                       >{{
                         item.tenVatTu !== null ? item.tenVatTu : "null"
@@ -179,16 +225,12 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="don_vi text-muted font-weight-bold"
                       >{{ item.donVi !== null ? item.donVi : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="gia_vat_tu text-muted font-weight-bold"
                       >{{
                         item.giaVatTu !== null ? item.giaVatTu : "null"
@@ -216,16 +258,12 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="nguon text-muted font-weight-bold"
                       >{{ item.nguon !== null ? item.nguon : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="ghi_chu text-muted font-weight-bold"
                       >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
                     >
@@ -240,8 +278,6 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="tac_gia text-muted font-weight-bold"
                       >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
                     >
@@ -315,16 +351,12 @@
                   
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickMaDM"
                       class="ma_vat_tu text-muted font-weight-bold"
                       >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="ten_vat_tu text-muted font-weight-bold"
                       >{{
                         item.tenVatTu !== null ? item.tenVatTu : "null"
@@ -333,16 +365,12 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="don_vi text-muted font-weight-bold"
                       >{{ item.donVi !== null ? item.donVi : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="gia_vat_tu text-muted font-weight-bold"
                       >{{
                         item.giaVatTu !== null ? item.giaVatTu : "null"
@@ -370,16 +398,12 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="nguon text-muted font-weight-bold"
                       >{{ item.nguon !== null ? item.nguon : "null" }}</span
                     >
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="ghi_chu text-muted font-weight-bold"
                       >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
                     >
@@ -394,8 +418,6 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
-                      v-on:click="hadleClickTenMaDM"
                       class="tac_gia text-muted font-weight-bold"
                       >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
                     >
@@ -474,6 +496,7 @@ export default {
         // { value: "Báo giá ca máy", text: "Báo giá ca máy" },
       ],
       markCost: null,
+      markUserView:null,
       selectedPersionUpBg: null, // Array reference
       persionupbg: [
         { value: "", text: "" },
@@ -501,11 +524,24 @@ export default {
     this["storeqlda/getUserGuestUpBgia"](check).then((data) => {
       this.persionupbg = data.data;
     });
+	
   },
   mounted() {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
     //this.dataArr(this.pagination.current_page);
-    this.dataArr(this.currentPage);
+    //this.dataArr(this.currentPage);
+	if (
+        this.selectedTinh &&
+        this.selectedKhuVuc &&
+        this.selectedPersionUpBg &&
+        (this.selectedDay || this.selectedThang || this.selectedQuy)
+      ) {
+		  console.log('');
+	  }else{
+		  const voteEle = this.$refs["element_vote"];
+		  //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
+		  voteEle.style.display = 'none'
+	  }
   },
   computed: {
     ...mapState({
@@ -522,7 +558,6 @@ export default {
     },
   },
   watch: {
-    dataArr: function () {},
     // quan sát sự lựa chọn người đăng bao giá
     selectedPersionUpBg: function () {
        let data = {check:1,
@@ -595,8 +630,40 @@ export default {
       "storeqlda/getInfoBaoGiaOfUserGuest",
       "storeqlda/getInfoTinhBaoGiaOfUserGuest",
       "storeqlda/viewBaoGiaWithSelecttionOfGuest",
+      "storeqlda/apiHandleLike",
       
     ]),
+    handleLike(){
+       let thoidiem = "";
+      if (!this.isMonthDisabled) {
+        thoidiem = this.selectedThang;
+      }
+      if (!this.isQuyDisabled) {
+        thoidiem = this.selectedQuy;
+      }
+      if (!this.isDayDisabled) {
+        thoidiem = this.selectedDay;
+      }
+      var data = {
+        idUserView: this.currentUserPersonalInfo.user.id,
+        user_id: this.selectedPersionUpBg,
+        tinh: this.selectedTinh,
+        khuvuc: this.selectedKhuVuc,
+        thoidiem: thoidiem,
+      };
+	  if (
+        this.selectedTinh &&
+        this.selectedKhuVuc &&
+        this.selectedPersionUpBg &&
+        (this.selectedDay || this.selectedThang || this.selectedQuy)
+      ) {
+		  this['storeqlda/apiHandleLike'](data);
+	  }else{
+		  const voteEle = this.$refs["element_vote"];
+      //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
+      	voteEle.style.display = 'none'
+	  }
+    },
     dataArr(page) {
 		let thoidiem = "";
       if (!this.isMonthDisabled) {
@@ -610,6 +677,7 @@ export default {
       }
       var data = {
         check:1,
+        idUserView: this.currentUserPersonalInfo.user.id,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,
@@ -617,9 +685,18 @@ export default {
 		    page:page
       };
       this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
-        this.dataArrBaoGia = response.data.data;
-        this.pagination = response.data;
-        this.rows = response.data.total;
+        if(response) {
+          this.markCost = response.data.mark;
+          this.markUserView = response.data.markuserview;
+          if(parseInt(this.markCost) <= parseInt(this.markUserView)) {
+            this.dataArrBaoGia = response.data.pagi.data;
+            this.pagination = response.data.pagi;
+            this.rows = response.data.pagi.total;
+
+          } else {
+            alert('bạn không đủ điểm để xem báo giá này')
+          }
+        }
       });
     },
     handleXemBG() {
@@ -634,6 +711,8 @@ export default {
         thoidiem = this.selectedDay;
       }
       var data = {
+        check:1,
+        idUserView: this.currentUserPersonalInfo.user.id,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,
@@ -646,9 +725,27 @@ export default {
         (this.selectedDay || this.selectedThang || this.selectedQuy)
       ) {
         this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
-        this.dataArrBaoGia = response.data.data;
-        this.pagination = response.data;
-        this.rows = response.data.total;
+        if(response) {
+          this.markCost = response.data.mark;
+          this.markUserView = response.data.markuserview;
+          if(parseInt(this.markCost) <= parseInt(this.markUserView)) {
+             if (
+                    confirm(
+                      `Để xem báo giá bạn sẽ phải chuyển số điểm là : ${this.markCost} điểm cho người đăng báo giá này`
+                    )
+                  ) {
+                    this.dataArrBaoGia = response.data.pagi.data;
+                    this.pagination = response.data.pagi;
+                    this.rows = response.data.pagi.total;
+
+                    }
+					const voteEle = this.$refs["element_vote"];
+    			  //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
+      				voteEle.style.display = 'block'
+          } else {
+            alert('bạn không đủ điểm để xem báo giá này')
+          }
+        }
       });
       
       this['storeqlda/getAllListDataBaoGiaGuest'](data);
