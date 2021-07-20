@@ -125,17 +125,17 @@
        <div class="import_excel_bao_gia">
         
           
-      <div ref="element_vote">
+      <div ref="element_vote" >
         <label class="pl-3">
           Lượt vote của báo giá :
         </label>
         <span>
-          10
+          {{currentVote}}
         </span>
       <i 
-	  
+	  ref="icon-element_vote"
       @click="handleLike"
-      class="flaticon-like icon-2x text-success pl-4" 
+      class="flaticon-like icon-2x pl-4" 
       style="cursor: pointer;disabled: true"></i>
       </div>
 
@@ -482,6 +482,7 @@ export default {
   },
   data() {
     return {
+      currentVote:0,
       rows: 100,
       currentPage: 1,
       isMonthDisabled: false,
@@ -530,18 +531,11 @@ export default {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
     //this.dataArr(this.pagination.current_page);
     //this.dataArr(this.currentPage);
-	if (
-        this.selectedTinh &&
-        this.selectedKhuVuc &&
-        this.selectedPersionUpBg &&
-        (this.selectedDay || this.selectedThang || this.selectedQuy)
-      ) {
-		  console.log('');
-	  }else{
+	
 		  const voteEle = this.$refs["element_vote"];
 		  //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
 		  voteEle.style.display = 'none'
-	  }
+	  	
   },
   computed: {
     ...mapState({
@@ -657,10 +651,20 @@ export default {
         this.selectedPersionUpBg &&
         (this.selectedDay || this.selectedThang || this.selectedQuy)
       ) {
-		  this['storeqlda/apiHandleLike'](data);
+		  this['storeqlda/apiHandleLike'](data).then((res)=>{
+        this.currentVote = res.data;
+      });
+	  const eleIcon = this.$refs["icon-element_vote"];
+	  let strClass = eleIcon.className;
+	  if(strClass.indexOf("text-success") !== -1){
+		  eleIcon.classList.remove('text-success');
+		  eleIcon.classList.add('text-dark');
+	  }else {
+		  eleIcon.classList.remove('text-dark');
+		  eleIcon.classList.add('text-success');
+	  }
 	  }else{
-		  const voteEle = this.$refs["element_vote"];
-      //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
+		const voteEle = this.$refs["element_vote"];
       	voteEle.style.display = 'none'
 	  }
     },
@@ -676,7 +680,7 @@ export default {
         thoidiem = this.selectedDay;
       }
       var data = {
-        check:1,
+        check:3,
         idUserView: this.currentUserPersonalInfo.user.id,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
@@ -686,16 +690,10 @@ export default {
       };
       this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
         if(response) {
-          this.markCost = response.data.mark;
-          this.markUserView = response.data.markuserview;
-          if(parseInt(this.markCost) <= parseInt(this.markUserView)) {
-            this.dataArrBaoGia = response.data.pagi.data;
+          this.dataArrBaoGia = response.data.pagi.data;
             this.pagination = response.data.pagi;
             this.rows = response.data.pagi.total;
-
-          } else {
-            alert('bạn không đủ điểm để xem báo giá này')
-          }
+            
         }
       });
     },
@@ -726,24 +724,60 @@ export default {
       ) {
         this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
         if(response) {
-          this.markCost = response.data.mark;
-          this.markUserView = response.data.markuserview;
-          if(parseInt(this.markCost) <= parseInt(this.markUserView)) {
-             if (
-                    confirm(
-                      `Để xem báo giá bạn sẽ phải chuyển số điểm là : ${this.markCost} điểm cho người đăng báo giá này`
-                    )
-                  ) {
+          if(response.data.isbuy) {
+			  console.log('das mua')
+                    this.markCost = response.data.mark;
+                    this.markUserView = response.data.markuserview;
                     this.dataArrBaoGia = response.data.pagi.data;
                     this.pagination = response.data.pagi;
                     this.rows = response.data.pagi.total;
-
-                    }
+                    this.currentVote = response.data.votecur;
 					const voteEle = this.$refs["element_vote"];
-    			  //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
-      				voteEle.style.display = 'block'
-          } else {
-            alert('bạn không đủ điểm để xem báo giá này')
+					const eleIcon = this.$refs["icon-element_vote"];
+					voteEle.style.display = 'block'
+					if(response.data.isvote){
+					  //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
+						eleIcon.classList.add('text-success');
+
+					}else{
+						eleIcon.classList.remove('text-success');
+						eleIcon.classList.add('text-dark');
+					}
+                      
+          }else {
+			  console.log('chua mua')
+            this.markCost = response.data.mark;
+            this.markUserView = response.data.markuserview;
+            if(parseInt(this.markCost) <= parseInt(this.markUserView)) {
+               if (
+                      confirm(
+                        `Để xem báo giá bạn sẽ phải chuyển số điểm là : ${this.markCost} điểm cho người đăng báo giá này`
+                      )
+                    ) {
+                      this.dataArrBaoGia = response.data.pagi.data;
+                      this.pagination = response.data.pagi;
+                      this.rows = response.data.pagi.total;
+                      this.currentVote = response.data.votecur;
+                      const voteEle = this.$refs["element_vote"];
+                    //voteEle.classList.add("spinner", "spinner-light", "spinner-right");
+                      voteEle.style.display = 'block'
+                      data = {
+                        check:1,
+                        idUserView: this.currentUserPersonalInfo.user.id,
+                        user_id: this.selectedPersionUpBg,
+                        tinh: this.selectedTinh,
+                        khuvuc: this.selectedKhuVuc,
+                        thoidiem: thoidiem,
+                        agreebuy:1
+                        };
+                         this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((res)=>{
+                            this.markUserView = res.data.mark;
+                         })
+  
+                      }
+            } else {
+              alert('Bạn không đủ điểm để xem báo giá này')
+            }
           }
         }
       });

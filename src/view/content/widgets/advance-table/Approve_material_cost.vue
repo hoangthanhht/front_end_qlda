@@ -14,7 +14,7 @@
             </template>
           </b-form-select>
         </div>
-        
+
         <div>
           <b-form-select v-model="selectedKhuVuc" :options="khuvuc">
             <template #first>
@@ -97,6 +97,16 @@
               >
             </template>
           </b-form-select>
+        </div>
+
+        <div>
+          <b-button
+            @click="handleXoaBG"
+            size="sm"
+            class="mb-2 add-cv icon-tvgs"
+          >
+            Xóa báo giá
+          </b-button>
         </div>
 
         <div>
@@ -206,21 +216,15 @@
                   </td>
 
                   <td>
-                    <span
-                      class="khu_vuc text-muted font-weight-bold"
-                      >{{
-                        item.khuVuc !== null ? item.khuVuc : "null"
-                      }}</span
-                    >
+                    <span class="khu_vuc text-muted font-weight-bold">{{
+                      item.khuVuc !== null ? item.khuVuc : "null"
+                    }}</span>
                   </td>
 
                   <td>
-                    <span
-                      class="thoi_diem text-muted font-weight-bold"
-                      >{{
-                        item.thoiDiem !== null ? item.thoiDiem : "null"
-                      }}</span
-                    >
+                    <span class="thoi_diem text-muted font-weight-bold">{{
+                      item.thoiDiem !== null ? item.thoiDiem : "null"
+                    }}</span>
                   </td>
 
                   <td>
@@ -241,10 +245,9 @@
                   </td>
 
                   <td>
-                    <span
-                      class="tinh text-muted font-weight-bold"
-                      >{{ item.tinh !== null ? item.tinh : "null" }}</span
-                    >
+                    <span class="tinh text-muted font-weight-bold">{{
+                      item.tinh !== null ? item.tinh : "null"
+                    }}</span>
                   </td>
 
                   <td>
@@ -321,7 +324,7 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
-                  
+
                   <td>
                     <span
                       @blur="handleSave($event, index)"
@@ -360,21 +363,15 @@
                   </td>
 
                   <td>
-                    <span
-                      class="khu_vuc text-muted font-weight-bold"
-                      >{{
-                        item.khuVuc !== null ? item.khuVuc : "null"
-                      }}</span
-                    >
+                    <span class="khu_vuc text-muted font-weight-bold">{{
+                      item.khuVuc !== null ? item.khuVuc : "null"
+                    }}</span>
                   </td>
 
                   <td>
-                    <span
-                      class="thoi_diem text-muted font-weight-bold"
-                      >{{
-                        item.thoiDiem !== null ? item.thoiDiem : "null"
-                      }}</span
-                    >
+                    <span class="thoi_diem text-muted font-weight-bold">{{
+                      item.thoiDiem !== null ? item.thoiDiem : "null"
+                    }}</span>
                   </td>
 
                   <td>
@@ -395,10 +392,9 @@
                   </td>
 
                   <td>
-                    <span
-                      class="tinh text-muted font-weight-bold"
-                      >{{ item.tinh !== null ? item.tinh : "null" }}</span
-                    >
+                    <span class="tinh text-muted font-weight-bold">{{
+                      item.tinh !== null ? item.tinh : "null"
+                    }}</span>
                   </td>
 
                   <td>
@@ -506,7 +502,7 @@ export default {
     };
   },
   created() {
-    let check = {check:0}
+    let check = { check: 0 };
     this["storeqlda/getUserGuestUpBgia"](check).then((data) => {
       this.persionupbg = data.data;
     });
@@ -533,14 +529,10 @@ export default {
   watch: {
     // quan sát sự lựa chọn người đăng bao giá
     selectedPersionUpBg: function () {
-      let data = {check:0,
-                  idUserImport:this.selectedPersionUpBg
-      }
-      this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](data).then(
-        (data) => {
-          this.tinh = data.data.tinh;
-        }
-      );
+      let data = { check: 0, idUserImport: this.selectedPersionUpBg };
+      this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](data).then((data) => {
+        this.tinh = data.data.tinh;
+      });
     },
     selectedThang: function () {
       if (this.selectedThang) {
@@ -569,29 +561,37 @@ export default {
         this.isMonthDisabled = false;
       }
     },
-    selectedTinh: function () {
+    selectedKhuVuc: function () {
       let data = {
-        check:0,
-        idUserImport:this.selectedPersionUpBg,
-        tinh:this.selectedTinh,
-      }
-       this["storeqlda/getInfoBaoGiaOfUserGuest"](data).then(
-        (data) => {
-          this.khuvuc = data.data.khuvuc;
-          this.thang = [];
-          this.quy = [];
-          this.day = [];
-          for (var i in data.data.thoidiem) {
-            if (data.data.thoidiem[i].value.search("Thang") >= 0) {
-              this.thang.push(data.data.thoidiem[i]);
-            } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
-              this.quy.push(data.data.thoidiem[i]);
-            } else {
-              this.day.push(data.data.thoidiem[i]);
-            }
+        check: 0,
+        idUserImport: this.selectedPersionUpBg,
+        tinh: this.selectedTinh,
+        khuvuc:this.selectedKhuVuc
+      };
+      this["storeqlda/getThoiDiemBaoGiaOfUserGuest"](data).then((data) => {
+        this.thang = [];
+        this.quy = [];
+        this.day = [];
+        for (var i in data.data.thoidiem) {
+          if (data.data.thoidiem[i].value.search("Thang") >= 0) {
+            this.thang.push(data.data.thoidiem[i]);
+          } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
+            this.quy.push(data.data.thoidiem[i]);
+          } else {
+            this.day.push(data.data.thoidiem[i]);
           }
         }
-      );
+      });
+    },
+    selectedTinh: function () {
+      let data = {
+        check: 0,
+        idUserImport: this.selectedPersionUpBg,
+        tinh: this.selectedTinh,
+      };
+      this["storeqlda/getInfoBaoGiaOfUserGuest"](data).then((data) => {
+        this.khuvuc = data.data.khuvuc;
+      });
     },
   },
   methods: {
@@ -603,10 +603,12 @@ export default {
       "storeqlda/getInfoBaoGiaOfUserGuest",
       "storeqlda/getInfoTinhBaoGiaOfUserGuest",
       "storeqlda/viewBaoGiaWithSelecttionOfGuest",
+      "storeqlda/deleteGiaVtGuest",
+      "storeqlda/getThoiDiemBaoGiaOfUserGuest",
       
     ]),
     dataArr(page) {
-		let thoidiem = "";
+      let thoidiem = "";
       if (!this.isMonthDisabled) {
         thoidiem = this.selectedThang;
       }
@@ -617,19 +619,52 @@ export default {
         thoidiem = this.selectedDay;
       }
       var data = {
-        check:0,
+        check: 0,
         idUserView: this.currentUserPersonalInfo.user.id,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
         khuvuc: this.selectedKhuVuc,
         thoidiem: thoidiem,
-		    page:page
+        page: page,
       };
-      this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
-        this.dataArrBaoGia = response.data.data;
-        this.pagination = response.data;
-        this.rows = response.data.total;
-      });
+      this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
+        (response) => {
+          this.dataArrBaoGia = response.data.data;
+          this.pagination = response.data;
+          this.rows = response.data.total;
+        }
+      );
+    },
+    handleXoaBG() {
+      if (confirm("Bạn có chắc chắn muốn xóa dữ liệu này không?")) {
+        if (
+          this.selectedTinh &&
+          this.selectedKhuVuc &&
+          (this.selectedDay || this.selectedThang || this.selectedQuy)
+        ) {
+          let temp = "";
+          if (!this.isMonthDisabled) {
+            temp = this.selectedThang;
+          }
+          if (!this.isQuyDisabled) {
+            temp = this.selectedQuy;
+          }
+          if (!this.isDayDisabled) {
+            temp = this.selectedDay;
+          }
+          let data = {
+            giaVt: temp + "," + this.selectedKhuVuc,
+            tinh: this.selectedTinh,
+            user_id: this.selectedPersionUpBg,
+          };
+
+          this["storeqlda/deleteGiaVtGuest"](data).then(()=> this.handleXemBG());
+        } else {
+          alert(
+            "Bạn chưa chọn người up báo giá hoặc chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
+          );
+        }
+      }
     },
     handleXemBG() {
       let thoidiem = "";
@@ -643,7 +678,7 @@ export default {
         thoidiem = this.selectedDay;
       }
       var data = {
-        check:0,
+        check: 0,
         idUserView: this.currentUserPersonalInfo.user.id,
         user_id: this.selectedPersionUpBg,
         tinh: this.selectedTinh,
@@ -656,13 +691,15 @@ export default {
         this.selectedPersionUpBg &&
         (this.selectedDay || this.selectedThang || this.selectedQuy)
       ) {
-        this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
-        this.dataArrBaoGia = response.data.data;
-        this.pagination = response.data;
-        this.rows = response.data.total;
-      });
-      
-      this['storeqlda/getAllListDataBaoGiaGuest'](data);
+        this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
+          (response) => {
+            this.dataArrBaoGia = response.data.data;
+            this.pagination = response.data;
+            this.rows = response.data.total;
+          }
+        );
+
+        this["storeqlda/getAllListDataBaoGiaGuest"](data);
       } else {
         alert(
           "Bạn chưa chọn người up báo giá hoặc chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
@@ -675,60 +712,59 @@ export default {
         this.selectedKhuVuc &&
         (this.selectedDay || this.selectedThang || this.selectedQuy)
       ) {
-              let temp='';
-              if (!this.isMonthDisabled) {
-                temp = this.selectedThang;
-              }
-              if (!this.isQuyDisabled) {
-                temp = this.selectedQuy;
-              }
-              if (!this.isDayDisabled) {
-                temp = this.selectedDay;
-              }
-              let dataApprove = {
-                giaVt :temp +','+ this.selectedKhuVuc,
-                tinh:this.selectedTinh,
-                user_id: this.selectedPersionUpBg,
-                idUserApprove: this.currentUserPersonalInfo.user.id,
-              };
+        let temp = "";
+        if (!this.isMonthDisabled) {
+          temp = this.selectedThang;
+        }
+        if (!this.isQuyDisabled) {
+          temp = this.selectedQuy;
+        }
+        if (!this.isDayDisabled) {
+          temp = this.selectedDay;
+        }
+        let dataApprove = {
+          giaVt: temp + "," + this.selectedKhuVuc,
+          tinh: this.selectedTinh,
+          user_id: this.selectedPersionUpBg,
+          idUserApprove: this.currentUserPersonalInfo.user.id,
+        };
 
-              this["storeqlda/approveGiaVtGuest"](dataApprove).then((data) => {
-                console.log("data lan 1", data);
-                if (data.ok === false) {
-                  alert(data.error);
-                } else {
-                  if (data.data.exist === true) {
-                    if (
-                      confirm(
-                        "Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?"
-                      )
-                    ) {
-                      dataApprove = {
-                        giaVt :temp + ',' + this.selectedKhuVuc,
-                        tinh:this.selectedTinh,
-                        user_id : this.selectedPersionUpBg,
-                        idUserApprove: this.currentUserPersonalInfo.user.id,
-                        agreeOverride: 1,
-                      };
-                      this["storeqlda/approveGiaVtGuest"](dataApprove).then(
-                        (data) => alert(data.data.message)
-                      );
-                    } else {
-                      dataApprove = {
-                        giaVt :temp+','+this.selectedKhuVuc,
-                        tinh:this.selectedTinh,
-                        user_id : this.selectedPersionUpBg,
-                        idUserApprove: this.currentUserPersonalInfo.user.id,
-                        agreeOverride: 2,
-                      };
-                      this["storeqlda/approveGiaVtGuest"](dataApprove);
-                    }
-                  } else {
-                    alert(data.data.message);
-                  }
-                }
-              });
-
+        this["storeqlda/approveGiaVtGuest"](dataApprove).then((data) => {
+          console.log("data lan 1", data);
+          if (data.ok === false) {
+            alert(data.error);
+          } else {
+            if (data.data.exist === true) {
+              if (
+                confirm(
+                  "Báo giá này đã có trong cơ sở dữ liêu. Bạn có muốn ghi đè các dữ liệu này không?"
+                )
+              ) {
+                dataApprove = {
+                  giaVt: temp + "," + this.selectedKhuVuc,
+                  tinh: this.selectedTinh,
+                  user_id: this.selectedPersionUpBg,
+                  idUserApprove: this.currentUserPersonalInfo.user.id,
+                  agreeOverride: 1,
+                };
+                this["storeqlda/approveGiaVtGuest"](dataApprove).then((data) =>
+                  alert(data.data.message)
+                );
+              } else {
+                dataApprove = {
+                  giaVt: temp + "," + this.selectedKhuVuc,
+                  tinh: this.selectedTinh,
+                  user_id: this.selectedPersionUpBg,
+                  idUserApprove: this.currentUserPersonalInfo.user.id,
+                  agreeOverride: 2,
+                };
+                this["storeqlda/approveGiaVtGuest"](dataApprove);
+              }
+            } else {
+              alert(data.data.message);
+            }
+          }
+        });
       } else {
         alert(
           "Bạn chưa chọn file import dữ liệu, hoặc bạn chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
@@ -789,12 +825,10 @@ export default {
       this["storeqlda/updateDataGiaVatTuGuestUp"](data).then((data) => {
         if (data.ok === false) {
           alert(data.error);
-        }else {
-          
+        } else {
           this.handleXemBG();
         }
       });
-
     },
   },
 };

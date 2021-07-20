@@ -773,7 +773,6 @@ export default {
         this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
           (response) => {
             this.dataArrBaoGia = response.data.data;
-            console.log("thanh", this.dataArrBaoGia);
             this.pagination = response.data;
             this.rows = response.data.total;
           }

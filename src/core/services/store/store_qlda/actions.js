@@ -416,7 +416,47 @@ export default {
             }
         }
     },
-    async viewBaoGiaWithSelecttionOfGuest(context, {page=1, user_id = '', tinh = '', khuvuc = '', thoidiem = '',check ='',idUserView='' }) {
+
+    async getThoiDiemBaoGiaOfUserGuest(context,  {idUserImport = '',tinh = '',check = '',khuvuc = ''} ) {
+        try {
+       let data = {
+                idUserImport: idUserImport,
+                tinh: tinh,
+                check:check,
+                khuvuc:khuvuc
+            }
+            var result = await axiosInstance.post(`/getThoiDiemBaoGiaOfUser`,data);
+            console.log('getThoiDiemBaoGiaOfUserGuest', result);
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+            
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+    
+    async viewBaoGiaWithSelecttionOfGuest(context, {page = 1, user_id = '', tinh = '', khuvuc = '', thoidiem = '',check ='',idUserView ='',agreebuy = 0 }) {
         try {
             // let data = {
             //     user_id: user_id,
@@ -424,8 +464,7 @@ export default {
             //     tinh: tinh,
             //     thoidiem: thoidiem
             // }
-            console.log('idUserView',idUserView)
-            var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}/${idUserView}?page=${page}`);
+            var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}/${idUserView}/${agreebuy}?page=${page}`);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
@@ -589,7 +628,30 @@ export default {
             console.log("error", error);
         }
     },
+    async deleteGiaVtGuest(context,{ giaVt = '', tinh = '', user_id = 0 }) {
+        
+        let data = {
+            giaVt: giaVt,
+            tinh: tinh,
+            user_id: user_id,
+           
+        }
+    // var data = {
+    //     'email': 'admin77777@gmail.com',
+    //     'password':'12345678'
+    // }
 
+    try {
+
+        var result = await axiosInstance.post(`/deleteBaoGia`, data);
+        console.log('approveGiaVtGuest', result);
+        return result
+
+        //console.log("error",result.data.data);
+    } catch (error) {
+        console.log("error", error);
+    }
+},
 
     /* gọi api cho verify email */
     async resendVerifyEmail() {
