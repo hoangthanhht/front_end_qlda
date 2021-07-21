@@ -599,20 +599,31 @@ export default {
        this["storeqlda/getInfoBaoGiaOfUserGuest"](data).then(
         (data) => {
           this.khuvuc = data.data.khuvuc;
-          this.thang = [];
-          this.quy = [];
-          this.day = [];
-          for (var i in data.data.thoidiem) {
-            if (data.data.thoidiem[i].value.search("Thang") >= 0) {
-              this.thang.push(data.data.thoidiem[i]);
-            } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
-              this.quy.push(data.data.thoidiem[i]);
-            } else {
-              this.day.push(data.data.thoidiem[i]);
-            }
-          }
+          
         }
       );
+    },
+    selectedKhuVuc: function () {
+      let data = {
+        check: 1,
+        idUserImport: this.selectedPersionUpBg,
+        tinh: this.selectedTinh,
+        khuvuc:this.selectedKhuVuc
+      };
+      this["storeqlda/getThoiDiemBaoGiaOfUserGuest"](data).then((data) => {
+        this.thang = [];
+        this.quy = [];
+        this.day = [];
+        for (var i in data.data.thoidiem) {
+          if (data.data.thoidiem[i].value.search("Thang") >= 0) {
+            this.thang.push(data.data.thoidiem[i]);
+          } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
+            this.quy.push(data.data.thoidiem[i]);
+          } else {
+            this.day.push(data.data.thoidiem[i]);
+          }
+        }
+      });
     },
   },
   methods: {
@@ -624,6 +635,7 @@ export default {
       "storeqlda/getInfoBaoGiaOfUserGuest",
       "storeqlda/getInfoTinhBaoGiaOfUserGuest",
       "storeqlda/viewBaoGiaWithSelecttionOfGuest",
+      "storeqlda/getThoiDiemBaoGiaOfUserGuest",
       "storeqlda/apiHandleLike",
       
     ]),
