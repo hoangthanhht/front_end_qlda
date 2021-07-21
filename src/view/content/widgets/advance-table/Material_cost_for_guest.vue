@@ -720,8 +720,6 @@ export default {
       };
       this["storeqlda/getInfoBaoGiaOfUserGuest"](data).then((data) => {
         this.khuvucView = data.data.khuvuc;
-        
-        
       });
     },
   },
