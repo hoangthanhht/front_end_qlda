@@ -608,7 +608,14 @@ export default {
       dataArrBaoGia: [],
     };
   },
-  created() {},
+  created() {
+    let data = { check: 0, 
+                 idUserImport: this.currentUserPersonalInfo.user.id,
+                  };
+      this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](data).then((data) => {
+        this.tinhView = data.data.tinh;
+      });
+  },
   mounted() {
     //this.dataArr = this["storeqlda/getListDataDinhMuc"];
     //this.dataArr(this.pagination.current_page);
@@ -629,6 +636,28 @@ export default {
     },
   },
   watch: {
+    selectedKhuVucView: function () {
+      let data = {
+        check: 0,
+        idUserImport: this.currentUserPersonalInfo.user.id,
+        tinh: this.selectedTinhView,
+        khuvuc:this.selectedKhuVucView
+      };
+      this["storeqlda/getThoiDiemBaoGiaOfUserGuest"](data).then((data) => {
+        this.thangView = [];
+        this.quyView = [];
+        this.dayView = [];
+        for (var i in data.data.thoidiem) {
+          if (data.data.thoidiem[i].value.search("Thang") >= 0) {
+            this.thangView.push(data.data.thoidiem[i]);
+          } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
+            this.quyView.push(data.data.thoidiem[i]);
+          } else {
+            this.dayView.push(data.data.thoidiem[i]);
+          }
+        }
+      });
+    },
     selectedThang: function () {
       if (this.selectedThang) {
         this.isQuyDisabled = true;
@@ -685,23 +714,14 @@ export default {
     },
     selectedTinhView: function () {
       let data = {
+        check: 0,
         idUserImport: this.currentUserPersonalInfo.user.id,
         tinh: this.selectedTinhView,
       };
       this["storeqlda/getInfoBaoGiaOfUserGuest"](data).then((data) => {
         this.khuvucView = data.data.khuvuc;
-        this.thangView = [];
-        this.quyView = [];
-        this.dayView = [];
-        for (var i in data.data.thoidiem) {
-          if (data.data.thoidiem[i].value.search("Thang") >= 0) {
-            this.thangView.push(data.data.thoidiem[i]);
-          } else if (data.data.thoidiem[i].value.search("Quy") >= 0) {
-            this.quyView.push(data.data.thoidiem[i]);
-          } else {
-            this.dayView.push(data.data.thoidiem[i]);
-          }
-        }
+        
+        
       });
     },
   },
@@ -716,6 +736,8 @@ export default {
       "storeqlda/getInfoBaoGiaOfUserGuest",
       "storeqlda/getInfoTinhBaoGiaOfUserGuest",
       "storeqlda/viewBaoGiaWithSelecttionOfGuest",
+      "storeqlda/getThoiDiemBaoGiaOfUserGuest",
+      
     ]),
     dataArr(page) {
       let thoidiem = "";
@@ -761,6 +783,7 @@ export default {
       var data = {
         check: 0,
         user_id: this.currentUserPersonalInfo.user.id,
+        idUserView: this.currentUserPersonalInfo.user.id,
         tinh: this.selectedTinhView,
         khuvuc: this.selectedKhuVucView,
         thoidiem: thoidiem,
