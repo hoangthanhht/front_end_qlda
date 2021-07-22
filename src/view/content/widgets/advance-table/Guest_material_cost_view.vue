@@ -702,7 +702,7 @@ export default {
       };
       this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
         if(response) {
-          this.dataArrBaoGia = response.data.pagi.data;
+            this.dataArrBaoGia = response.data.pagi.data;
             this.pagination = response.data.pagi;
             this.rows = response.data.pagi.total;
             

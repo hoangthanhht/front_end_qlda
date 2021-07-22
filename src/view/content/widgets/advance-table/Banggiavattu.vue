@@ -709,7 +709,7 @@ export default {
                   if (!keyObj.includes(headerGiaVt[j])) {
                     //console.log('title',title[j]);
                     arrTemp[i][headerGiaVt[j]] = null;
-                    break;
+                    //break;
                   }
                 }
               }

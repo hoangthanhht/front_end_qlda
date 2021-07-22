@@ -610,8 +610,8 @@ export default {
   },
   created() {
     let data = { check: 0, 
-                 idUserImport: this.currentUserPersonalInfo.user.id,
-                  };
+      idUserImport: this.currentUserPersonalInfo.user.id,
+      };
       this["storeqlda/getInfoTinhBaoGiaOfUserGuest"](data).then((data) => {
         this.tinhView = data.data.tinh;
       });
@@ -627,12 +627,12 @@ export default {
     }),
     ...mapGetters([
       "storeqlda/getListDataBGia", // phuc vu viec search
-      "storeqlda/arrBaoGiaSearchForApprove",
+      "storeqlda/arrBaoGiaSearchGuestSelfView",
       "currentUserPersonalInfo",
       "storeqlda/currentUser",
     ]),
     dataArrBaoGiaSerch() {
-      return this["storeqlda/arrBaoGiaSearchForApprove"];
+      return this["storeqlda/arrBaoGiaSearchGuestSelfView"];
     },
   },
   watch: {
@@ -758,14 +758,16 @@ export default {
       };
       this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
         (response) => {
-          this.dataArrBaoGia = response.data.data;
-          this.pagination = response.data;
-          this.rows = response.data.total;
+          this.dataArrBaoGia = response.data.pagi.data;
+            this.pagination = response.data.pagi;
+            this.rows = response.data.pagi.total;
         }
       );
     },
     handleChange(event) {
-      this.selectedFile = event.target.files[0];
+      this.selectedFile = event.target.files[0];//biến selected file không cần phải khai báo trong data 
+      // khi sử dụng như thế này this.selectedFile thì có nghĩa là đối tượng vue này sẽ có biến này kể từ khi hàm change này đc chạy
+      // và nó tồn tại cho đến khi reload lại trang. nếu khai bào trong data thì biến sẽ có giá trị luôn 
     },
     handleXemBG() {
       let thoidiem = "";
@@ -793,13 +795,12 @@ export default {
       ) {
         this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
           (response) => {
-            this.dataArrBaoGia = response.data.data;
-            this.pagination = response.data;
-            this.rows = response.data.total;
+            this.dataArrBaoGia = response.data.pagi.data;
+            this.pagination = response.data.pagi;
+            this.rows = response.data.pagi.total;
           }
         );
 
-        this["storeqlda/getAllListDataBaoGiaGuest"](data);
       } else {
         alert(
           "Bạn chưa chọn người up báo giá hoặc chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
@@ -921,7 +922,7 @@ export default {
                     if (!keyObj.includes(headerGiaVt[j])) {
                       //console.log('title',title[j]);
                       arrTemp[i][headerGiaVt[j]] = null;
-                      break;
+                      //break;
                     }
                   }
                 }
@@ -933,7 +934,6 @@ export default {
 
                 this["storeqlda/guestCreateBaoGia"](dataImport)
                   .then((res) => {
-                    console.log("data lan 1", 1);
                     if (res.ok === false) {
                       alert(res.error);
                     } else {

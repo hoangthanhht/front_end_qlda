@@ -27,6 +27,11 @@ export default {
     SET_LIST_DATABGIA_GUEST(state, data) {
         state.listDataBGiaGuest = data;
     },
+    /* HÀM CHO XEM BG SAU UP CUA NGUOI DUNG */
+    SET_LIST_DATABGIA_GUEST_VIEW_SELF(state, data) {
+        state.listDataBGiaGuestViewSelf = data;
+    },
+    
 /* HÀM CHO PHÂN QUYỀN */
     SET_LIST_DATAUSER(state, data) {
         state.listDataUser = data;

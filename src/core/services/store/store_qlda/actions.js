@@ -7,6 +7,48 @@ import ApiService from "@/core/services/api.service";
 export default {
 
     /* gọi api cho  đinh mức */
+    async CreateDinhMucFromFile(context, { tempFinalRs = '', idUserImport = '' }) {
+        try {
+            let data = {
+                jsonData: tempFinalRs,
+                idUserImport: idUserImport,
+            }
+            var result = await axiosInstance.post(`/CreateDinhMucFromFile/${data.idUserImport}`, data);
+
+            // commit('SET_LOADING', false);
+            if (result.status === 200) {
+
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                } else {
+                    return {
+                        ok: true,
+                        error: null,
+                        data: result.data
+                    }
+                }
+
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+
+            }
+
+        } catch (error) {
+            console.log('error');
+
+            // commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
     async getAllListDataDm({ commit }) {
 
         var config = {
@@ -56,13 +98,18 @@ export default {
     },
 
    // hàm api update dinhmuc
-   async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = '', idUser = '' }) {
+   async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
+   , idUser = '', donVi_Vi = '', tenCongViec_En = '', donVi_En = '', url = '' }) {
 
     let data = {
         maDinhMuc: maDinhMuc,
         tenMaDinhMuc: tenMaDinhMuc,
         ghiChuDinhMuc: noteDinhMuc,
         id: idDinhMuc,
+        donVi_Vi: donVi_Vi,
+        tenCongViec_En: tenCongViec_En,
+        donVi_En: donVi_En,
+        url: url,
         idUser: idUser
     }
     // var config = {
@@ -465,8 +512,7 @@ export default {
             //     thoidiem: thoidiem
             // }
             var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}/${idUserView}/${agreebuy}?page=${page}`);
-
-            // commit('SET_LOADING', false);
+            context.commit('SET_LIST_DATABGIA_GUEST_VIEW_SELF',result.data.arrRs);
             if (result.status === 200) {
 
                     return {
@@ -566,7 +612,6 @@ export default {
         try {
 
             var result = await axiosInstance.post('/baoGiaWithSelecttionForSearchApprove', data);
-            console.log('getAllListDataBaoGia', result);
             commit('SET_LIST_DATABGIA_GUEST', result.data)
             return result
 
