@@ -543,12 +543,12 @@ export default {
     }),
     ...mapGetters([
       "storeqlda/getListDataBGia", // phuc vu viec search
-      "storeqlda/arrBaoGiaSearchForApprove",
+      "storeqlda/arrBaoGiaSearchGuestViewOtherPs",
       "currentUserPersonalInfo",
       "storeqlda/currentUser",
     ]),
     dataArrBaoGiaSerch() {
-      return this["storeqlda/arrBaoGiaSearchForApprove"];
+      return this["storeqlda/arrBaoGiaSearchGuestViewOtherPs"];
     },
   },
   watch: {

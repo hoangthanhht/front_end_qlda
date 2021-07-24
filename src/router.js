@@ -110,30 +110,30 @@ export default new Router({
 					path: "/approvematerialcost",
 					name: "approvematerialcost",
 					component: () => import("@/view/pages/ApproveMaterialCost.vue"),
-					// beforeEnter: (to, from, next) =>  {
-					// 	let check = false;
-					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-					// 	for(var i in userSlug)
-					// 	{
-					// 		//slugUser.push(userSlug[i]);
-					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-					// 			check = true;
-					// 			break;
-					// 		}
-					// 	}
+					beforeEnter: (to, from, next) =>  {
+						let check = false;
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						for(var i in userSlug)
+						{
+							//slugUser.push(userSlug[i]);
+							if(to.meta.requiredRoles.includes(userSlug[i])){
+								check = true;
+								break;
+							}
+						}
 
-					// 	if (check === true) {
-					// 		next()
-					// 	} else {
+						if (check === true) {
+							next()
+						} else {
 							
-					// 		next({
-					// 			path: "error-3"
-					// 		})
-					// 	}
-					// },
-					// meta: {
-					// 	requiredRoles: ['Admin','Manage','User']
-					// }
+							next({
+								path: "error-3"
+							})
+						}
+					},
+					meta: {
+						requiredRoles: ['Admin','Manage','User']
+					}
 				},
 				{
 					path: "/guestviewmaterialcost",
@@ -164,7 +164,35 @@ export default new Router({
 					// 	requiredRoles: ['Admin','Manage','User']
 					// }
 				},
-				
+				{
+					path: "/approvenotenorm",
+					name: "approvenotenorm",
+					component: () => import("@/view/pages/ApproveNoteNorm.vue"),
+					beforeEnter: (to, from, next) =>  {
+						let check = false;
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						for(var i in userSlug)
+						{
+							//slugUser.push(userSlug[i]);
+							if(to.meta.requiredRoles.includes(userSlug[i])){
+								check = true;
+								break;
+							}
+						}
+
+						if (check === true) {
+							next()
+						} else {
+							
+							next({
+								path: "error-3"
+							})
+						}
+					},
+					meta: {
+						requiredRoles: ['Admin','Manage','UserApprv']
+					}
+				},
 				{
 					path: "/dsnhanvien",
 					name: "dsnhanvien",

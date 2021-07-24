@@ -75,8 +75,9 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
-                  <td>
+                  <td style="max-width: 60px">
                     <textarea
+                    style="max-width: 60px"
                     :value="nodeSearch(index,'maDinhMuc')"
                       @keypress="handleSave($event, index)"
                       v-on:click="hadleClickMaDM"
@@ -93,8 +94,9 @@
                       ></textarea
                     >
                   </td>
-                   <td>
+                   <td style="max-width: 60px">
                     <textarea
+                    style="max-width: 60px"
                     :value="nodeSearch(index,'donVi_VI')"
                      @keypress="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
@@ -112,8 +114,9 @@
                       ></textarea
                     >
                   </td>
-                   <td>
+                   <td style="max-width: 60px">
                     <textarea
+                    style="max-width: 60px"
                     :value="nodeSearch(index,'donVi_EN')"
                      @keypress="handleSave($event, index)"
                       v-on:click="hadleClickTenMaDM"
@@ -204,8 +207,9 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
-                  <td>
+                  <td style="max-width: 60px">
                     <textarea
+                    style="max-width: 60px"
                     :value="node(index,'maDinhMuc')"
                       @keypress="handleSave($event, index)"
                       class="ma_dinh_muc text-muted font-weight-bold"
@@ -220,8 +224,9 @@
                       ></textarea
                     >
                   </td>
-                   <td>
+                   <td style="max-width: 60px">
                     <textarea
+                    style="max-width: 60px"
                     :value="node(index,'donVi_VI')"
                      @keypress="handleSave($event, index)"
                       class="don_vi_vi text-muted font-weight-bold"
@@ -237,8 +242,9 @@
                       ></textarea
                     >
                   </td>
-                   <td>
+                   <td style="max-width: 60px">
                     <textarea
+                    style="max-width: 60px"
                     :value="node(index,'donVi_EN')"
                      @keypress="handleSave($event, index)"
                       class="don_vi_en text-muted font-weight-bold"
@@ -518,9 +524,9 @@ export default {
         tenMaDinhMuc: tenMaDinhMuc,
         noteDinhMuc: noteDinhMuc,
         idDinhMuc: idDinhMuc,
-        donVi_Vi:donVi_Vi,
-        tenCongViec_En:tenCongViec_En,
-        donVi_En:donVi_En,
+        donVi_VI:donVi_Vi,
+        tenCv_EN:tenCongViec_En,
+        donVi_EN:donVi_En,
         url:url,
 		    idUser:idUser
       };

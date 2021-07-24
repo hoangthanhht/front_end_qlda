@@ -18,7 +18,12 @@ export default {
 /* HÀM CHO ĐINH MỨC */
     SET_LIST_DATADM(state, data) {
         state.listDataDM = data;
-    },  
+    }, 
+    /* HÀM CHO APPROVE ĐINH MỨC */
+    SET_LIST_DATADM_CONTRIBUTE(state, data) {
+        state.listDataDmContribte = data;
+    }, 
+     
 /* HÀM CHO BÁO GIÁ */
     SET_LIST_DATABGIA(state, data) {
         state.listDataBGia = data;
@@ -30,6 +35,11 @@ export default {
     /* HÀM CHO XEM BG SAU UP CUA NGUOI DUNG */
     SET_LIST_DATABGIA_GUEST_VIEW_SELF(state, data) {
         state.listDataBGiaGuestViewSelf = data;
+    },
+    /* HÀM CHO XEM BG SAU UP CUA NGUOI DUNG KHAC */
+    SET_LIST_DATABGIA_GUEST_VIEW_OTHERPS(state, data) {
+        state.listDataBGiaGuestViewOtherPs = data;
+        console.log('state.listDataBGiaGuestViewOtherPs',state.listDataBGiaGuestViewOtherPs)
     },
     
 /* HÀM CHO PHÂN QUYỀN */

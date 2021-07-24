@@ -1,18 +1,18 @@
 <template>
   <div>
     <!--begin::Notice-->
-    <AdvancedTableNoteNorm></AdvancedTableNoteNorm>
+    <ApproveTableNoteNorm></ApproveTableNoteNorm>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs.module";
-import AdvancedTableNoteNorm from "@/view/content/widgets/advance-table/note_norm.vue";
+import ApproveTableNoteNorm from "@/view/content/widgets/advance-table/Approve_note_norm.vue";
 export default {
-  name: "bangdinhmuc",
+  name: "approveNorm",
   components: {
-    AdvancedTableNoteNorm,
+    ApproveTableNoteNorm,
   },
   data() {
     return {
