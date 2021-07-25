@@ -1,18 +1,18 @@
 <template>
   <div>
     <!--begin::Notice-->
-    <AdvancedTableWidget3></AdvancedTableWidget3>
+    <AdvancedTableNoteNorm></AdvancedTableNoteNorm>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { SET_BREADCRUMB } from "@/core/services/store/store_metronic/breadcrumbs.module";
-import AdvancedTableWidget3 from "@/view/content/widgets/advance-table/Widget3.vue";
+import AdvancedTableNoteNorm from "@/view/content/widgets/advance-table/note_norm.vue";
 export default {
   name: "bangdinhmuc",
   components: {
-    AdvancedTableWidget3,
+    AdvancedTableNoteNorm,
   },
   data() {
     return {

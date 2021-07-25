@@ -629,9 +629,9 @@ export default {
       };
       this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
         (response) => {
-          this.dataArrBaoGia = response.data.data;
-          this.pagination = response.data;
-          this.rows = response.data.total;
+            this.dataArrBaoGia = response.data.pagi.data;
+            this.pagination = response.data.pagi;
+            this.rows = response.data.pagi.total;
         }
       );
     },
@@ -693,9 +693,9 @@ export default {
       ) {
         this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then(
           (response) => {
-            this.dataArrBaoGia = response.data.data;
-            this.pagination = response.data;
-            this.rows = response.data.total;
+           this.dataArrBaoGia = response.data.pagi.data;
+            this.pagination = response.data.pagi;
+            this.rows = response.data.pagi.total;
           }
         );
 
@@ -730,7 +730,6 @@ export default {
         };
 
         this["storeqlda/approveGiaVtGuest"](dataApprove).then((data) => {
-          console.log("data lan 1", data);
           if (data.ok === false) {
             alert(data.error);
           } else {
