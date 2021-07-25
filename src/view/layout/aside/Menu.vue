@@ -40,7 +40,7 @@
       </li>
     </router-link>
 
-<router-link
+  <router-link
       to="/approvenotenorm"
       v-slot="{ href, navigate, isActive, isExactActive }"
     >
@@ -59,6 +59,7 @@
         </a>
       </li>
     </router-link>
+
     <router-link
       to="/giavattu"
       v-slot="{ href, navigate, isActive, isExactActive }"

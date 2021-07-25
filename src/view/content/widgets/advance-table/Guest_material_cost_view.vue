@@ -737,13 +737,12 @@ export default {
         this["storeqlda/viewBaoGiaWithSelecttionOfGuest"](data).then((response) => {
         if(response) {
           if(response.data.isbuy) {
-			  console.log('das mua')
-                    this.markCost = response.data.mark;
-                    this.markUserView = response.data.markuserview;
-                    this.dataArrBaoGia = response.data.pagi.data;
-                    this.pagination = response.data.pagi;
-                    this.rows = response.data.pagi.total;
-                    this.currentVote = response.data.votecur;
+          this.markCost = response.data.mark;
+          this.markUserView = response.data.markuserview;
+          this.dataArrBaoGia = response.data.pagi.data;
+          this.pagination = response.data.pagi;
+          this.rows = response.data.pagi.total;
+          this.currentVote = response.data.votecur;
 					const voteEle = this.$refs["element_vote"];
 					const eleIcon = this.$refs["icon-element_vote"];
 					voteEle.style.display = 'block'
@@ -757,7 +756,6 @@ export default {
 					}
                       
           }else {
-			  console.log('chua mua')
             this.markCost = response.data.mark;
             this.markUserView = response.data.markuserview;
             if(parseInt(this.markCost) <= parseInt(this.markUserView)) {

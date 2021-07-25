@@ -730,7 +730,6 @@ export default {
         };
 
         this["storeqlda/approveGiaVtGuest"](dataApprove).then((data) => {
-          console.log("data lan 1", data);
           if (data.ok === false) {
             alert(data.error);
           } else {

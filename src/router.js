@@ -132,7 +132,7 @@ export default new Router({
 						}
 					},
 					meta: {
-						requiredRoles: ['Admin','Manage','User']
+						requiredRoles: ['SuperAdmin','UserApprv']
 					}
 				},
 				{
@@ -190,7 +190,7 @@ export default new Router({
 						}
 					},
 					meta: {
-						requiredRoles: ['Admin','Manage','UserApprv']
+						requiredRoles: ['SuperAdmin','UserApprv']
 					}
 				},
 				{

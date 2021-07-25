@@ -222,7 +222,7 @@ async updateDataDmContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = '',
 
 
 async handleApproveContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
-, donVi_VI = '', tenCv_EN = '', donVi_EN = '' }) {
+,idUser = '', donVi_VI = '', tenCv_EN = '', donVi_EN = '' }) {
 
  let data = {
      maDinhMuc: maDinhMuc,
@@ -232,6 +232,7 @@ async handleApproveContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = ''
      donVi_VI: donVi_VI,
      tenCv_EN: tenCv_EN,
      donVi_EN: donVi_EN,
+     idUser: idUser
  }
 
 
@@ -261,12 +262,12 @@ async handleApproveContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = ''
  }
 },
 
-async deleteDmContributeWithId(context, { iddm = '' }) {
+async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
     try {
         let data = {
             iddm: iddm,
+            idUser:idUser
         }
-        console.log('iddm',data.iddm);
         var result = await axiosInstance.post(`handleDeleteNoteDmContribute/${data.iddm}`);
 
         if (result.status === 200) {
@@ -302,11 +303,6 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
             }
         }
 
-        // var data = {
-        //     'email': 'admin77777@gmail.com',
-        //     'password':'12345678'
-        // }
-
         try {
 
             var result = await axiosInstance.get('/getAllDataTableGiaVT', config);
@@ -327,11 +323,6 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                 //'Authorization' :'Bearer ' + token,
             }
         }
-
-        // var data = {
-        //     'email': 'admin77777@gmail.com',
-        //     'password':'12345678'
-        // }
 
         try {
 
@@ -498,7 +489,7 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                
             }
             var result = await axiosInstance.post(`/getUserUpBaoGia`,data);
-            console.log('result getUserGuestUpBgia', result);
+            // console.log('result getUserGuestUpBgia', result);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
@@ -537,7 +528,7 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                 idUserImport:idUserImport
             }
             var result = await axiosInstance.post(`/getInfoTinhBaoGiaOfUser`,data);
-            console.log('result', result);
+            // console.log('result', result);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
@@ -577,7 +568,7 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                 check:check
             }
             var result = await axiosInstance.post(`/getInfoBaoGiaOfUser`,data);
-            console.log('getInfoBaoGiaOfUserGuest', result);
+            // console.log('getInfoBaoGiaOfUserGuest', result);
             // commit('SET_LOADING', false);
             if (result.status === 200) {
                     return {
@@ -615,7 +606,7 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                 khuvuc:khuvuc
             }
             var result = await axiosInstance.post(`/getThoiDiemBaoGiaOfUser`,data);
-            console.log('getThoiDiemBaoGiaOfUserGuest', result);
+            // console.log('getThoiDiemBaoGiaOfUserGuest', result);
             // commit('SET_LOADING', false);
             if (result.status === 200) {
                     return {
@@ -746,11 +737,7 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                 tinh: tinh,
                 thoidiem: thoidiem
             }
-            console.log('data',data);
-        // var data = {
-        //     'email': 'admin77777@gmail.com',
-        //     'password':'12345678'
-        // }
+
 
         try {
 
@@ -773,11 +760,7 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                 tinh: tinh,
                 thoidiem: thoidiem
             }
-            console.log('data',data);
-        // var data = {
-        //     'email': 'admin77777@gmail.com',
-        //     'password':'12345678'
-        // }
+
 
         try {
 
@@ -800,15 +783,11 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
                 idUserApprove: idUserApprove,
                 agreeOverride: agreeOverride
             }
-        // var data = {
-        //     'email': 'admin77777@gmail.com',
-        //     'password':'12345678'
-        // }
+ 
 
         try {
 
             var result = await axiosInstance.post(`/approveGiaVt/${data.idUserApprove}/${data.agreeOverride}`, data);
-            console.log('approveGiaVtGuest', result);
             return result
 
             //console.log("error",result.data.data);
@@ -824,15 +803,10 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
             user_id: user_id,
            
         }
-    // var data = {
-    //     'email': 'admin77777@gmail.com',
-    //     'password':'12345678'
-    // }
-
+ 
     try {
 
         var result = await axiosInstance.post(`/deleteBaoGia`, data);
-        console.log('approveGiaVtGuest', result);
         return result
 
         //console.log("error",result.data.data);
@@ -844,12 +818,7 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
     /* gọi api cho verify email */
     async resendVerifyEmail() {
         
-        // var config = {
-        //     headers: {  
-        //         'Accept': 'application/json',
-        //         'Authorization': 'Bearer ' + token,
-        //     }
-        // }
+
         try {
             // dùng kiểu này thì theo cấu hình của api.service moi dc dùng kieu cua axios loi do token không đúng
             JwtService.getToken();
@@ -876,10 +845,6 @@ async deleteDmContributeWithId(context, { iddm = '' }) {
             }
         }
 
-        // var data = {
-        //     'email': 'admin77777@gmail.com',
-        //     'password':'12345678'
-        // }
 
         try {
 

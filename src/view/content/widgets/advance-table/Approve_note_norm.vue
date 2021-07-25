@@ -366,8 +366,10 @@ export default {
         )
       ) {
       var idDinhMuc = this.dataArrDinhMuc[index].id;
+       var idUser = this["storeqlda/currentUser"].id;
       var data = {
         iddm: idDinhMuc,
+         idUser:idUser
       };
       this["storeqlda/deleteDmContributeWithId"](data).then((data)=>{
         this.dataArr(this.currentPage);
@@ -392,6 +394,7 @@ export default {
         var donVi_En = elParentLarge.querySelector(".don_vi_en").value;
         var noteDinhMuc = elParentLarge.querySelector(".area_notes").value;
         var idDinhMuc = this.dataArrDinhMuc[index].id;
+        var idUser = this["storeqlda/currentUser"].id;
         var data = {
           maDinhMuc: maDinhMuc,
           tenMaDinhMuc: tenMaDinhMuc,
@@ -400,6 +403,7 @@ export default {
           donVi_VI: donVi_Vi,
           tenCv_EN:tenCongViec_En,
           donVi_EN: donVi_En,
+          idUser:idUser
         };
           // this.$store.dispatch('storeqlda/updateDataWithId', data);
           this["storeqlda/handleApproveContributeWithId"](data).then((data) => {
