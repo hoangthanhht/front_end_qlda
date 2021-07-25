@@ -268,7 +268,6 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             iddm: iddm,
             idUser:idUser
         }
-        console.log();
         var result = await axiosInstance.post(`handleDeleteNoteDmContribute/${data.iddm}`,data);
         if (result.status === 200) {
             //if (result.data.success) {
