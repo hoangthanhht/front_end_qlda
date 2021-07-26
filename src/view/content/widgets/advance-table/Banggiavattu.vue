@@ -140,6 +140,7 @@
                 <!-- <th style="max-width: 50px" class="pl-7">
                   id
                 </th> -->
+                <th style="display:none">Id</th>
                 <th>mã vật tư</th>
                 <th>tên vật tư</th>
                 <th>đơn vị</th>
@@ -157,9 +158,17 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
+                  <td style="display:none">
+                    <span
+                      @blur="handleSave($event)"
+                      v-on:click="hadleClickMaDM"
+                      class="id_vat_tu text-muted font-weight-bold"
+                      >{{ item.id !== null ? item.id : "null" }}</span
+                    >
+                  </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickMaDM"
                       class="ma_vat_tu text-muted font-weight-bold"
                       >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
@@ -167,7 +176,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="ten_vat_tu text-muted font-weight-bold"
                       >{{
@@ -177,7 +186,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="don_vi text-muted font-weight-bold"
                       >{{ item.donVi !== null ? item.donVi : "null" }}</span
@@ -185,7 +194,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="gia_vat_tu text-muted font-weight-bold"
                       >{{
@@ -195,7 +204,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="nguon text-muted font-weight-bold"
                       >{{ item.nguon !== null ? item.nguon : "null" }}</span
@@ -203,7 +212,7 @@
                   </td>
                   <td v-if="item.ghiChu">
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="ghi_chu text-muted font-weight-bold"
                       >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
@@ -212,7 +221,7 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="tinh text-muted font-weight-bold"
                       >{{ item.tinh !== null ? item.tinh : "null" }}</span
@@ -221,7 +230,7 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="tac_gia text-muted font-weight-bold"
                       >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
@@ -274,6 +283,7 @@
                 <!-- <th style="max-width: 50px" class="pl-7">
                   id
                 </th> -->
+                <th style="display:none">Id</th>
                 <th>mã vật tư</th>
                 <th>tên vật tư</th>
                 <th>đơn vị</th>
@@ -291,9 +301,17 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
+                       <td style="display:none">
+                    <span
+                      @blur="handleSave($event)"
+                      v-on:click="hadleClickMaDM"
+                      class="id_vat_tu text-muted font-weight-bold"
+                      >{{ item.id !== null ? item.id : "null" }}</span
+                    >
+                  </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickMaDM"
                       class="ma_vat_tu text-muted font-weight-bold"
                       >{{ item.maVatTu !== null ? item.maVatTu : "null" }}</span
@@ -301,7 +319,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="ten_vat_tu text-muted font-weight-bold"
                       >{{
@@ -311,7 +329,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="don_vi text-muted font-weight-bold"
                       >{{ item.donVi !== null ? item.donVi : "null" }}</span
@@ -319,7 +337,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="gia_vat_tu text-muted font-weight-bold"
                       >{{
@@ -329,7 +347,7 @@
                   </td>
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="nguon text-muted font-weight-bold"
                       >{{ item.nguon !== null ? item.nguon : "null" }}</span
@@ -337,7 +355,7 @@
                   </td>
                   <td >
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="ghi_chu text-muted font-weight-bold"
                       >{{ item.ghiChu !== null ? item.ghiChu : "null" }}</span
@@ -346,7 +364,7 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="tinh text-muted font-weight-bold"
                       >{{ item.tinh !== null ? item.tinh : "null" }}</span
@@ -355,7 +373,7 @@
 
                   <td>
                     <span
-                      @blur="handleSave($event, index)"
+                      @blur="handleSave($event)"
                       v-on:click="hadleClickTenMaDM"
                       class="tac_gia text-muted font-weight-bold"
                       >{{ item.tacGia !== null ? item.tacGia : "null" }}</span
@@ -775,7 +793,7 @@ export default {
       e.target.setAttribute("contenteditable", "true");
     },
 
-    handleSave(e, index) {
+    handleSave(e) {
       //var a = document.querySelector('.textthanh')
       //console.log(this.dataArr[index].id);
       var elParentLarge = this.getParentSelect(e.target, ".row_table_note");
@@ -788,7 +806,7 @@ export default {
       var tinh = elParentLarge.querySelector(".tinh").innerText;
       var tacGia = elParentLarge.querySelector(".tac_gia").innerText;
 
-      var idVatTu = this.dataArrBaoGia[index].id;
+      var idVatTu = elParentLarge.querySelector(".id_vat_tu").innerText;
       var idUser = this["storeqlda/currentUser"].id;
       var data = {
         maVatTu: maVatTu,

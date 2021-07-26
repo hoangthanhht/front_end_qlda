@@ -77,13 +77,9 @@ export default {
                 //'Authorization' :'Bearer ' + token,
             }
         }
-
-
         try {
-
             var result = await axiosInstance.get('/getAllDataTableDm', config);
             commit('SET_LIST_DATADM', result.data.data)
-            //console.log("error",result.data.data);
         } catch (error) {
             console.log("error", error);
         }

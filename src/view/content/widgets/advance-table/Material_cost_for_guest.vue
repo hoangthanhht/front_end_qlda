@@ -224,6 +224,7 @@
                 <!-- <th style="max-width: 50px" class="pl-7">
                   id
                 </th> -->
+                <th style="display:none">Id</th>
                 <th>mã vật tư</th>
                 <th>tên vật tư</th>
                 <th>đơn vị</th>
@@ -243,6 +244,11 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
+                      <td style="display:none">
+                    <span class="id_vat_tu text-muted font-weight-bold">{{
+                      item.id !== null ? item.id : "null"
+                    }}</span>
+                  </td>
 
                   <td>
                     <span class="ma_vat_tu text-muted font-weight-bold">{{
@@ -346,6 +352,7 @@
                 <!-- <th style="max-width: 50px" class="pl-7">
                   id
                 </th> -->
+                <th style="display:none">Id</th>
                 <th>mã vật tư</th>
                 <th>tên vật tư</th>
                 <th>đơn vị</th>
@@ -365,7 +372,11 @@
 						<span class="text-muted font-weight-bold">{{item.id}}
                 		</span>
                   </td> -->
-
+                  <td style="display:none">
+                    <span class="id_vat_tu text-muted font-weight-bold">{{
+                      item.id !== null ? item.id : "null"
+                    }}</span>
+                  </td>
                   <td>
                     <span class="ma_vat_tu text-muted font-weight-bold">{{
                       item.maVatTu !== null ? item.maVatTu : "null"
@@ -1030,7 +1041,7 @@ export default {
       e.target.setAttribute("contenteditable", "true");
     },
 
-    handleSave(e, index) {
+    handleSave(e) {
       //var a = document.querySelector('.textthanh')
       //console.log(this.dataArr[index].id);
       var elParentLarge = this.getParentSelect(e.target, ".row_table_note");
@@ -1043,7 +1054,7 @@ export default {
       var tinh = elParentLarge.querySelector(".tinh").innerText;
       var tacGia = elParentLarge.querySelector(".tac_gia").innerText;
 
-      var idVatTu = this.dataArrBaoGia[index].id;
+      var idVatTu = elParentLarge.querySelector(".id_vat_tu").innerText;
       var idUser = this["storeqlda/currentUser"].id;
       var data = {
         maVatTu: maVatTu,
