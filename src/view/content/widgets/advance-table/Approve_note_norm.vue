@@ -388,7 +388,7 @@ export default {
       var idDinhMuc = this.dataArrDinhMuc[index].id;
        var idUser = this["storeqlda/currentUser"].id;
       var data = {
-        iddm: idDinhMuc,
+         iddm: idDinhMuc,
          idUser:idUser
       };
       this["storeqlda/deleteDmContributeWithId"](data).then((data)=>{

@@ -7,6 +7,7 @@ import ApiService from "@/core/services/api.service";
 //import { VERIFY_AUTH } from "@/core/services/store/store_metronic/auth.module";
 //import { RESET_LAYOUT_CONFIG } from "@/core/services/store/store_metronic/config.module";
 
+
 Vue.config.productionTip = false;
 
 // Global 3rd party plugins

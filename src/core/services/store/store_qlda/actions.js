@@ -1,7 +1,7 @@
 import axiosInstance from '../../plugins/axios';
 import { CONFIG_ACCESS_TOKEN } from '../../constants';
 import { SET_AUTH } from '../store_metronic/auth.module';
-import { SET_PERSONAL_INFO ,SET_PERSONAL_PHOTO} from '../store_metronic/profile.module';
+import { SET_PERSONAL_INFO, SET_PERSONAL_PHOTO } from '../store_metronic/profile.module';
 import JwtService from "@/core/services/jwt.service";
 import ApiService from "@/core/services/api.service";
 export default {
@@ -49,7 +49,7 @@ export default {
             }
         }
     },
-    
+
     async getAllDataTableDmContribute({ commit }) {
 
         var config = {
@@ -122,173 +122,173 @@ export default {
             console.log("error", error);
         }
     },
-   // hàm api update dinhmuc
-   async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
-   , idUser = '', donVi_VI = '', tenCv_EN = '', donVi_EN = '', url = '' }) {
+    // hàm api update dinhmuc
+    async updateDataWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
+        , idUser = '', donVi_VI = '', tenCv_EN = '', donVi_EN = '', url = '' }) {
 
-    let data = {
-        maDinhMuc: maDinhMuc,
-        tenMaDinhMuc: tenMaDinhMuc,
-        ghiChuDinhMuc: noteDinhMuc,
-        id: idDinhMuc,
-        donVi_VI: donVi_VI,
-        tenCv_EN: tenCv_EN,
-        donVi_EN: donVi_EN,
-        url: url,
-        idUser: idUser
-    }
-
-
-    try {
-
-        var result = await axiosInstance.post(`updateDataDm/${data.id}/${data.idUser}`, data);
-
-        if (result.status === 200) {
-            if (result.data.success) {
-                //commit('SET_USER_INFO', result.data.user);
-                return {
-                    ok: true,
-                    data: result.data.user,
-                    error: null
-                }
-            }
-            if (result.data.success === false) {
-                return {
-                    ok: false,
-                    error: result.data.message,
-                }
-            }
-        }
-        return {
-            ok: false,
-            error: result.data.message
-        }
-    } catch (error) {
-
-        return {
-            ok: false,
-            error: error.message
-        }
-    }
-},
-
-async updateDataDmContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
-, idUser = '', donVi_VI = '', tenCv_EN = '', donVi_EN = '', url = '' }) {
-
- let data = {
-     maDinhMuc: maDinhMuc,
-     tenMaDinhMuc: tenMaDinhMuc,
-     ghiChuDinhMuc: noteDinhMuc,
-     id: idDinhMuc,
-     donVi_VI: donVi_VI,
-     tenCv_EN: tenCv_EN,
-     donVi_EN: donVi_EN,
-     url: url,
-     idUser: idUser
- }
-
-
- try {
-
-     var result = await axiosInstance.post(`updateDataDmContribute/${data.id}/${data.idUser}`, data);
-
-     if (result.status === 200) {
-         
-             //commit('SET_USER_INFO', result.data.user);
-             return {
-                 ok: true,
-                 data: result.data.message,
-                 error: null
-             }
-         
-  
-     }
-     return {
-         ok: false,
-         error: result.data.message
-     }
- } catch (error) {
-
-     return {
-         ok: false,
-         error: error.message
-     }
- }
-},
-
-
-async handleApproveContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
-,idUser = '', donVi_VI = '', tenCv_EN = '', donVi_EN = '' }) {
-
- let data = {
-     maDinhMuc: maDinhMuc,
-     tenMaDinhMuc: tenMaDinhMuc,
-     ghiChuDinhMuc: noteDinhMuc,
-     id: idDinhMuc,
-     donVi_VI: donVi_VI,
-     tenCv_EN: tenCv_EN,
-     donVi_EN: donVi_EN,
-     idUser: idUser
- }
-
-
- try {
-
-     var result = await axiosInstance.post(`handleApproveContribute`, data);
-
-     if (result.status === 200) {
-             //commit('SET_USER_INFO', result.data.user);
-             return {
-                 ok: true,
-                 data: result.data.message,
-                 error: null
-             }
-      
-     }
-     return {
-         ok: false,
-         error: result.data.message
-     }
- } catch (error) {
-
-     return {
-         ok: false,
-         error: error.message
-     }
- }
-},
-
-async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
-    try {
         let data = {
-            iddm: iddm,
-            idUser:idUser
+            maDinhMuc: maDinhMuc,
+            tenMaDinhMuc: tenMaDinhMuc,
+            ghiChuDinhMuc: noteDinhMuc,
+            id: idDinhMuc,
+            donVi_VI: donVi_VI,
+            tenCv_EN: tenCv_EN,
+            donVi_EN: donVi_EN,
+            url: url,
+            idUser: idUser
         }
-        var result = await axiosInstance.post(`handleDeleteNoteDmContribute/${data.iddm}`,data);
-        if (result.status === 200) {
-            //if (result.data.success) {
+
+
+        try {
+
+            var result = await axiosInstance.post(`updateDataDm/${data.id}/${data.idUser}`, data);
+
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    return {
+                        ok: true,
+                        data: result.data.user,
+                        error: null
+                    }
+                }
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                }
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+    async updateDataDmContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
+        , idUser = '', donVi_VI = '', tenCv_EN = '', donVi_EN = '', url = '' }) {
+
+        let data = {
+            maDinhMuc: maDinhMuc,
+            tenMaDinhMuc: tenMaDinhMuc,
+            ghiChuDinhMuc: noteDinhMuc,
+            id: idDinhMuc,
+            donVi_VI: donVi_VI,
+            tenCv_EN: tenCv_EN,
+            donVi_EN: donVi_EN,
+            url: url,
+            idUser: idUser
+        }
+
+
+        try {
+
+            var result = await axiosInstance.post(`updateDataDmContribute/${data.id}/${data.idUser}`, data);
+
+            if (result.status === 200) {
+
                 //commit('SET_USER_INFO', result.data.user);
                 return {
                     ok: true,
                     data: result.data.message,
                     error: null
                 }
-            //}
-   
-        }
-        return {
-            ok: false,
-            error: result.data.message
-        }
-    } catch (error) {
 
-        return {
-            ok: false,
-            error: error.message
+
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
         }
-    }
     },
-     /* gọi api cho  báo giá */
+
+
+    async handleApproveContributeWithId(context, { maDinhMuc = '', tenMaDinhMuc = '', noteDinhMuc = '', idDinhMuc = ''
+        , idUser = '', donVi_VI = '', tenCv_EN = '', donVi_EN = '' }) {
+
+        let data = {
+            maDinhMuc: maDinhMuc,
+            tenMaDinhMuc: tenMaDinhMuc,
+            ghiChuDinhMuc: noteDinhMuc,
+            id: idDinhMuc,
+            donVi_VI: donVi_VI,
+            tenCv_EN: tenCv_EN,
+            donVi_EN: donVi_EN,
+            idUser: idUser
+        }
+
+
+        try {
+
+            var result = await axiosInstance.post(`handleApproveContribute`, data);
+
+            if (result.status === 200) {
+                //commit('SET_USER_INFO', result.data.user);
+                return {
+                    ok: true,
+                    data: result.data.message,
+                    error: null
+                }
+
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+    async deleteDmContributeWithId(context, { iddm = '', idUser = '' }) {
+        try {
+            let data = {
+                iddm: iddm,
+                idUser: idUser
+            }
+            var result = await axiosInstance.post(`handleDeleteNoteDmContribute/${data.iddm}`, data);
+            if (result.status === 200) {
+                //if (result.data.success) {
+                //commit('SET_USER_INFO', result.data.user);
+                return {
+                    ok: true,
+                    data: result.data.message,
+                    error: null
+                }
+                //}
+
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    /* gọi api cho  báo giá */
     async getAllListDataBaoGia({ commit }) {
 
         var config = {
@@ -332,60 +332,60 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
 
 
     async updateDataGiaVatTuWithId(context, { maVatTu = '', tenVatTu = '', donVi = '',
-    giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
+        giaVatTu = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
 
-    let data = {
-        maVatTu: maVatTu,
-        tenVatTu: tenVatTu,
-        donVi: donVi,
-        giaVatTu: giaVatTu,
-        nguon: nguon,
-        ghiChu: ghiChu,
-        tinh: tinh,
-        tacGia: tacGia,
-        id: idVatTu,
-        idUser: idUser
-    }
-    // var config = {
-    //     headers:{
-    //         'Accept': 'application/json',    
-    //     }
-    // }
+        let data = {
+            maVatTu: maVatTu,
+            tenVatTu: tenVatTu,
+            donVi: donVi,
+            giaVatTu: giaVatTu,
+            nguon: nguon,
+            ghiChu: ghiChu,
+            tinh: tinh,
+            tacGia: tacGia,
+            id: idVatTu,
+            idUser: idUser
+        }
+        // var config = {
+        //     headers:{
+        //         'Accept': 'application/json',    
+        //     }
+        // }
 
-    try {
+        try {
 
-        var result = await axiosInstance.post(`updateDataGiaVatTu/${data.id}/${data.idUser}`, data);
+            var result = await axiosInstance.post(`updateDataGiaVatTu/${data.id}/${data.idUser}`, data);
 
-        if (result.status === 200) {
-            if (result.data.success) {
-                //commit('SET_USER_INFO', result.data.user);
-                return {
-                    ok: true,
-                    data: result.data.user,
-                    error: null
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    return {
+                        ok: true,
+                        data: result.data.user,
+                        error: null
+                    }
+                }
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
                 }
             }
-            if (result.data.success === false) {
-                return {
-                    ok: false,
-                    error: result.data.message,
-                }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
             }
         }
-        return {
-            ok: false,
-            error: result.data.message
-        }
-    } catch (error) {
-
-        return {
-            ok: false,
-            error: error.message
-        }
-    }
     },
 
-    
+
     //tao bang gia vat tu.bắt buộc phải có context hoặc commit,dispath ...
     async createBaoGia(context, { tempFinalRs = '', idUserImport = '', agreeOverride = 0 }) {
         try {
@@ -431,7 +431,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             }
         }
     },
-/* CALL API DO KHÁCH HÀNG NHẬP */
+    /* CALL API DO KHÁCH HÀNG NHẬP */
     async guestCreateBaoGia(context, { tempFinalRs = '', idUserImport = '', agreeOverride = 0 }) {
         try {
             let data = {
@@ -477,25 +477,25 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
     /* APPROVE BAO GIÁ */
-    async getUserGuestUpBgia(context, {check = ''}) {
+    async getUserGuestUpBgia(context, { check = '' }) {
         try {
             let data = {
                 check: check,
-               
+
             }
-            var result = await axiosInstance.post(`/getUserUpBaoGia`,data);
+            var result = await axiosInstance.post(`/getUserUpBaoGia`, data);
             // console.log('result getUserGuestUpBgia', result);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
 
-               
-                    return {
-                        ok: true,
-                        error: null,
-                        data: result.data
-                    }
-                
+
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+
 
             } else {
                 return {
@@ -516,25 +516,25 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
 
-    async getInfoTinhBaoGiaOfUserGuest(context,  {idUserImport = '',check = ''} ) {
+    async getInfoTinhBaoGiaOfUserGuest(context, { idUserImport = '', check = '' }) {
         try {
             let data = {
                 check: check,
-                idUserImport:idUserImport
+                idUserImport: idUserImport
             }
-            var result = await axiosInstance.post(`/getInfoTinhBaoGiaOfUser`,data);
+            var result = await axiosInstance.post(`/getInfoTinhBaoGiaOfUser`, data);
             // console.log('result', result);
 
             // commit('SET_LOADING', false);
             if (result.status === 200) {
 
 
-                    return {
-                        ok: true,
-                        error: null,
-                        data: result.data
-                    }
-            
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+
 
             } else {
                 return {
@@ -555,23 +555,23 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
     //api lấy thông tin khu vuc theo thanh phố và người đằng
-    async getInfoBaoGiaOfUserGuest(context,  {idUserImport = '',tinh = '',check = ''} ) {
+    async getInfoBaoGiaOfUserGuest(context, { idUserImport = '', tinh = '', check = '' }) {
         try {
-       let data = {
+            let data = {
                 idUserImport: idUserImport,
                 tinh: tinh,
-                check:check
+                check: check
             }
-            var result = await axiosInstance.post(`/getInfoBaoGiaOfUser`,data);
+            var result = await axiosInstance.post(`/getInfoBaoGiaOfUser`, data);
             // console.log('getInfoBaoGiaOfUserGuest', result);
             // commit('SET_LOADING', false);
             if (result.status === 200) {
-                    return {
-                        ok: true,
-                        error: null,
-                        data: result.data
-                    }
-            
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+
 
             } else {
                 return {
@@ -592,24 +592,24 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
 
-    async getThoiDiemBaoGiaOfUserGuest(context,  {idUserImport = '',tinh = '',check = '',khuvuc = ''} ) {
+    async getThoiDiemBaoGiaOfUserGuest(context, { idUserImport = '', tinh = '', check = '', khuvuc = '' }) {
         try {
-       let data = {
+            let data = {
                 idUserImport: idUserImport,
                 tinh: tinh,
-                check:check,
-                khuvuc:khuvuc
+                check: check,
+                khuvuc: khuvuc
             }
-            var result = await axiosInstance.post(`/getThoiDiemBaoGiaOfUser`,data);
+            var result = await axiosInstance.post(`/getThoiDiemBaoGiaOfUser`, data);
             // console.log('getThoiDiemBaoGiaOfUserGuest', result);
             // commit('SET_LOADING', false);
             if (result.status === 200) {
-                    return {
-                        ok: true,
-                        error: null,
-                        data: result.data
-                    }
-            
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+
 
             } else {
                 return {
@@ -630,8 +630,8 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
 
-    
-    async viewBaoGiaWithSelecttionOfGuest(context, {page = 1, user_id = '', tinh = '', khuvuc = '', thoidiem = '',check ='',idUserView ='',agreebuy = 0 }) {
+
+    async viewBaoGiaWithSelecttionOfGuest(context, { page = 1, user_id = '', tinh = '', khuvuc = '', thoidiem = '', check = '', idUserView = '', agreebuy = 0 }) {
         try {
             // let data = {
             //     user_id: user_id,
@@ -640,16 +640,16 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             //     thoidiem: thoidiem
             // }
             var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}/${idUserView}/${agreebuy}?page=${page}`);
-            context.commit('SET_LIST_DATABGIA_GUEST_VIEW_SELF',result.data.arrRs);
-            context.commit('SET_LIST_DATABGIA_GUEST_VIEW_OTHERPS',result.data.arrRs);
+            context.commit('SET_LIST_DATABGIA_GUEST_VIEW_SELF', result.data.arrRs);
+            context.commit('SET_LIST_DATABGIA_GUEST_VIEW_OTHERPS', result.data.arrRs);
             if (result.status === 200) {
 
-                    return {
-                        ok: true,
-                        error: null,
-                        data: result.data
-                    }
-                
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+
 
             } else {
                 return {
@@ -670,68 +670,68 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
     async updateDataGiaVatTuGuestUp(context, { maVatTu = '', tenVatTu = '', donVi = '',
-    giaVatTu = '',khuvuc = '',thoidiem = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
-
-    let data = {
-        maVatTu: maVatTu,
-        tenVatTu: tenVatTu,
-        donVi: donVi,
-        giaVatTu: giaVatTu,
-        khuvuc: khuvuc,
-        thoidiem: thoidiem,
-        nguon: nguon,
-        ghiChu: ghiChu,
-        tinh: tinh,
-        tacGia: tacGia,
-        id: idVatTu,
-        idUser: idUser
-    }
-    // var config = {
-    //     headers:{
-    //         'Accept': 'application/json',    
-    //     }
-    // }
-
-    try {
-
-        var result = await axiosInstance.post(`updateDataGiaVatTuUserUp/${data.id}/${data.idUser}`, data);
-        if (result.status === 200) {
-            if (result.data.success) {
-                //commit('SET_USER_INFO', result.data.user);
-                return {
-                    ok: true,
-                    data: result.data.user,
-                    error: null
-                }
-            }
-            if (result.data.success === false) {
-                return {
-                    ok: false,
-                    error: result.data.message,
-                }
-            }
-        }
-        return {
-            ok: false,
-            error: result.data.message
-        }
-    } catch (error) {
-
-        return {
-            ok: false,
-            error: error.message
-        }
-    }
-    },
-
-    async getAllListDataBaoGiaGuest({commit},{user_id = '', tinh = '', khuvuc = '', thoidiem = ''}) {
+        giaVatTu = '', khuvuc = '', thoidiem = '', nguon = '', ghiChu = '', tinh = '', tacGia = '', idVatTu = '', idUser = '' }) {
 
         let data = {
-                user_id: user_id,
-                khuvuc: khuvuc,
-                tinh: tinh,
-                thoidiem: thoidiem
+            maVatTu: maVatTu,
+            tenVatTu: tenVatTu,
+            donVi: donVi,
+            giaVatTu: giaVatTu,
+            khuvuc: khuvuc,
+            thoidiem: thoidiem,
+            nguon: nguon,
+            ghiChu: ghiChu,
+            tinh: tinh,
+            tacGia: tacGia,
+            id: idVatTu,
+            idUser: idUser
+        }
+        // var config = {
+        //     headers:{
+        //         'Accept': 'application/json',    
+        //     }
+        // }
+
+        try {
+
+            var result = await axiosInstance.post(`updateDataGiaVatTuUserUp/${data.id}/${data.idUser}`, data);
+            if (result.status === 200) {
+                if (result.data.success) {
+                    //commit('SET_USER_INFO', result.data.user);
+                    return {
+                        ok: true,
+                        data: result.data.user,
+                        error: null
+                    }
+                }
+                if (result.data.success === false) {
+                    return {
+                        ok: false,
+                        error: result.data.message,
+                    }
+                }
             }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+
+    async getAllListDataBaoGiaGuest({ commit }, { user_id = '', tinh = '', khuvuc = '', thoidiem = '' }) {
+
+        let data = {
+            user_id: user_id,
+            khuvuc: khuvuc,
+            tinh: tinh,
+            thoidiem: thoidiem
+        }
 
 
         try {
@@ -746,15 +746,15 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
 
-    async apiHandleLike(context,{user_id = '', tinh = '', khuvuc = '', thoidiem = '',idUserView = ''}) {
+    async apiHandleLike(context, { user_id = '', tinh = '', khuvuc = '', thoidiem = '', idUserView = '' }) {
 
         let data = {
-                idUserView:idUserView,
-                user_id: user_id,
-                khuvuc: khuvuc,
-                tinh: tinh,
-                thoidiem: thoidiem
-            }
+            idUserView: idUserView,
+            user_id: user_id,
+            khuvuc: khuvuc,
+            tinh: tinh,
+            thoidiem: thoidiem
+        }
 
 
         try {
@@ -768,17 +768,17 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             console.log("error", error);
         }
     },
-    
-    async approveGiaVtGuest(context,{ giaVt = '', idUserApprove = '', agreeOverride = 0, tinh = '', user_id = 0 }) {
-        
-            let data = {
-                giaVt: giaVt,
-                tinh: tinh,
-                user_id: user_id,
-                idUserApprove: idUserApprove,
-                agreeOverride: agreeOverride
-            }
- 
+
+    async approveGiaVtGuest(context, { giaVt = '', idUserApprove = '', agreeOverride = 0, tinh = '', user_id = 0 }) {
+
+        let data = {
+            giaVt: giaVt,
+            tinh: tinh,
+            user_id: user_id,
+            idUserApprove: idUserApprove,
+            agreeOverride: agreeOverride
+        }
+
 
         try {
 
@@ -790,29 +790,29 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             console.log("error", error);
         }
     },
-    async deleteGiaVtGuest(context,{ giaVt = '', tinh = '', user_id = 0 }) {
-        
+    async deleteGiaVtGuest(context, { giaVt = '', tinh = '', user_id = 0 }) {
+
         let data = {
             giaVt: giaVt,
             tinh: tinh,
             user_id: user_id,
-           
+
         }
- 
-    try {
 
-        var result = await axiosInstance.post(`/deleteBaoGia`, data);
-        return result
+        try {
 
-        //console.log("error",result.data.data);
-    } catch (error) {
-        console.log("error", error);
-    }
-},
+            var result = await axiosInstance.post(`/deleteBaoGia`, data);
+            return result
+
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
 
     /* gọi api cho verify email */
     async resendVerifyEmail() {
-        
+
 
         try {
             // dùng kiểu này thì theo cấu hình của api.service moi dc dùng kieu cua axios loi do token không đúng
@@ -821,7 +821,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             var result = ApiService.post("email/verification-notification")
 
             //var result = await axiosInstance.post('email/verification-notification', config);
-             return result
+            return result
 
             //console.log("error",result.data.data);
         } catch (error) {
@@ -829,7 +829,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
 
-   /* gọi api cho phần phân quyền */
+    /* gọi api cho phần phân quyền */
 
     async getListDataRole({ commit }) {
 
@@ -878,7 +878,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             commit('SET_LIST_DATA_PERMISSION', result.data.permission);
             commit('SET_LIST_DATA_ROLE_OF_ALL_USER', result.data.role_of_all_user);
             commit('SET_LIST_DATA_PERMISSION_OF_ALL_USER', result.data.permission_of_all_user);
-            
+
             //console.log("error",result.data.data);
         } catch (error) {
             console.log("error", error);
@@ -908,7 +908,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         try {
 
             var result = await axiosInstance.post(`createUser`, data);
-           // console.log('result', result)
+            // console.log('result', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -1000,7 +1000,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             email: email,
             password: password,
             role_id: role_id,
-            permission_id:permission_id,
+            permission_id: permission_id,
             idUser: idUser
         }
 
@@ -1048,7 +1048,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         try {
 
             var result = await axiosInstance.post(`updateRole/${data.role_id}`, data);
-           // console.log('handleEditUserById', result)
+            // console.log('handleEditUserById', result)
             if (result.status === 200) {
                 if (result.data.success) {
                     //commit('SET_USER_INFO', result.data.user);
@@ -1150,8 +1150,8 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
     },
 
 
-  
-/* hàm sử lý search cho bao gia va dinh mức */
+
+    /* hàm sử lý search cho bao gia va dinh mức */
 
     handleSearch({ commit }, stringSearch) {
         commit('HANDLE_SEARCH', stringSearch)
@@ -1166,7 +1166,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
     },
 
 
-/* hàm api cho loin và logout */
+    /* hàm api cho loin và logout */
 
     async login({ commit, dispatch }, { email = '', password = '' }) {
         try {
@@ -1265,7 +1265,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             var result = await axiosInstance.get('/details', config);
             if (result.status === 200) {
                 context.commit('SET_USER_INFO', result.data.user);
-                context.commit(SET_AUTH, result.data,{ root: true });
+                context.commit(SET_AUTH, result.data, { root: true });
                 context.commit(SET_PERSONAL_INFO, result.data, { root: true });
                 return {
                     ok: true,
@@ -1330,9 +1330,9 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
     },
 
     /* API CHO SETTING SYSTEM ADMIN */
-    async changeEnvSystem(context, {data = ''}) {
+    async changeEnvSystem(context, { data = '' }) {
         let dataSend = {
-                data:data
+            data: data
         }
         try {
 
@@ -1349,11 +1349,11 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
     /* API BAT TAT HE THONG */
 
     async offSystem() {
-  
+
         try {
 
             var result = await axiosInstance.post('/offSystem');
-            console.log('result',result);
+            console.log('result', result);
             return result
 
             //console.log("error",result.data.data);
@@ -1362,11 +1362,11 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
     async onSystem() {
-  
+
         try {
 
             var result = await axiosInstance.post('/onSystem');
-            console.log('result',result);
+            console.log('result', result);
             return result
 
             //console.log("error",result.data.data);
@@ -1378,11 +1378,11 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
     // gửi e mail xác nhận thay đổi mật khẩu
     async sendEmailResetPW(context, email = '') {
         let dataSend = {
-                email:email
+            email: email
         }
         try {
 
-            var result = await axiosInstance.post('/sendEmailResetPassword',dataSend);
+            var result = await axiosInstance.post('/sendEmailResetPassword', dataSend);
             return result
 
         } catch (error) {
@@ -1390,15 +1390,15 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
     //thay đổi mật khẩu
-    async changePass(context, { email = '', password = '',token ='' } ) {
+    async changePass(context, { email = '', password = '', token = '' }) {
         let dataSend = {
-                email:email,
-                password:password,
-                token:token
+            email: email,
+            password: password,
+            token: token
         }
         try {
 
-            var result = await axiosInstance.post('/changePass',dataSend);
+            var result = await axiosInstance.post('/changePass', dataSend);
             return result
 
         } catch (error) {
@@ -1406,10 +1406,10 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
         }
     },
     /* lay photo cho user */
-    async getUrlAvatar(context , idUser = '' ) {
+    async getUrlAvatar(context, idUser = '') {
         try {
             var result = await axiosInstance.get(`/getPathFile/${idUser}`);
-            context.commit(SET_PERSONAL_PHOTO, result.data,{ root: true });
+            context.commit(SET_PERSONAL_PHOTO, result.data, { root: true });
             return result
 
         } catch (error) {
@@ -1422,8 +1422,8 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             let bodyFormData = new FormData();
             bodyFormData.append('name', name);
 
-            if(objFile) {
-                bodyFormData.append('objFile', objFile); 
+            if (objFile) {
+                bodyFormData.append('objFile', objFile);
             }
             let config = {
                 headers: {
@@ -1433,9 +1433,9 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             }
             // console.log('updateProfile',localStorage.getItem(CONFIG_ACCESS_TOKEN))
             let result = await axiosInstance.post('/upload', bodyFormData, config);
-            if(result.status === 200) {
+            if (result.status === 200) {
                 commit('SET_USER_INFO', result.data.user);
-                commit(SET_AUTH, result.data,{ root: true });
+                commit(SET_AUTH, result.data, { root: true });
                 commit(SET_PERSONAL_INFO, result.data, { root: true });
                 return {
                     ok: true,
@@ -1448,7 +1448,7 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
                 }
             }
 
-        } catch(error) {
+        } catch (error) {
             return {
                 ok: false,
                 error: error.message
@@ -1459,10 +1459,10 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
     async changPassUser(context, { current_password = '', new_password = '', verify_password = '' }) {
         try {
             let dataSend = {
-                current_password:current_password,
-                new_password:new_password,
-                verify_password:verify_password
-        }
+                current_password: current_password,
+                new_password: new_password,
+                verify_password: verify_password
+            }
             let config = {
                 headers: {
                     'Accept': 'application/json',
@@ -1473,11 +1473,65 @@ async deleteDmContributeWithId(context, { iddm = '',idUser='' }) {
             let result = await axiosInstance.post('/changePassAfterLogin', dataSend, config);
             return result;
 
-        } catch(error) {
+        } catch (error) {
             return {
                 ok: false,
                 error: error.message
             }
+        }
+    },
+    /* ACTION CHO DANG BAI VIET */
+    async ActionCreateArticle(context, { chuDe = '', tieuDe = '', editorData = '', idUser = '' }) {
+
+        let data = {
+            chuDe: chuDe,
+            tieuDe: tieuDe,
+            editorData: editorData,
+            idUser: idUser
+        }
+
+
+        try {
+
+            var result = await axiosInstance.post(`createArticle`, data);
+
+            if (result.status === 200) {
+                //commit('SET_USER_INFO', result.data.user);
+                return {
+                    ok: true,
+                    data: result.data.msg,
+                    error: null
+                }
+
+            }
+            return {
+                ok: false,
+                error: result.data.message
+            }
+        } catch (error) {
+
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async getListArticleHasPaging(context, page) {
+
+        var config = {
+            headers: {
+                'Accept': 'application/json',
+                //'Authorization' :'Bearer ' + token,
+            }
+        }
+
+        try {
+
+            var result = await axiosInstance.get('/getListArticle?page=' + page, config);
+            return result
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
         }
     },
 }
