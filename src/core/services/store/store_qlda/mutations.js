@@ -9,6 +9,11 @@ export default {
     SET_USER_INFO(state, user) {
          Vue.set(state.users, user.id, user);
     },
+       /* HÀM CHO POST */
+    SET_LIST_POST(state, data) {
+    state.listPost = data;
+   },
+    
     SET_LOGIN_INFO(state, { user = null, token = '' }) {
         // xs
         localStorage.setItem(CONFIG_ACCESS_TOKEN, token);

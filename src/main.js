@@ -5,7 +5,7 @@ import store from "@/core/services/store";
 import ApiService from "@/core/services/api.service";
 //import MockService from "@/core/mock/mock.service";
 //import { VERIFY_AUTH } from "@/core/services/store/store_metronic/auth.module";
-//import { RESET_LAYOUT_CONFIG } from "@/core/services/store/store_metronic/config.module";
+//import { CHECK_LOGIN } from "@/core/services/store/store_qlda/actions";
 
 
 Vue.config.productionTip = false;
@@ -43,7 +43,7 @@ ApiService.init();
 //   Promise.all([store.dispatch(VERIFY_AUTH)]).then(next);
 
 //   // reset config to initial state
-//   store.dispatch(RESET_LAYOUT_CONFIG);
+   //store.dispatch(CHECK_LOGIN);
 
 //   // Scroll page to top on every route change
 //   setTimeout(() => {

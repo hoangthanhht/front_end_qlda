@@ -41,6 +41,10 @@ export default {
     getListDataBGia: state => {
         return state.listDataBGia;
     },
+       /* HÀM CHO BAI POST */
+    getListPost: state => {
+    return state.listPost;
+    },
 
     /* HÀM XỬ LÝ TÌM KIẾM */
     arrDmSearch: state => {

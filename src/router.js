@@ -14,10 +14,35 @@ export default new Router({
 					path: "/dashboard",
 					name: "dashboard",
 					component: () => import("@/view/pages/Dashboard.vue"),			
-					meta: {
-						requiredRoles: ['User']
+				},
+				{
+					path: "/post/:id?",
+					name: "post",
+					component: () => import("@/view/pages/Post.vue"),
+					beforeEnter: (to, from, next) =>  {
+						let check = false;
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						for(var i in userSlug)
+						{
+							//slugUser.push(userSlug[i]);
+							if(to.meta.requiredRoles.includes(userSlug[i])){
+								check = true;
+								break;
+							}
+						}
+
+						if (check === true) {
+							next()
+						} else {
+							
+							next({
+								path: "error-3"
+							})
+						}
 					},
-					
+					meta: {
+						requiredRoles: ['Admin','SuperAdmin','Manage']
+					}			
 				},
 				{
 					path: "/bangdinhmuc",
@@ -229,6 +254,7 @@ export default new Router({
 					beforeEnter: (to, from, next) =>  {
 						let check = false;
 						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						// console.log('slug',userSlug);
 						for(var i in userSlug)
 						{
 							//slugUser.push(userSlug[i]);

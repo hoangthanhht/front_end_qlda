@@ -4,6 +4,8 @@ import { SET_AUTH } from '../store_metronic/auth.module';
 import { SET_PERSONAL_INFO, SET_PERSONAL_PHOTO } from '../store_metronic/profile.module';
 import JwtService from "@/core/services/jwt.service";
 import ApiService from "@/core/services/api.service";
+
+export const CHECK_LOGIN = "check_login";
 export default {
 
     /* gọi api cho  đinh mức */
@@ -1286,6 +1288,37 @@ export default {
         }
     },
 
+    async [CHECK_LOGIN]({ commit, dispatch }) {
+        console.log('main')
+        try {
+            let tokenLocal = localStorage.getItem(CONFIG_ACCESS_TOKEN);
+
+            if (tokenLocal) {
+                let promiseUser = await dispatch('getUserWithId', tokenLocal);
+               
+                if (promiseUser.ok) {
+                    let data = {
+                        user: promiseUser.data,
+                        token: tokenLocal
+                    }
+                    commit('SET_LOGIN_INFO', data);
+                    return {
+                        ok: true,
+                        error: null
+                    }
+                }
+            }
+            return {
+                ok: false
+            }
+
+        } catch (error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
 
     async checkLogin({ commit, dispatch }) {
         try {
@@ -1528,6 +1561,7 @@ export default {
         try {
 
             var result = await axiosInstance.get('/getListArticle?page=' + page, config);
+            context.commit('SET_LIST_POST', result.data.data);
             return result
             //console.log("error",result.data.data);
         } catch (error) {

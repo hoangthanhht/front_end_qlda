@@ -29,7 +29,6 @@ import { mapActions } from 'vuex';
 export default {
   name: "MetronicVue",  
    created() {
-     console.log('$router app',this.$router.currentRoute.path)
 		this['storeqlda/checkLogin']().then((res) => {
 			if (res.ok === false)
           this.$router.push("/login");

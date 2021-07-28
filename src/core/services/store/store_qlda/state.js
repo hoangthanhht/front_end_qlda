@@ -13,6 +13,7 @@ export default {
     listDataBGiaGuest:[],// mảng chứa bao giá cho approve
     listDataBGiaGuestViewSelf:[],// mảng chứa bao giá cảu nguoi dùng dang login
     listDataBGiaGuestViewOtherPs:[],// mảng chứa bao giá cảu nguoi khac
+    listPost:[],//list chứa bài post theo paging
     currentUser: null, // Login
     users: {}, 
     stringSearch:'',
