@@ -41,7 +41,7 @@
 
       <div class="form_item">
 
-        <b-row class="my-1">
+        <b-row class="my-1 pl-5">
           <b-col sm="2">
             <label>Host</label>
           </b-col>
@@ -50,7 +50,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="my-1">
+        <b-row class="my-1 pl-5">
           <b-col sm="2">
             <label>From Email</label>
           </b-col>
@@ -59,7 +59,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="my-1">
+        <b-row class="my-1 pl-5">
           <b-col sm="2">
             <label>Encryption</label>
           </b-col>
@@ -68,7 +68,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="my-1">
+        <b-row class="my-1 pl-5">
           <b-col sm="2">
             <label>Password</label>
           </b-col>
@@ -80,7 +80,7 @@
       </div>
     </b-container>
     <b-container>
-    <div>
+    <div class="pt-5">
       <b-button
         @click="handleChangeEnv"
         size="sm"
@@ -134,7 +134,6 @@ methods : {
 
               };
 
-        console.log('JSON.stringify(data)',JSON.stringify(data));
 		 this['storeqlda/changeEnvSystem'](dataImport);
 	}
 }

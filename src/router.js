@@ -19,262 +19,365 @@ export default new Router({
 					path: "/post/:id?",
 					name: "post",
 					component: () => import("@/view/pages/Post.vue"),
-					beforeEnter: (to, from, next) =>  {
-						let check = false;
-						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
-							}
-						}
+					// beforeEnter: (to, from, next) =>  {
+					// 	let check = false;
+					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
+					// 	for(var i in userSlug)
+					// 	{
+					// 		//slugUser.push(userSlug[i]);
+					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
+					// 			check = true;
+					// 			break;
+					// 		}
+					// 	}
 
-						if (check === true) {
-							next()
-						} else {
+					// 	if (check === true) {
+					// 		next()
+					// 	} else {
 							
-							next({
-								path: "error-3"
-							})
-						}
-					},
-					meta: {
-						requiredRoles: ['Admin','SuperAdmin','Manage']
-					}			
+					// 		next({
+					// 			path: "error-3"
+					// 		})
+					// 	}
+					// },
+					// meta: {
+					// 	requiredRoles: ['Admin','SuperAdmin','Manage']
+					// }			
 				},
 				{
 					path: "/bangdinhmuc",
 					name: "bangdinhmuc",
 					component: () => import("@/view/pages/Bangdinhmuc.vue"),
-					// beforeEnter: (to, from, next) =>  {
-					// 	let check = false;
-					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-					// 	for(var i in userSlug)
-					// 	{
-					// 		//slugUser.push(userSlug[i]);
-					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-					// 			check = true;
-					// 			break;
-					// 		}
-					// 	}
-
-					// 	if (check === true) {
-					// 		next()
-					// 	} else {
-							
-					// 		next({
-					// 			path: "error-3"
-					// 		})
-					// 	}
-					// },
-					// meta: {
-					// 	requiredRoles: ['Manage']
-					// }
+					beforeEnter: (to, from, next) =>  {
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
+							}
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
+						}
+					},
+					meta: {
+						requiredRoles: ['SuperAdmin','Manage','Admin']
+					}
 				},
 				{
 					path: "/giavattu",
 					name: "giavattu",
 					component: () => import("@/view/pages/Giavattu.vue"),
-					// beforeEnter: (to, from, next) =>  {
-					// 	let check = false;
-					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-					// 	for(var i in userSlug)
-					// 	{
-					// 		//slugUser.push(userSlug[i]);
-					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-					// 			check = true;
-					// 			break;
-					// 		}
-					// 	}
-
-					// 	if (check === true) {
-					// 		next()
-					// 	} else {
-							
-					// 		next({
-					// 			path: "error-3"
-					// 		})
-					// 	}
-					// },
-					// meta: {
-					// 	requiredRoles: ['Admin','Manage','User']
-					// }
+					beforeEnter: (to, from, next) =>  {
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
+							}
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
+						}
+					},
+					meta: {
+						requiredRoles: ['SuperAdmin','Manage','Admin']
+					}
 				},
 				{
 					path: "/materialcostforguest",
 					name: "materialcostforguest",
 					component: () => import("@/view/pages/MaterialCostForGuest.vue"),
-					// beforeEnter: (to, from, next) =>  {
-					// 	let check = false;
-					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-					// 	for(var i in userSlug)
-					// 	{
-					// 		//slugUser.push(userSlug[i]);
-					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-					// 			check = true;
-					// 			break;
-					// 		}
-					// 	}
-
-					// 	if (check === true) {
-					// 		next()
-					// 	} else {
-							
-					// 		next({
-					// 			path: "error-3"
-					// 		})
-					// 	}
-					// },
-					// meta: {
-					// 	requiredRoles: ['Admin','Manage','User']
-					// }
+					
 				},
 				{
 					path: "/approvematerialcost",
 					name: "approvematerialcost",
 					component: () => import("@/view/pages/ApproveMaterialCost.vue"),
 					beforeEnter: (to, from, next) =>  {
-						let check = false;
 						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
 							}
-						}
-
-						if (check === true) {
-							next()
-						} else {
-							
-							next({
-								path: "error-3"
-							})
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
 						}
 					},
 					meta: {
-						requiredRoles: ['SuperAdmin','UserApprv']
+						requiredRoles: ['SuperAdmin','Manage','Admin','UserApprv']
 					}
 				},
 				{
 					path: "/guestviewmaterialcost",
 					name: "guestviewmaterialcost",
 					component: () => import("@/view/pages/GuestViewMaterialCost.vue"),
-					// beforeEnter: (to, from, next) =>  {
-					// 	let check = false;
-					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-					// 	for(var i in userSlug)
-					// 	{
-					// 		//slugUser.push(userSlug[i]);
-					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-					// 			check = true;
-					// 			break;
-					// 		}
-					// 	}
-
-					// 	if (check === true) {
-					// 		next()
-					// 	} else {
-							
-					// 		next({
-					// 			path: "error-3"
-					// 		})
-					// 	}
-					// },
-					// meta: {
-					// 	requiredRoles: ['Admin','Manage','User']
-					// }
+					
 				},
 				{
 					path: "/approvenotenorm",
 					name: "approvenotenorm",
 					component: () => import("@/view/pages/ApproveNoteNorm.vue"),
 					beforeEnter: (to, from, next) =>  {
-						let check = false;
 						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
 							}
-						}
-
-						if (check === true) {
-							next()
-						} else {
-							
-							next({
-								path: "error-3"
-							})
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
 						}
 					},
 					meta: {
-						requiredRoles: ['SuperAdmin','UserApprv']
+						requiredRoles: ['SuperAdmin','Manage','Admin','UserApprv']
 					}
 				},
 				{
 					path: "/createarticle",
 					name: "createarticle",
 					component: () => import("@/view/pages/CreateArticle.vue"),
-					// beforeEnter: (to, from, next) =>  {
-					// 	let check = false;
-					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-					// 	for(var i in userSlug)
-					// 	{
-					// 		//slugUser.push(userSlug[i]);
-					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-					// 			check = true;
-					// 			break;
-					// 		}
-					// 	}
-
-					// 	if (check === true) {
-					// 		next()
-					// 	} else {
-							
-					// 		next({
-					// 			path: "error-3"
-					// 		})
-					// 	}
-					// },
-					// meta: {
-					// 	requiredRoles: ['Admin','Manage','User']
-					// }
+					beforeEnter: (to, from, next) =>  {
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
+							}
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
+						}
+					},
+					meta: {
+						requiredRoles: ['SuperAdmin','Manage','Admin','UserApprv','User']
+					}
 				},
 				{
 					path: "/dsnhanvien",
 					name: "dsnhanvien",
 					component: () => import("@/view/pages/Danhsachnhanvien.vue"),
 					beforeEnter: (to, from, next) =>  {
-						let check = false;
 						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						// console.log('slug',userSlug);
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
 							}
-						}
-
-						if (check === true) {
-							next()
-						} else {
-							
-							next({
-								path: "/custom-error/page_error"
-							})
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
 						}
 					},
 					meta: {
-						requiredRoles: ['SuperAdmin']
+						requiredRoles: ['SuperAdmin','Manage','Admin','UserApprv']
 					}
 				},
 				{
@@ -282,29 +385,53 @@ export default new Router({
 					name: "dsvaitro",
 					component: () => import("@/view/pages/Danhsachvaitro.vue"),
 					beforeEnter: (to, from, next) =>  {
-						let check = false;
 						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
 							}
-						}
-
-						if (check === true) {
-							next()
-						} else {
-							
-							next({
-								path: "/custom-error/page_error"
-							})
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
 						}
 					},
 					meta: {
-						requiredRoles: ['SuperAdmin']
+						requiredRoles: ['SuperAdmin','Manage','Admin','UserApprv']
 					}
 				},	
 				
@@ -313,25 +440,49 @@ export default new Router({
 					name: "cauhinhemail",
 					component: () => import("@/view/pages/admin/Cauhinhemail.vue"),
 					beforeEnter: (to, from, next) =>  {
-						let check = false;
 						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
 							}
-						}
-
-						if (check === true) {
-							next()
-						} else {
-							
-							next({
-								path: "/custom-error/page_error"
-							})
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
 						}
 					},
 					meta: {
@@ -344,25 +495,49 @@ export default new Router({
 					name: "cauhinhhethong",
 					component: () => import("@/view/pages/admin/Cauhinhhethong.vue"),
 					beforeEnter: (to, from, next) =>  {
-						let check = false;
 						let userSlug = (store.getters.currentUserPersonalInfo.slug)
-						
-						for(var i in userSlug)
-						{
-							//slugUser.push(userSlug[i]);
-							if(to.meta.requiredRoles.includes(userSlug[i])){
-								check = true;
-								break;
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
 							}
-						}
-
-						if (check === true) {
-							next()
-						} else {
-							
-							next({
-								path: "/custom-error/page_error"
-							})
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
 						}
 					},
 					meta: {

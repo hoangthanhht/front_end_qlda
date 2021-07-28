@@ -59,7 +59,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="my-1">
+        <b-row class="my-1 pl-5">
           <b-col sm="2">
             <label>Vị trí tọa độ</label>
           </b-col>
@@ -68,7 +68,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="my-1">
+        <b-row class="my-1 pl-5">
           <b-col sm="2">
             <label>Khu vực</label>
           </b-col>
@@ -77,7 +77,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="my-1">
+        <b-row class="my-1 pl-5">
           <b-col sm="2">
             <label>Tác giả</label>
           </b-col>

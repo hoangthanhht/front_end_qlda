@@ -41,18 +41,14 @@ ApiService.init();
 // router.beforeEach((to, from, next) => {
 //   // Ensure we checked auth before each page load.
 //   Promise.all([store.dispatch(VERIFY_AUTH)]).then(next);
-
 //   // reset config to initial state
-   //store.dispatch(CHECK_LOGIN);
-
+//store.dispatch('storeqlda/checkLogin',null, { root: true } );
 //   // Scroll page to top on every route change
 //   setTimeout(() => {
 //     window.scrollTo(0, 0);
 //   }, 100);
 // });
 
-
-//console.log(store.state.storeqlda.);
 
 new Vue({
   router,

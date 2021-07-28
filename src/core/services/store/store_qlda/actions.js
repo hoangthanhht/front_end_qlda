@@ -5,7 +5,6 @@ import { SET_PERSONAL_INFO, SET_PERSONAL_PHOTO } from '../store_metronic/profile
 import JwtService from "@/core/services/jwt.service";
 import ApiService from "@/core/services/api.service";
 
-export const CHECK_LOGIN = "check_login";
 export default {
 
     /* gọi api cho  đinh mức */
@@ -635,12 +634,7 @@ export default {
 
     async viewBaoGiaWithSelecttionOfGuest(context, { page = 1, user_id = '', tinh = '', khuvuc = '', thoidiem = '', check = '', idUserView = '', agreebuy = 0 }) {
         try {
-            // let data = {
-            //     user_id: user_id,
-            //     khuvuc: khuvuc,
-            //     tinh: tinh,
-            //     thoidiem: thoidiem
-            // }
+
             var result = await axiosInstance.get(`/viewBaoGiaWithSelecttion/${user_id}/${tinh}/${khuvuc}/${thoidiem}/${check}/${idUserView}/${agreebuy}?page=${page}`);
             context.commit('SET_LIST_DATABGIA_GUEST_VIEW_SELF', result.data.arrRs);
             context.commit('SET_LIST_DATABGIA_GUEST_VIEW_OTHERPS', result.data.arrRs);
@@ -688,11 +682,7 @@ export default {
             id: idVatTu,
             idUser: idUser
         }
-        // var config = {
-        //     headers:{
-        //         'Accept': 'application/json',    
-        //     }
-        // }
+
 
         try {
 
@@ -901,11 +891,7 @@ export default {
             role_id: role_id,
             permission_id: permission_id,
         }
-        // var config = {
-        //     headers:{
-        //         'Accept': 'application/json',    
-        //     }
-        // }
+ 
 
         try {
 
@@ -948,11 +934,7 @@ export default {
             slug: slug,
 
         }
-        // var config = {
-        //     headers:{
-        //         'Accept': 'application/json',    
-        //     }
-        // }
+
 
         try {
 
@@ -1223,7 +1205,6 @@ export default {
             // commit('SET_LOADING', false);
             if (result.status === 200 && result.data.token) {
                 let resultUser = await dispatch('getUserWithId', result.data.token);
-                console.log('result.data.token', result.data.token)
                 commit('SET_USER_INFO', resultUser.data);
                 commit('SET_LOGIN_INFO', { user: resultUser.data, token: result.data.token });
                 return {
@@ -1288,56 +1269,13 @@ export default {
         }
     },
 
-    async [CHECK_LOGIN]({ commit, dispatch }) {
-        console.log('main')
-        try {
-            let tokenLocal = localStorage.getItem(CONFIG_ACCESS_TOKEN);
-
-            if (tokenLocal) {
-                let promiseUser = await dispatch('getUserWithId', tokenLocal);
-               
-                if (promiseUser.ok) {
-                    let data = {
-                        user: promiseUser.data,
-                        token: tokenLocal
-                    }
-                    commit('SET_LOGIN_INFO', data);
-                    return {
-                        ok: true,
-                        error: null
-                    }
-                }
-            }
-            return {
-                ok: false
-            }
-
-        } catch (error) {
-            return {
-                ok: false,
-                error: error.message
-            }
-        }
-    },
 
     async checkLogin({ commit, dispatch }) {
         try {
             let tokenLocal = localStorage.getItem(CONFIG_ACCESS_TOKEN);
 
             if (tokenLocal) {
-                // let resultUser      = await dispatch('getUserById', userObj.id);
-                // let resultPostUser  = await dispatch('getListPostsByUserId', userObj.id);
                 let promiseUser = await dispatch('getUserWithId', tokenLocal);
-                //let promisePostUser     = dispatch('getListPostsByUserId', userObj.id);
-
-                //let [resultUser, resultPostUser] = await Promise.all([ promiseUser, promisePostUser ]);
-
-                // Dòng 73 chạy 3s
-                // Dòng 74 chạy 4s
-                // Tổng lại chúng ta phải chờ 7s 
-                // Hai API trên chạy riêng lẽ được hay không?
-
-                // Nếu 2 API trên chạy đồng thời -> tổng thời gian chờ chỉ là 4s thôi
                 if (promiseUser.ok) {
                     let data = {
                         user: promiseUser.data,
