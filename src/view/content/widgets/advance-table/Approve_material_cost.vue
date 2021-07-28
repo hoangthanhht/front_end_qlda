@@ -675,7 +675,11 @@ export default {
             user_id: this.selectedPersionUpBg,
           };
 
-          this["storeqlda/deleteGiaVtGuest"](data).then(()=> this.handleXemBG());
+          this["storeqlda/deleteGiaVtGuest"](data).then((res)=> 
+          {
+            alert(res.data.msg)
+            this.handleXemBG()
+          });
         } else {
           alert(
             "Bạn chưa chọn người up báo giá hoặc chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
@@ -724,6 +728,7 @@ export default {
       }
     },
     handleApproveBaoGia() {
+      if (confirm("Bạn có chắc chắn muốn phê duyệt dữ liệu này không?")) {
       if (
         this.selectedTinh &&
         this.selectedKhuVuc &&
@@ -785,6 +790,7 @@ export default {
         alert(
           "Bạn chưa chọn file import dữ liệu, hoặc bạn chưa chọn tỉnh hoặc khu vực hoặc báo giá theo tháng quý hoặc ngày"
         );
+      }
       }
       //document.getElementById("jsondata").innerHTML = JSON.stringify(row.value,undefined,4);
       //}).catch(err => console.log(`Caught by .catch ${err}`));

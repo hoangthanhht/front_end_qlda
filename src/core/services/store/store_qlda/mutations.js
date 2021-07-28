@@ -44,7 +44,6 @@ export default {
     /* HÀM CHO XEM BG SAU UP CUA NGUOI DUNG KHAC */
     SET_LIST_DATABGIA_GUEST_VIEW_OTHERPS(state, data) {
         state.listDataBGiaGuestViewOtherPs = data;
-        console.log('state.listDataBGiaGuestViewOtherPs',state.listDataBGiaGuestViewOtherPs)
     },
     
 /* HÀM CHO PHÂN QUYỀN */

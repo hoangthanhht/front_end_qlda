@@ -45,7 +45,6 @@ export default {
 	 this['storeqlda/handleEdit'](this.user);
 	},
 	handleDelete() {
-		console.log('this.userId',this.userId)
 	 if (confirm("Bạn có muốn xóa user có tên là " + this.user.name)) {
 		 
 	  this['storeqlda/handleDeleteUserById'](this.userId).then(()=>

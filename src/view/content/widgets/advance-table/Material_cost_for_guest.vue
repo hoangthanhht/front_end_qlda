@@ -762,6 +762,7 @@ export default {
       var data = {
         check: 0,
         user_id: this.currentUserPersonalInfo.user.id,
+        idUserView: this.currentUserPersonalInfo.user.id,
         tinh: this.selectedTinhView,
         khuvuc: this.selectedKhuVucView,
         thoidiem: thoidiem,

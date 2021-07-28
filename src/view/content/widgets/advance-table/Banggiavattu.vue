@@ -738,7 +738,7 @@ export default {
               };
 
               this["storeqlda/createBaoGia"](dataImport).then((data) => {
-                console.log("data lan 1", data);
+                // console.log("data lan 1", data);
                 if (data.ok === false) {
                   alert(data.error);
                 } else {

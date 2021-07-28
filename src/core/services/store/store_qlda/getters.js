@@ -185,6 +185,7 @@ export default {
             }
             if(item.tenVatTu && rs == false) {
                 rs = item.tenVatTu.toLowerCase().includes(stringSearch.toLowerCase());
+     
             }
             if(item.donVi && rs == false) {
                 rs = item.donVi.toLowerCase().includes(stringSearch.toLowerCase());

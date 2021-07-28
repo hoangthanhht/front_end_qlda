@@ -565,7 +565,6 @@ export default {
 		  this['storeqlda/resendVerifyEmail']();
 	  },
 	handleResetPassWord() {
-		console.log('this.inputForgot',this.inputForgot)
 		this['storeqlda/sendEmailResetPW'](this.inputForgot).then((data)=>{
 			if(data.status === 200) {
 				alert(data.data.message);

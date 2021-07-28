@@ -1324,7 +1324,6 @@ export default {
         try {
 
             var result = await axiosInstance.post('/offSystem');
-            console.log('result', result);
             return result
 
             //console.log("error",result.data.data);
@@ -1337,7 +1336,6 @@ export default {
         try {
 
             var result = await axiosInstance.post('/onSystem');
-            console.log('result', result);
             return result
 
             //console.log("error",result.data.data);

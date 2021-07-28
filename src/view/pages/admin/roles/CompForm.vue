@@ -117,9 +117,7 @@ export default {
     ]),
 
     getRoleOfUserForEdit() {
-      console.log("getRoleOfUserForEdit");
       let arrTemp = this["storeqlda/getListDataRoleOfAllUserGTer"];
-      console.log("getRoleOfUserForEdit", arrTemp);
       let arrTemp1 = arrTemp;
       let kt = false;
       for (var i in arrTemp1) {

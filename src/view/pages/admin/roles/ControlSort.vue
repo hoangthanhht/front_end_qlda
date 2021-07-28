@@ -35,7 +35,6 @@ export default {
         }),
         handleSort(orderBy, orderDir) {
             let data = { orderBy, orderDir }
-            console.log("handleSort ControlSort.vue", data);
             this.actionHandleSort(data);
             // this.$emit('handleSort', data); // Đẩy ra Store
         }

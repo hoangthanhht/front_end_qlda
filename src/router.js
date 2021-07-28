@@ -19,30 +19,7 @@ export default new Router({
 					path: "/post/:id?",
 					name: "post",
 					component: () => import("@/view/pages/Post.vue"),
-					// beforeEnter: (to, from, next) =>  {
-					// 	let check = false;
-					// 	let userSlug = (store.getters.currentUserPersonalInfo.slug)
-					// 	for(var i in userSlug)
-					// 	{
-					// 		//slugUser.push(userSlug[i]);
-					// 		if(to.meta.requiredRoles.includes(userSlug[i])){
-					// 			check = true;
-					// 			break;
-					// 		}
-					// 	}
-
-					// 	if (check === true) {
-					// 		next()
-					// 	} else {
-							
-					// 		next({
-					// 			path: "error-3"
-					// 		})
-					// 	}
-					// },
-					// meta: {
-					// 	requiredRoles: ['Admin','SuperAdmin','Manage']
-					// }			
+								
 				},
 				{
 					path: "/bangdinhmuc",
@@ -156,7 +133,14 @@ export default new Router({
 					path: "/materialcostforguest",
 					name: "materialcostforguest",
 					component: () => import("@/view/pages/MaterialCostForGuest.vue"),
-					
+					beforeEnter: (to, from, next) =>  {
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						if(!userSlug) {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>next())
+						}else{
+							next();
+						}
+					}
 				},
 				{
 					path: "/approvematerialcost",
@@ -216,7 +200,14 @@ export default new Router({
 					path: "/guestviewmaterialcost",
 					name: "guestviewmaterialcost",
 					component: () => import("@/view/pages/GuestViewMaterialCost.vue"),
-					
+					beforeEnter: (to, from, next) =>  {
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						if(!userSlug) {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>next())
+						}else{
+							next();
+						}
+					}
 				},
 				{
 					path: "/approvenotenorm",
