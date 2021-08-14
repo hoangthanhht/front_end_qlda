@@ -1504,4 +1504,38 @@ export default {
             console.log("error", error);
         }
     },
+    /* BACKUP DỮ LIỆU */
+    async getListFileBKHasPaging(context, page) {
+
+        try {
+
+            var result = await axiosInstance.get('/getListFile?page=' + page);
+            return result
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+    async deleteFile(context, file='') {
+
+        try {
+
+            var result = await axiosInstance.get(`/deleteFile/${file}`);
+            return result
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
+    async downFile(context, file = '') {
+
+        try {
+
+            var result = await axiosInstance.get(`/downLoadFile/${file}`);
+            return result
+            //console.log("error",result.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    },
 }

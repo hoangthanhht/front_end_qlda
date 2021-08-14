@@ -536,6 +536,61 @@ export default new Router({
 					}
 				},
 				{
+					path: "/backupdata",
+					name: "backupdata",
+					component: () => import("@/view/pages/admin/Backupdata.vue"),
+					beforeEnter: (to, from, next) =>  {
+						let userSlug = (store.getters.currentUserPersonalInfo.slug)
+						if(userSlug) {
+							let check = false;
+							for(var i in userSlug)
+							{
+								//slugUser.push(userSlug[i]);
+								if(to.meta.requiredRoles.includes(userSlug[i])){
+									check = true;
+									break;
+								}
+							}
+	
+							if (check === true) {
+								next()
+							} else {
+								
+								next({
+									path: "/custom-error/page_error"
+								})
+							}
+						}else {
+							store.dispatch('storeqlda/checkLogin',null,{ root: true }).then(()=>{// cái này để dispatch 1 action có mudul dặt name space true
+								// sử lý khi reload lại trang tại đúng route này
+								let check = false;
+								let userSlug = (store.getters.currentUserPersonalInfo.slug)
+								for(var i in userSlug)
+								{
+									//slugUser.push(userSlug[i]);
+									if(to.meta.requiredRoles.includes(userSlug[i])){
+										check = true;
+										break;
+									}
+								}
+		
+								if (check === true) {
+									next()
+								} else {
+									
+									next({
+										path: "/custom-error/page_error"
+									})
+								}
+							});
+						}
+					},
+					meta: {
+						requiredRoles: ['SuperAdmin']
+					}
+				},
+				
+				{
 					path: "/profile",
 					name: "profile",
 					component: () => import("@/view/pages/profile/Profile.vue"),
