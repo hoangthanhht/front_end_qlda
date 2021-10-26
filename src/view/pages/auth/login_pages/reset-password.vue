@@ -104,7 +104,7 @@
                   ref="kt_login_signup_submit"
                   class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4"
                   style="width:150px;"
-				  @click="handleSubmitReset"
+				          @click="handleSubmitReset"
                 >
                   Submit
                 </button>
